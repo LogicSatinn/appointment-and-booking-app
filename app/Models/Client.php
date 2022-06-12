@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $profession
+ * @property string $phone_number
+ * @property string $address
+ * @property string $status
+ * @property Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
+class Client extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+    ];
+
+    /**
+     * @return HasMany
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function appointments(): BelongsToMany
+    {
+        return $this->belongsToMany(Appointment::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}
