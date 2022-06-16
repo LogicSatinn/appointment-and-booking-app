@@ -17,11 +17,25 @@ class CreateAppointmentsTable extends Migration
 
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->time('duration');
-            $table->dateTime('appointment_time');
-            $table->foreignId('resource_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('from');
+            $table->date('to');
+            $table->time('start');
+            $table->time('end');
+            $table->string('status');
+            $table->decimal('price', 8, 2);
+            $table->foreignId('client_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('resource_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('skills_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->softDeletes();
             $table->timestamps();
         });

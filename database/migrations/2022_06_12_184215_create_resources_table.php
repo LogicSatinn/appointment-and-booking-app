@@ -16,7 +16,8 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('no_of_seats');
+            $table->longText('note')->nullable();
+            $table->integer('capacity');
             $table->boolean('available');
             $table->softDeletes();
             $table->timestamps();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppointmentClientTable extends Migration
+class CreateSkillTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,9 @@ class CreateAppointmentClientTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('appointment_client', function (Blueprint $table) {
-            $table->foreignId('appointment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('client_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+        Schema::create('skill_tag', function (Blueprint $table) {
+            $table->foreignId('skill_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
 
         Schema::enableForeignKeyConstraints();
@@ -30,6 +30,6 @@ class CreateAppointmentClientTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_client');
+        Schema::dropIfExists('skill_tag');
     }
 }

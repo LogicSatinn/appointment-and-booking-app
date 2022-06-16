@@ -22,7 +22,10 @@ class CreatePaymentsTable extends Migration
             $table->decimal('total_amount', 8, 2);
             $table->decimal('due_amount', 8, 2);
             $table->string('status');
-            $table->foreignId('booking_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('booking_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('reference_code');
             $table->softDeletes();
             $table->timestamps();

@@ -17,11 +17,11 @@ class CreateClientsTable extends Migration
 
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('name');
+            $table->string('email')->unique();
             $table->string('profession')->nullable();
             $table->string('phone_number');
             $table->string('address')->nullable();
-            $table->string('status');
             $table->softDeletes();
             $table->timestamps();
         });
