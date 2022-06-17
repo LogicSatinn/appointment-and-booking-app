@@ -38,7 +38,7 @@
                                 {{ $category->note }}
                             </td>
                             <td class="d-none d-sm-table-cell">
-                                {{ $category->added_by }}
+                                {{ $category->addedBy->name }}
                             </td>
                             <td class="text-center">
                                 <form action="{{ route('categories.destroy', $category) }}" method="POST">
