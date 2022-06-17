@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Appointment;
-use App\Models\Course;
+use App\Models\Skill;
 use App\Models\Resource;
 
 class AppointmentFactory extends Factory
@@ -29,7 +29,7 @@ class AppointmentFactory extends Factory
             'duration' => $this->faker->time(),
             'appointment_time' => $this->faker->dateTime(),
             'resource_id' => Resource::factory(),
-            'course_id' => Course::factory(),
+            'course_id' => Skill::factory(),
         ];
     }
 }

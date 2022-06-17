@@ -40,6 +40,6 @@ class Tag extends Model
      */
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Skill::class);
     }
 }

@@ -3,14 +3,14 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Course;
+use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\CourseController
+ * @see \App\Http\Controllers\SkillController
  */
 class CourseControllerTest extends TestCase
 {
@@ -21,7 +21,7 @@ class CourseControllerTest extends TestCase
      */
     public function index_displays_view()
     {
-        $courses = Course::factory()->count(3)->create();
+        $courses = Skill::factory()->count(3)->create();
 
         $response = $this->get(route('course.index'));
 
@@ -49,7 +49,7 @@ class CourseControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\CourseController::class,
+            \App\Http\Controllers\SkillController::class,
             'store',
             \App\Http\Requests\CourseStoreRequest::class
         );
@@ -74,7 +74,7 @@ class CourseControllerTest extends TestCase
             'access' => $access,
         ]);
 
-        $courses = Course::query()
+        $courses = Skill::query()
             ->where('title', $title)
             ->where('description', $description)
             ->where('price', $price)
@@ -94,7 +94,7 @@ class CourseControllerTest extends TestCase
      */
     public function show_displays_view()
     {
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
 
         $response = $this->get(route('course.show', $course));
 
@@ -109,7 +109,7 @@ class CourseControllerTest extends TestCase
      */
     public function edit_displays_view()
     {
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
 
         $response = $this->get(route('course.edit', $course));
 
@@ -125,7 +125,7 @@ class CourseControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\CourseController::class,
+            \App\Http\Controllers\SkillController::class,
             'update',
             \App\Http\Requests\CourseUpdateRequest::class
         );
@@ -136,7 +136,7 @@ class CourseControllerTest extends TestCase
      */
     public function update_redirects()
     {
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
         $title = $this->faker->sentence(4);
         $description = $this->faker->text;
         $price = $this->faker->randomFloat(/** decimal_attributes **/);
@@ -169,7 +169,7 @@ class CourseControllerTest extends TestCase
      */
     public function destroy_deletes_and_redirects()
     {
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
 
         $response = $this->delete(route('course.destroy', $course));
 

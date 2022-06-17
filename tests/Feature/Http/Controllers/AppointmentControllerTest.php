@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Appointment;
-use App\Models\Course;
+use App\Models\Skill;
 use App\Models\Resource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -65,7 +65,7 @@ class AppointmentControllerTest extends TestCase
         $duration = $this->faker->time();
         $appointment_time = $this->faker->dateTime();
         $resource = Resource::factory()->create();
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
 
         $response = $this->post(route('appointment.store'), [
             'title' => $title,
@@ -142,7 +142,7 @@ class AppointmentControllerTest extends TestCase
         $duration = $this->faker->time();
         $appointment_time = $this->faker->dateTime();
         $resource = Resource::factory()->create();
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
 
         $response = $this->put(route('appointment.update', $appointment), [
             'title' => $title,

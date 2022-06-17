@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\CourseUpdateRequest;
-use App\Models\Course;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class SkillController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
-        $courses = Course::all();
+        $courses = Skill::all();
 
         return view('course.index', compact('courses'));
     }
@@ -35,7 +35,7 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $request)
     {
-        $course = Course::create($request->validated());
+        $course = Skill::create($request->validated());
 
         $request->session()->flash('course.id', $course->id);
 
@@ -44,30 +44,30 @@ class CourseController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Course $course
+     * @param \App\Models\Skill $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Course $course)
+    public function show(Request $request, Skill $course)
     {
         return view('course.show', compact('course'));
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Course $course
+     * @param \App\Models\Skill $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Course $course)
+    public function edit(Request $request, Skill $course)
     {
         return view('course.edit', compact('course'));
     }
 
     /**
      * @param \App\Http\Requests\CourseUpdateRequest $request
-     * @param \App\Models\Course $course
+     * @param \App\Models\Skill $course
      * @return \Illuminate\Http\Response
      */
-    public function update(CourseUpdateRequest $request, Course $course)
+    public function update(CourseUpdateRequest $request, Skill $course)
     {
         $course->update($request->validated());
 
@@ -78,10 +78,10 @@ class CourseController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Course $course
+     * @param \App\Models\Skill $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Course $course)
+    public function destroy(Request $request, Skill $course)
     {
         $course->delete();
 

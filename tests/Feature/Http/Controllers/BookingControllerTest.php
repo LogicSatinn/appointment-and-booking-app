@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Client;
-use App\Models\Course;
+use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -62,7 +62,7 @@ class BookingControllerTest extends TestCase
     public function store_saves_and_redirects()
     {
         $client = Client::factory()->create();
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
         $status = $this->faker->word;
         $reference_code = $this->faker->word;
         $booked_at = $this->faker->dateTime();
@@ -139,7 +139,7 @@ class BookingControllerTest extends TestCase
     {
         $booking = Booking::factory()->create();
         $client = Client::factory()->create();
-        $course = Course::factory()->create();
+        $course = Skill::factory()->create();
         $status = $this->faker->word;
         $reference_code = $this->faker->word;
         $booked_at = $this->faker->dateTime();

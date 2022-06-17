@@ -6,6 +6,7 @@
             </a>
         </x-slot>
 
+        <x-login-link email="admin@nia-lab.app"  />
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 

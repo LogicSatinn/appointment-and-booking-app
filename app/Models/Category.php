@@ -42,9 +42,9 @@ class Category extends Model
     /**
      * @return HasMany
      */
-    public function courses(): HasMany
+    public function skills(): HasMany
     {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Skill::class);
     }
 
     /**

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Booking;
 use App\Models\Client;
-use App\Models\Course;
+use App\Models\Skill;
 
 class BookingFactory extends Factory
 {
@@ -26,7 +26,7 @@ class BookingFactory extends Factory
     {
         return [
             'client_id' => Client::factory(),
-            'course_id' => Course::factory(),
+            'course_id' => Skill::factory(),
             'status' => $this->faker->word,
             'reference_code' => $this->faker->word,
             'booked_at' => $this->faker->dateTime(),

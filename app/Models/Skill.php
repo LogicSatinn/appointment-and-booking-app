@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Course extends Model
+class Skill extends Model
 {
     use HasFactory, SoftDeletes;
 
