@@ -12,6 +12,8 @@
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^2.1",
         "laravel-shift/blueprint": "^2.4",
