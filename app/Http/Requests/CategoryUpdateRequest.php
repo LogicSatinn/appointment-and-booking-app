@@ -11,7 +11,7 @@ class CategoryUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,8 +26,6 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'note' => ['string'],
-            'added_by' => ['required'],
-            'softdeletes' => ['required'],
         ];
     }
 }

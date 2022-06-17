@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Database\Factories\ResourceFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Resource
+ *
  * @property int $id
  * @property string $name
  * @property int $no_of_seats
@@ -17,6 +22,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string|null $note
+ * @property int $capacity
+ * @property-read Collection|Appointment[] $appointments
+ * @property-read int|null $appointments_count
+ * @property-read Collection|Skill[] $courses
+ * @property-read int|null $courses_count
+ * @method static ResourceFactory factory(...$parameters)
+ * @method static Builder|Resource newModelQuery()
+ * @method static Builder|Resource newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Resource onlyTrashed()
+ * @method static Builder|Resource query()
+ * @method static Builder|Resource whereAvailable($value)
+ * @method static Builder|Resource whereCapacity($value)
+ * @method static Builder|Resource whereCreatedAt($value)
+ * @method static Builder|Resource whereDeletedAt($value)
+ * @method static Builder|Resource whereId($value)
+ * @method static Builder|Resource whereName($value)
+ * @method static Builder|Resource whereNote($value)
+ * @method static Builder|Resource whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
+ * @mixin \Eloquent
  */
 class Resource extends Model
 {

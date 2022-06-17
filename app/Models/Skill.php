@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Skill
+ *
  * @property int $id
  * @property string $title
  * @property string $description
@@ -20,6 +24,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read Collection|Booking[] $bookings
+ * @property-read int|null $bookings_count
+ * @property-read Category $category
+ * @property-read Collection|Resource[] $resources
+ * @property-read int|null $resources_count
+ * @property-read Collection|Tag[] $tags
+ * @property-read int|null $tags_count
+ * @method static Builder|Skill newModelQuery()
+ * @method static Builder|Skill newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Skill onlyTrashed()
+ * @method static Builder|Skill query()
+ * @method static Builder|Skill whereCategoryId($value)
+ * @method static Builder|Skill whereCreatedAt($value)
+ * @method static Builder|Skill whereDeletedAt($value)
+ * @method static Builder|Skill whereDescription($value)
+ * @method static Builder|Skill whereId($value)
+ * @method static Builder|Skill whereTitle($value)
+ * @method static Builder|Skill whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Skill withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Skill withoutTrashed()
+ * @mixin \Eloquent
  */
 class Skill extends Model
 {

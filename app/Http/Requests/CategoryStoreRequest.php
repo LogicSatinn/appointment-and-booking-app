@@ -11,9 +11,17 @@ class CategoryStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge(['added_by' => auth()->id()]);
     }
 
     /**
@@ -26,8 +34,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'note' => ['string'],
-            'added_by' => ['required'],
-            'softdeletes' => ['required'],
+            'added_by' => ['required', 'integer', 'exists:App\Models\User,id'],
         ];
     }
 }

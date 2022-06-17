@@ -19,7 +19,10 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('note')->nullable();
-            $table->foreignId('added_by')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('added_by')
+                ->constrained('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->softDeletes();
             $table->timestamps();
         });

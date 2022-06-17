@@ -5,86 +5,94 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
+use Error;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
         $categories = Category::all();
 
-        return view('category.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        return view('category.create');
-    }
 
     /**
-     * @param \App\Http\Requests\CategoryStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(CategoryStoreRequest $request)
     {
-        $category = Category::create($request->validated());
+        try {
+            Category::create($request->validated());
 
-        $request->session()->flash('category.id', $category->id);
+            toast('Category saved successfully', 'success');
 
-        return redirect()->route('category.index');
+            return redirect()->route('categories.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. We are working to fix this.', 'error');
+
+            return back();
+        }
+
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Category $category)
-    {
-        return view('category.show', compact('category'));
-    }
+//    /**
+//     * @param Category $category
+//     * @return Application|Factory|View
+//     */
+//    public function show(Category $category)
+//    {
+//        return view('admin.category.show', compact('category'));
+//    }
+
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, Category $category)
-    {
-        return view('category.edit', compact('category'));
-    }
-
-    /**
-     * @param \App\Http\Requests\CategoryUpdateRequest $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param CategoryUpdateRequest $request
+     * @param Category $category
+     * @return RedirectResponse
      */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->update($request->validated());
+        try {
+            $category->update($request->validated());
 
-        $request->session()->flash('category.id', $category->id);
+            toast('Category updated successfully.', 'success');
 
-        return redirect()->route('category.index');
+            return redirect()->route('categories.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. We are working to fix this.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function destroy(Request $request, Category $category)
+    public function destroy(Category $category)
     {
-        $category->delete();
+        try {
+            $category->delete();
 
-        return redirect()->route('category.index');
+            toast('Category deleted successfully.', 'success');
+
+            return redirect()->route('categories.index');
+        } catch (Exception|Error) {
+            toast('Something went exceptionally wrong. We will fix this.', 'error');
+
+            return back();
+        }
     }
 }

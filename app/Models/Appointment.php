@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Database\Factories\AppointmentFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,15 +14,53 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Appointment
+ *
  * @property int $id
  * @property string $title
  * @property Carbon $duration
  * @property Carbon $appointment_time
  * @property int $resource_id
- * @property int $course_id
+ * @property int $skill_id
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $from
+ * @property string $to
+ * @property string $start
+ * @property string $end
+ * @property string $status
+ * @property string $price
+ * @property int $client_id
+ * @property int $skills_id
+ * @property-read Collection|Client[] $clients
+ * @property-read int|null $clients_count
+ * @property-read Skill|null $skill
+ * @property-read Collection|Reservation[] $reservations
+ * @property-read int|null $reservations_count
+ * @property-read Resource $resource
+ * @method static AppointmentFactory factory(...$parameters)
+ * @method static Builder|Appointment newModelQuery()
+ * @method static Builder|Appointment newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Appointment onlyTrashed()
+ * @method static Builder|Appointment query()
+ * @method static Builder|Appointment whereClientId($value)
+ * @method static Builder|Appointment whereCreatedAt($value)
+ * @method static Builder|Appointment whereDeletedAt($value)
+ * @method static Builder|Appointment whereDuration($value)
+ * @method static Builder|Appointment whereEnd($value)
+ * @method static Builder|Appointment whereFrom($value)
+ * @method static Builder|Appointment whereId($value)
+ * @method static Builder|Appointment wherePrice($value)
+ * @method static Builder|Appointment whereResourceId($value)
+ * @method static Builder|Appointment whereSkillsId($value)
+ * @method static Builder|Appointment whereStart($value)
+ * @method static Builder|Appointment whereStatus($value)
+ * @method static Builder|Appointment whereTo($value)
+ * @method static Builder|Appointment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Appointment withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Appointment withoutTrashed()
+ * @mixin \Eloquent
  */
 class Appointment extends Model
 {
@@ -41,7 +82,7 @@ class Appointment extends Model
         'id' => 'integer',
         'appointment_time' => 'datetime',
         'resource_id' => 'integer',
-        'course_id' => 'integer',
+        'skill_id' => 'integer',
     ];
 
     /**
@@ -63,7 +104,7 @@ class Appointment extends Model
     /**
      * @return BelongsTo
      */
-    public function course(): BelongsTo
+    public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class);
     }

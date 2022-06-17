@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Database\Factories\ClientFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Client
+ *
  * @property int $id
  * @property int $user_id
  * @property string $profession
@@ -20,6 +25,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $name
+ * @property string $email
+ * @property-read Collection|Appointment[] $appointments
+ * @property-read int|null $appointments_count
+ * @property-read Collection|Booking[] $bookings
+ * @property-read int|null $bookings_count
+ * @property-read Collection|Reservation[] $reservations
+ * @property-read int|null $reservations_count
+ * @property-read User|null $user
+ * @method static ClientFactory factory(...$parameters)
+ * @method static Builder|Client newModelQuery()
+ * @method static Builder|Client newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Client onlyTrashed()
+ * @method static Builder|Client query()
+ * @method static Builder|Client whereAddress($value)
+ * @method static Builder|Client whereCreatedAt($value)
+ * @method static Builder|Client whereDeletedAt($value)
+ * @method static Builder|Client whereEmail($value)
+ * @method static Builder|Client whereId($value)
+ * @method static Builder|Client whereName($value)
+ * @method static Builder|Client wherePhoneNumber($value)
+ * @method static Builder|Client whereProfession($value)
+ * @method static Builder|Client whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Client withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Client withoutTrashed()
+ * @mixin \Eloquent
  */
 class Client extends Model
 {
