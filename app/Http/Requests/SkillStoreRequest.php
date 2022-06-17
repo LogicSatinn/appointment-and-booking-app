@@ -2,18 +2,25 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\SkillStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseUpdateRequest extends FormRequest
+class SkillStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
+    }
+
+
+    public function prepareForValidation()
+    {
+        $this->merge(['status' => SkillStatus::DRAFT->value]);
     }
 
     /**
@@ -26,10 +33,8 @@ class CourseUpdateRequest extends FormRequest
         return [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'price' => ['required', 'numeric', 'between:-999999.99,999999.99'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'access' => ['required'],
-            'softdeletes' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

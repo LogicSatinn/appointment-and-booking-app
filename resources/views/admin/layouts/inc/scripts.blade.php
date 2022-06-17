@@ -3,3 +3,5 @@
 <script src="{{ asset('assets/js/dashmix.app.min.js')}}"></script>
 
 @include('sweetalert::alert')
+
+@stack('page_js')

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\SkillStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseStoreRequest extends FormRequest
+class SkillUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +27,7 @@ class CourseStoreRequest extends FormRequest
         return [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'price' => ['required', 'numeric', 'between:-999999.99,999999.99'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'access' => ['required'],
-            'softdeletes' => ['required'],
         ];
     }
 }

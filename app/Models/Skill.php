@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -68,6 +69,14 @@ class Skill extends Model
         'category_id' => 'integer',
         'access' => 'boolean',
     ];
+
+
+    public function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value)
+        );
+    }
 
     /**
      * @return HasMany

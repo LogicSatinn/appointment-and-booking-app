@@ -110,36 +110,24 @@
 {{--                    </li>--}}
 {{--                </ul>--}}
 {{--            </li>--}}
-{{--            <li class="nav-main-item">--}}
-{{--                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">--}}
-{{--                    <i class="nav-main-link-icon fa fa-money-bill"></i>--}}
-{{--                    <span class="nav-main-link-name">Payments</span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav-main-submenu">--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Scheduled</span>--}}
-{{--                            <span class="nav-main-link-badge badge badge-pill badge-success">2</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Recurring</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Manage</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <i class="nav-main-link-icon fa fa-plus-circle"></i>--}}
-{{--                            <span class="nav-main-link-name">New Payment</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+            <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="nav-main-link-icon fa fa-money-bill"></i>
+                    <span class="nav-main-link-name">Skills</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ route('skills.index') }}">
+                            <span class="nav-main-link-name">All Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ route('skills.create') }}">
+                            <span class="nav-main-link-name">New Skill</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-main-item">
                 <a class="nav-main-link" href="{{ route('categories.index') }}">
                     <i class="nav-main-link-icon fa fa-user-circle"></i>

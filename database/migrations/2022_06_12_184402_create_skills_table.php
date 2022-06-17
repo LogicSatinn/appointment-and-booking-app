@@ -19,6 +19,7 @@ class CreateSkillsTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->string('status');
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete()

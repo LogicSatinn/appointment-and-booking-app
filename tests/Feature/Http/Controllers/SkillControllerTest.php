@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Http\Controllers\SkillController;
+use App\Http\Requests\SkillStoreRequest;
+use App\Http\Requests\SkillUpdateRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +15,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\SkillController
  */
-class CourseControllerTest extends TestCase
+class SkillControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
 
@@ -23,10 +26,10 @@ class CourseControllerTest extends TestCase
     {
         $courses = Skill::factory()->count(3)->create();
 
-        $response = $this->get(route('course.index'));
+        $response = $this->get(route('skill.index'));
 
         $response->assertOk();
-        $response->assertViewIs('course.index');
+        $response->assertViewIs('skill.index');
         $response->assertViewHas('courses');
     }
 
@@ -36,10 +39,10 @@ class CourseControllerTest extends TestCase
      */
     public function create_displays_view()
     {
-        $response = $this->get(route('course.create'));
+        $response = $this->get(route('skill.create'));
 
         $response->assertOk();
-        $response->assertViewIs('course.create');
+        $response->assertViewIs('skill.create');
     }
 
 
@@ -49,9 +52,9 @@ class CourseControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\SkillController::class,
+            SkillController::class,
             'store',
-            \App\Http\Requests\CourseStoreRequest::class
+            SkillStoreRequest::class
         );
     }
 
@@ -66,7 +69,7 @@ class CourseControllerTest extends TestCase
         $category = Category::factory()->create();
         $access = $this->faker->boolean;
 
-        $response = $this->post(route('course.store'), [
+        $response = $this->post(route('skill.store'), [
             'title' => $title,
             'description' => $description,
             'price' => $price,
@@ -84,8 +87,8 @@ class CourseControllerTest extends TestCase
         $this->assertCount(1, $courses);
         $course = $courses->first();
 
-        $response->assertRedirect(route('course.index'));
-        $response->assertSessionHas('course.id', $course->id);
+        $response->assertRedirect(route('skill.index'));
+        $response->assertSessionHas('skill.id', $course->id);
     }
 
 
@@ -96,11 +99,11 @@ class CourseControllerTest extends TestCase
     {
         $course = Skill::factory()->create();
 
-        $response = $this->get(route('course.show', $course));
+        $response = $this->get(route('skill.show', $course));
 
         $response->assertOk();
-        $response->assertViewIs('course.show');
-        $response->assertViewHas('course');
+        $response->assertViewIs('skill.show');
+        $response->assertViewHas('skill');
     }
 
 
@@ -111,11 +114,11 @@ class CourseControllerTest extends TestCase
     {
         $course = Skill::factory()->create();
 
-        $response = $this->get(route('course.edit', $course));
+        $response = $this->get(route('skill.edit', $course));
 
         $response->assertOk();
-        $response->assertViewIs('course.edit');
-        $response->assertViewHas('course');
+        $response->assertViewIs('skill.edit');
+        $response->assertViewHas('skill');
     }
 
 
@@ -125,9 +128,9 @@ class CourseControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\SkillController::class,
+            SkillController::class,
             'update',
-            \App\Http\Requests\CourseUpdateRequest::class
+            SkillUpdateRequest::class
         );
     }
 
@@ -143,7 +146,7 @@ class CourseControllerTest extends TestCase
         $category = Category::factory()->create();
         $access = $this->faker->boolean;
 
-        $response = $this->put(route('course.update', $course), [
+        $response = $this->put(route('skill.update', $course), [
             'title' => $title,
             'description' => $description,
             'price' => $price,
@@ -153,8 +156,8 @@ class CourseControllerTest extends TestCase
 
         $course->refresh();
 
-        $response->assertRedirect(route('course.index'));
-        $response->assertSessionHas('course.id', $course->id);
+        $response->assertRedirect(route('skill.index'));
+        $response->assertSessionHas('skill.id', $course->id);
 
         $this->assertEquals($title, $course->title);
         $this->assertEquals($description, $course->description);
@@ -171,9 +174,9 @@ class CourseControllerTest extends TestCase
     {
         $course = Skill::factory()->create();
 
-        $response = $this->delete(route('course.destroy', $course));
+        $response = $this->delete(route('skill.destroy', $course));
 
-        $response->assertRedirect(route('course.index'));
+        $response->assertRedirect(route('skill.index'));
 
         $this->assertSoftDeleted($course);
     }

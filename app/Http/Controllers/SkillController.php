@@ -2,89 +2,119 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CourseStoreRequest;
-use App\Http\Requests\CourseUpdateRequest;
+use App\Http\Requests\SkillStoreRequest;
+use App\Http\Requests\SkillUpdateRequest;
+use App\Models\Category;
 use App\Models\Skill;
+use Error;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $courses = Skill::all();
+        $skills = Skill::all();
 
-        return view('course.index', compact('courses'));
+        return view('admin.skill.index', compact('skills'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create(Request $request)
+    public function create()
     {
-        return view('course.create');
+        return view('admin.skill.create', [
+            'categories' => Category::pluck('name', 'id')
+        ]);
     }
 
     /**
-     * @param \App\Http\Requests\CourseStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param SkillStoreRequest $request
+     * @return RedirectResponse
      */
-    public function store(CourseStoreRequest $request)
+    public function store(SkillStoreRequest $request)
     {
-        $course = Skill::create($request->validated());
+        try {
+            Skill::create($request->validated());
 
-        $request->session()->flash('course.id', $course->id);
+            toast('Skill saved successfully', 'success');
 
-        return redirect()->route('course.index');
+            return redirect()->route('skills.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. Don\'t worry, we are working on it.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Skill $course
-     * @return \Illuminate\Http\Response
+     * @param Skill $skill
+     * @return Application|Factory|View
      */
-    public function show(Request $request, Skill $course)
+    public function show(Skill $skill)
     {
-        return view('course.show', compact('course'));
+        return view('admin.skill.show', compact('skill'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Skill $course
-     * @return \Illuminate\Http\Response
+     * @param Skill $skill
+     * @return Application|Factory|View
      */
-    public function edit(Request $request, Skill $course)
+    public function edit(Skill $skill)
     {
-        return view('course.edit', compact('course'));
+        return view('admin.skill.edit', [
+            'skill' => $skill,
+            'categories' => Category::pluck('name', 'id')
+        ]);
     }
 
     /**
-     * @param \App\Http\Requests\CourseUpdateRequest $request
-     * @param \App\Models\Skill $course
-     * @return \Illuminate\Http\Response
+     * @param SkillUpdateRequest $request
+     * @param Skill $skill
+     * @return RedirectResponse
      */
-    public function update(CourseUpdateRequest $request, Skill $course)
+    public function update(SkillUpdateRequest $request, Skill $skill)
     {
-        $course->update($request->validated());
+        try {
+            $skill->update($request->validated());
 
-        $request->session()->flash('course.id', $course->id);
+            toast('Skill updated successfully', 'success');
 
-        return redirect()->route('course.index');
+            return redirect()->route('skills.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. Don\'t worry, we are working on it.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Skill $course
-     * @return \Illuminate\Http\Response
+     * @param Skill $skill
+     * @return RedirectResponse
      */
-    public function destroy(Request $request, Skill $course)
+    public function destroy(Skill $skill)
     {
-        $course->delete();
+        try {
+            $skill->delete();
 
-        return redirect()->route('course.index');
+            toast('Skill deleted successfully', 'success');
+
+            return redirect()->route('skills.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. Don\'t worry, we are working on it.', 'error');
+
+            return back();
+        }
+
     }
 }
