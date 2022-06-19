@@ -5,86 +5,109 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ResourceStoreRequest;
 use App\Http\Requests\ResourceUpdateRequest;
 use App\Models\Resource;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ResourceController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
         $resources = Resource::all();
 
-        return view('resource.index', compact('resources'));
+        return view('admin.resource.index', compact('resources'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create(Request $request)
+    public function create()
     {
-        return view('resource.create');
+        return view('admin.resource.create');
     }
 
     /**
-     * @param \App\Http\Requests\ResourceStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param ResourceStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ResourceStoreRequest $request)
     {
-        $resource = Resource::create($request->validated());
+        try {
+            Resource::create($request->validated());
 
-        $request->session()->flash('resource.id', $resource->id);
+            toast('Resource has been created successfully.', 'success');
 
-        return redirect()->route('resource.index');
+            return redirect()->route('resources.index');
+
+        } catch (\Exception|\Error) {
+            toast('Something went really wrong. We\re fixing this right now.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Resource $resource
-     * @return \Illuminate\Http\Response
+     * @param Resource $resource
+     * @return Application|Factory|View
      */
-    public function show(Request $request, Resource $resource)
+    public function show(Resource $resource)
     {
-        return view('resource.show', compact('resource'));
+        return view('admin.resource.show', compact('resource'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Resource $resource
-     * @return \Illuminate\Http\Response
+     * @param Resource $resource
+     * @return Application|Factory|View
      */
-    public function edit(Request $request, Resource $resource)
+    public function edit(Resource $resource)
     {
-        return view('resource.edit', compact('resource'));
+        return view('admin.resource.edit', compact('resource'));
     }
 
     /**
-     * @param \App\Http\Requests\ResourceUpdateRequest $request
-     * @param \App\Models\Resource $resource
-     * @return \Illuminate\Http\Response
+     * @param ResourceUpdateRequest $request
+     * @param Resource $resource
+     * @return RedirectResponse
      */
     public function update(ResourceUpdateRequest $request, Resource $resource)
     {
-        $resource->update($request->validated());
+        try {
+            $resource->update($request->validated());
 
-        $request->session()->flash('resource.id', $resource->id);
+            toast('Resource updated successfully', 'success');
 
-        return redirect()->route('resource.index');
+            return redirect()->route('resources.index');
+
+        } catch (\Exception|\Error) {
+            toast('Something went really wrong. We\re fixing this right now.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Resource $resource
-     * @return \Illuminate\Http\Response
+     * @param Resource $resource
+     * @return RedirectResponse
      */
-    public function destroy(Request $request, Resource $resource)
+    public function destroy(Resource $resource)
     {
-        $resource->delete();
+        try {
+            $resource->delete();
 
-        return redirect()->route('resource.index');
+            toast('Resource deleted successfully.', 'success');
+
+            return redirect()->route('resources.index');
+        } catch (\Exception|\Error) {
+            toast('Something went really wrong. We\re fixing this right now.', 'error');
+
+            return back();
+        }
+
     }
 }

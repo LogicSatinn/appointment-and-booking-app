@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppointmentStoreRequest;
 use App\Http\Requests\AppointmentUpdateRequest;
 use App\Models\Appointment;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
         $appointments = Appointment::all();
 
@@ -21,67 +24,63 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create(Request $request)
+    public function create()
     {
         return view('appointment.create');
     }
 
     /**
-     * @param \App\Http\Requests\AppointmentStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param AppointmentStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(AppointmentStoreRequest $request)
     {
-        $appointment = Appointment::create($request->validated());
+        Appointment::create($request->validated());
 
-        $request->session()->flash('appointment.id', $appointment->id);
+        toast('Appointment saved successfully.', 'success');
 
         return redirect()->route('appointment.index');
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Appointment $appointment
-     * @return \Illuminate\Http\Response
+     * @param Appointment $appointment
+     * @return Application|Factory|View
      */
-    public function show(Request $request, Appointment $appointment)
+    public function show(Appointment $appointment)
     {
         return view('appointment.show', compact('appointment'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Appointment $appointment
-     * @return \Illuminate\Http\Response
+     * @param Appointment $appointment
+     * @return Application|Factory|View
      */
-    public function edit(Request $request, Appointment $appointment)
+    public function edit(Appointment $appointment)
     {
         return view('appointment.edit', compact('appointment'));
     }
 
     /**
-     * @param \App\Http\Requests\AppointmentUpdateRequest $request
-     * @param \App\Models\Appointment $appointment
-     * @return \Illuminate\Http\Response
+     * @param AppointmentUpdateRequest $request
+     * @param Appointment $appointment
+     * @return RedirectResponse
      */
     public function update(AppointmentUpdateRequest $request, Appointment $appointment)
     {
         $appointment->update($request->validated());
 
-        $request->session()->flash('appointment.id', $appointment->id);
+        toast('Appointment updated successfully', 'success');
 
         return redirect()->route('appointment.index');
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Appointment $appointment
-     * @return \Illuminate\Http\Response
+     * @param Appointment $appointment
+     * @return RedirectResponse
      */
-    public function destroy(Request $request, Appointment $appointment)
+    public function destroy(Appointment $appointment)
     {
         $appointment->delete();
 

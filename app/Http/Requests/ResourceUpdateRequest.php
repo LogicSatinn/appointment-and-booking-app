@@ -25,9 +25,8 @@ class ResourceUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'no_of_seats' => ['required', 'integer'],
-            'available' => ['required'],
-            'softdeletes' => ['required'],
+            'capacity' => ['required', 'integer'],
+            'note' => ['nullable', 'string']
         ];
     }
 }

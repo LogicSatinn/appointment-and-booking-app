@@ -18,7 +18,7 @@ class CreateResourcesTable extends Migration
             $table->string('name');
             $table->longText('note')->nullable();
             $table->integer('capacity');
-            $table->boolean('available');
+            $table->string('state')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

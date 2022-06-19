@@ -49,7 +49,7 @@
     <div class="content-side content-side-full">
         <ul class="nav-main">
             <li class="nav-main-item">
-                <a class="nav-main-link active" href="db_banking.html">
+                <a class="nav-main-link active" href="{{ route('dashboard') }}">
                     <i class="nav-main-link-icon fa fa-rocket"></i>
                     <span class="nav-main-link-name">Overview</span>
                 </a>
@@ -134,6 +134,13 @@
                     <span class="nav-main-link-name">Categories</span>
                 </a>
             </li>
+            <li class="nav-main-item">
+                <a class="nav-main-link" href="{{ route('resources.index') }}">
+                    <i class="nav-main-link-icon fa fa-user-circle"></i>
+                    <span class="nav-main-link-name">Resources</span>
+                </a>
+            </li>
+
 
             <li class="nav-main-heading">Personal</li>
             <li class="nav-main-item">

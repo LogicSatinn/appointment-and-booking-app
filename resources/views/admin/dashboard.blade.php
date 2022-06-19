@@ -1,3 +1,5 @@
+@section('title', 'Dashboard')
+
 <x-admin.master-layout>
     <div class="content">
         <!-- Quick Overview -->

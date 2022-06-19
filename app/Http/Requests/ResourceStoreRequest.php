@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\States\Resource\Available;
+use App\States\Resource\ResourceState;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\ModelStates\Validation\ValidStateRule;
 
 class ResourceStoreRequest extends FormRequest
 {
@@ -11,11 +14,16 @@ class ResourceStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
+
+    public function prepareForValidation()
+    {
+        $this->merge(['state' => Available::class]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,9 +33,9 @@ class ResourceStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'no_of_seats' => ['required', 'integer'],
-            'available' => ['required'],
-            'softdeletes' => ['required'],
+            'capacity' => ['required', 'integer'],
+            'state' => ['required', new ValidStateRule(ResourceState::class)],
+            'note' => ['nullable', 'string']
         ];
     }
 }

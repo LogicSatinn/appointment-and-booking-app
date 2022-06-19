@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\States\Resource\ResourceState;
 use Carbon\Carbon;
 use Database\Factories\ResourceFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\ModelStates\HasStates;
 
 /**
  * App\Models\Resource
@@ -43,11 +46,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Resource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Resource extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasStates;
+
 
     /**
      * The attributes that aren't mass assignable.
@@ -63,7 +67,7 @@ class Resource extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'available' => 'boolean',
+        'state' => ResourceState::class,
     ];
 
     /**

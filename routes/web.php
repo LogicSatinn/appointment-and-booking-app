@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::resource('categories', CategoryController::class);
 
     Route::resource('skills', SkillController::class);
+
+    Route::resource('resources', ResourceController::class);
 });
 
 
