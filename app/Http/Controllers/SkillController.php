@@ -62,7 +62,10 @@ class SkillController extends Controller
      */
     public function show(Skill $skill)
     {
-        return view('admin.skill.show', compact('skill'));
+        return view('admin.skill.show', [
+            'skill' => $skill,
+            'appointments' => $skill->appointments
+        ]);
     }
 
     /**

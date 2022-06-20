@@ -46,6 +46,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Skill withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Skill withoutTrashed()
  * @mixin \Eloquent
+ * @property string $status
+ * @method static Builder|Skill whereStatus($value)
+ * @property-read Collection|Appointment[] $appointments
+ * @property-read int|null $appointments_count
  */
 class Skill extends Model
 {
@@ -84,6 +88,14 @@ class Skill extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
     }
 
     /**

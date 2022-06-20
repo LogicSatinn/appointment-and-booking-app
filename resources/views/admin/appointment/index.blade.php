@@ -56,6 +56,10 @@
                                     @csrf
                                     @method('delete')
                                     <div class="btn-group">
+{{--                                        <a href="{{ route('appointments.show', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
+{{--                                           title="View">--}}
+{{--                                            <i class="fa fa-eye-alt"></i>--}}
+{{--                                        </a>--}}
                                         <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="Edit">
                                             <i class="fa fa-pencil-alt"></i>

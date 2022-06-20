@@ -16,8 +16,7 @@
         <div class="content-header justify-content-lg-center bg-header-dark">
             <!-- Logo -->
             <a class="link-fx font-size-lg text-white" href="index.html">
-                <span class="text-white-75">X</span>
-                <span class="text-white">Banking</span>
+                <span class="text-white">{{ config('app.name') }}</span>
             </a>
             <!-- END Logo -->
 

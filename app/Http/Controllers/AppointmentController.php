@@ -94,7 +94,7 @@ class AppointmentController extends Controller
 
             return redirect()->route('appointments.index');
         } catch (Exception|Error) {
-            toast('Something went really wrong. We\'re working on this right now', 'success');
+            toast('Something went really wrong. We\'re working on this right now', 'error');
 
             return back();
         }

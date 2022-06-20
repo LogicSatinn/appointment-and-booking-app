@@ -44,6 +44,10 @@
                                     @csrf
                                     @method('delete')
                                     <div class="btn-group">
+                                        <a href="{{ route('skills.show', $skill) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                                title="View">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                         <a href="{{ route('skills.edit', $skill) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                                 title="Edit">
                                             <i class="fa fa-pencil-alt"></i>

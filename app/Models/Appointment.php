@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Appointment withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Appointment withoutTrashed()
  * @mixin \Eloquent
+ * @method static Builder|Appointment whereSkillId($value)
  */
 class Appointment extends Model
 {
@@ -86,10 +87,6 @@ class Appointment extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'from' => 'date',
-        'to' => 'date',
-//        'start' => 'datetime:Hi',
-//        'end' => 'datetime:H:i',
         'status' => AppointmentState::class,
         'price' => 'decimal:2',
         'resource_id' => 'integer',

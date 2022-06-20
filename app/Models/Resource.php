@@ -47,6 +47,11 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
  * @mixin Eloquent
+ * @property mixed|null $state
+ * @method static Builder|Resource orWhereNotState(string $column, $states)
+ * @method static Builder|Resource orWhereState(string $column, $states)
+ * @method static Builder|Resource whereNotState(string $column, $states)
+ * @method static Builder|Resource whereState($value)
  */
 class Resource extends Model
 {
