@@ -129,6 +129,24 @@
                 </ul>
             </li>
             <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                    <i class="nav-main-link-icon fa fa-money-bill"></i>
+                    <span class="nav-main-link-name">Appointments</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ route('appointments.index') }}">
+                            <span class="nav-main-link-name">All Appointments</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ route('appointments.create') }}">
+                            <span class="nav-main-link-name">New Appointment</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-main-item">
                 <a class="nav-main-link" href="{{ route('categories.index') }}">
                     <i class="nav-main-link-icon fa fa-user-circle"></i>
                     <span class="nav-main-link-name">Categories</span>

@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
-
 
 
 Route::get('/', function () {
@@ -21,8 +21,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::resource('skills', SkillController::class);
 
     Route::resource('resources', ResourceController::class);
+
+    Route::resource('appointments', AppointmentController::class);
 });
 
-
+Route::get('/test', function () {
+    dd(now()->format('d/m/Y'));
+});
 
 require __DIR__.'/auth.php';

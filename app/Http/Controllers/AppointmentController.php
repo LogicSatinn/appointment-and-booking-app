@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppointmentStoreRequest;
 use App\Http\Requests\AppointmentUpdateRequest;
 use App\Models\Appointment;
+use App\Models\Resource;
+use App\Models\Skill;
+use Error;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,7 +24,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::all();
 
-        return view('appointment.index', compact('appointments'));
+        return view('admin.appointment.index', compact('appointments'));
     }
 
     /**
@@ -28,7 +32,10 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('appointment.create');
+        return view('admin.appointment.create', [
+            'skills' => Skill::pluck('title', 'id'),
+            'resources' => Resource::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -37,11 +44,18 @@ class AppointmentController extends Controller
      */
     public function store(AppointmentStoreRequest $request)
     {
-        Appointment::create($request->validated());
+        try {
+            Appointment::create($request->validated());
 
-        toast('Appointment saved successfully.', 'success');
+            toast('Appointment saved successfully.', 'success');
 
-        return redirect()->route('appointment.index');
+            return redirect()->route('appointments.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. We\re working hard to fix this.', 'error');
+
+            return back();
+        }
+
     }
 
     /**
@@ -50,7 +64,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        return view('appointment.show', compact('appointment'));
+        return view('admin.appointment.show', compact('appointment'));
     }
 
     /**
@@ -59,7 +73,11 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        return view('appointment.edit', compact('appointment'));
+        return view('admin.appointment.edit', [
+            'appointment' => $appointment,
+            'skills' => Skill::pluck('title', 'id'),
+            'resources' => Resource::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -69,11 +87,18 @@ class AppointmentController extends Controller
      */
     public function update(AppointmentUpdateRequest $request, Appointment $appointment)
     {
-        $appointment->update($request->validated());
+        try {
+            $appointment->update($request->validated());
 
-        toast('Appointment updated successfully', 'success');
+            toast('Appointment updated successfully', 'success');
 
-        return redirect()->route('appointment.index');
+            return redirect()->route('appointments.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. We\'re working on this right now', 'success');
+
+            return back();
+        }
+
     }
 
     /**
@@ -82,8 +107,17 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        $appointment->delete();
+        try {
+            $appointment->delete();
 
-        return redirect()->route('appointment.index');
+            toast('Appointment deleted successfully', 'success');
+
+            return redirect()->route('appointments.index');
+        } catch (Exception|Error) {
+            toast('Something went really wrong. We\re working hard to fix this.', 'error');
+
+            return back();
+        }
+
     }
 }

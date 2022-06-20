@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\States\Appointment\AppointmentState;
+use App\States\Appointment\Pending;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\ModelStates\Validation\ValidStateRule;
 
 class AppointmentStoreRequest extends FormRequest
 {
@@ -11,10 +14,20 @@ class AppointmentStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
+
+
+    /**
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge(['status' => Pending::class]);
+    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,12 +37,14 @@ class AppointmentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'duration' => ['required'],
-            'appointment_time' => ['required'],
+            'from' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'before_or_equal:to'],
+            'to' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
+            'start' => ['required', 'date_format:H:i', 'before:end'],
+            'end' => ['required', 'date_format:H:i', 'after:start'],
+            'status' => ['required', new ValidStateRule(AppointmentState::class)],
+            'price' => ['required', 'numeric'],
             'resource_id' => ['required', 'integer', 'exists:resources,id'],
-            'course_id' => ['required', 'integer', 'exists:courses,id'],
-            'softdeletes' => ['required'],
+            'skill_id' => ['required', 'integer', 'exists:skills,id'],
         ];
     }
 }

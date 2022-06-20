@@ -11,7 +11,7 @@ class AppointmentUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,12 +24,13 @@ class AppointmentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'duration' => ['required'],
-            'appointment_time' => ['required'],
-            'resource_id' => ['required', 'integer', 'exists:resources,id'],
-            'course_id' => ['required', 'integer', 'exists:courses,id'],
-            'softdeletes' => ['required'],
+            'from' => ['nullable', 'date_format:d/m/Y', 'after_or_equal:today', 'before_or_equal:to'],
+            'to' => ['nullable', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
+            'start' => ['nullable', 'date_format:H:i', 'before:end'],
+            'end' => ['nullable', 'date_format:H:i', 'after:start'],
+            'price' => ['nullable', 'numeric'],
+            'resource_id' => ['nullable', 'integer', 'exists:resources,id'],
+            'skill_id' => ['nullable', 'integer', 'exists:skills,id'],
         ];
     }
 }

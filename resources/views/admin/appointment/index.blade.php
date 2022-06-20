@@ -15,51 +15,63 @@
                 </a>
             </div>
             <div class="block-content">
-{{--                <table class="table table-hover table-vcenter">--}}
-{{--                    <thead>--}}
-{{--                    <tr>--}}
-{{--                        <th class="text-center" style="width: 50px;">#</th>--}}
-{{--                        <th>Title</th>--}}
-{{--                        <th>Description</th>--}}
-{{--                        <th class="d-none d-sm-table-cell" style="width: 15%;">Category</th>--}}
-{{--                        <th class="text-center" style="width: 100px;">Actions</th>--}}
-{{--                    </tr>--}}
-{{--                    </thead>--}}
-{{--                    @php $i=1 @endphp--}}
-{{--                    <tbody>--}}
-{{--                    @foreach($skills as $skill)--}}
-{{--                        <tr>--}}
-{{--                            <th class="text-center" scope="row">{{ $i++ }}</th>--}}
-{{--                            <td class="font-w600">--}}
-{{--                                {{ $skill->title }}--}}
-{{--                            </td>--}}
-{{--                            <td class="font-w600">--}}
-{{--                                {{ $skill->status }}--}}
-{{--                            </td>--}}
-{{--                            <td class="d-none d-sm-table-cell">--}}
-{{--                                {{ $skill->category->name }}--}}
-{{--                            </td>--}}
-{{--                            <td class="text-center">--}}
-{{--                                <form action="{{ route('skills.destroy', $skill) }}" method="POST">--}}
-{{--                                    @csrf--}}
-{{--                                    @method('delete')--}}
-{{--                                    <div class="btn-group">--}}
-{{--                                        <a href="{{ route('skills.edit', $skill) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
-{{--                                           title="Edit">--}}
-{{--                                            <i class="fa fa-pencil-alt"></i>--}}
-{{--                                        </a>--}}
-{{--                                        <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
-{{--                                                title="Delete">--}}
-{{--                                            <i class="fa fa-times"></i>--}}
-{{--                                        </button>--}}
-{{--                                    </div>--}}
-{{--                                </form>--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
+                <table class="table table-hover table-vcenter">
+                    <thead>
+                    <tr>
+                        <th class="text-center" style="width: 50px;">#</th>
+                        <th>Skill</th>
+                        <th>Resource Assigned</th>
+                        <th>From-To</th>
+                        <th>Start-End</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                        <th class="text-center" style="width: 100px;">Actions</th>
+                    </tr>
+                    </thead>
+                    @php $i=1 @endphp
+                    <tbody>
+                    @foreach($appointments as $appointment)
+                        <tr>
+                            <th class="text-center" scope="row">{{ $i++ }}</th>
+                            <td class="font-w600">
+                                {{ $appointment->skill->title }}
+                            </td>
+                            <td class="font-w600">
+                                {{ $appointment->resource->name }}
+                            </td>
+                            <td class="font-w600">
+                                {{ $appointment->from }} - {{ $appointment->to }}
+                            </td>
+                            <td class="font-w600">
+                                {{ $appointment->start }} - {{ $appointment->end }}
+                            </td>
+                            <td class="font-w600">
+                                {{ $appointment->status }}
+                            </td>
+                            <td class="font-w600">
+                                {{ $appointment->price }}
+                            </td>
+                            <td class="text-center">
+                                <form action="{{ route('appointments.destroy', $appointment) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <div class="btn-group">
+                                        <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                           title="Edit">
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </a>
+                                        <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                                title="Delete">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
 
-{{--                    @endforeach--}}
-{{--                    </tbody>--}}
-{{--                </table>--}}
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- END Hover Table -->
