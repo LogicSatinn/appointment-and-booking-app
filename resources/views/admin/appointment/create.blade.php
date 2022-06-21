@@ -13,6 +13,37 @@
                     <div class="row push">
 
                         <div class="form-group col-lg-6">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" class="form-control" placeholder="Title">
+                            @error('title')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="price">Price</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        TZS
+                                                    </span>
+                                </div>
+                                <input type="text" class="form-control text-center" id="price" name="price"
+                                       placeholder="00">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                            </div>
+                            @error('price')
+                            <div class="alert alert-error">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-lg-6">
                             <label for="skill">Skill</label>
                             <select class="form-control" id="skill" name="skill_id">
                                 @foreach($skills as $key => $value)
@@ -91,27 +122,6 @@
                                    data-time_24hr="true">
 
                             @error('end')
-                            <div class="alert alert-error">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group col-lg-6">
-                            <label for="price">Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        TZS
-                                                    </span>
-                                </div>
-                                <input type="text" class="form-control text-center" id="price" name="price"
-                                       placeholder="00">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">.00</span>
-                                </div>
-                            </div>
-                            @error('price')
                             <div class="alert alert-error">
                                 {{ $message }}
                             </div>

@@ -37,6 +37,7 @@ class AppointmentStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => ['required', 'string'],
             'from' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'before_or_equal:to'],
             'to' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
             'start' => ['required', 'date_format:H:i', 'before:end'],

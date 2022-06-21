@@ -19,6 +19,7 @@
                     <thead>
                     <tr>
                         <th class="text-center" style="width: 50px;">#</th>
+                        <th>Title</th>
                         <th>Skill</th>
                         <th>Resource Assigned</th>
                         <th>From-To</th>
@@ -33,6 +34,9 @@
                     @foreach($appointments as $appointment)
                         <tr>
                             <th class="text-center" scope="row">{{ $i++ }}</th>
+                            <td class="font-w600">
+                                {{ $appointment->title }}
+                            </td>
                             <td class="font-w600">
                                 {{ $appointment->skill->title }}
                             </td>

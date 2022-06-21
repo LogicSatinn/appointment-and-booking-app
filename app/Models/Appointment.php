@@ -139,6 +139,16 @@ class Appointment extends Model
         );
     }
 
+    /**
+     * @return Attribute
+     */
+    public function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value)
+        );
+    }
+
 
     /**
      * @return HasMany
