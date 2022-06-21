@@ -1,18 +1,32 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->middleware(['auth'])->group(function() {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('skills', SkillController::class);
+
+    Route::resource('resources', ResourceController::class);
+
+    Route::resource('appointments', AppointmentController::class);
+});
+
+Route::get('/test', function () {
+    return view('client.index');
+});
+
+require __DIR__.'/auth.php';
