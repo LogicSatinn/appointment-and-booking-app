@@ -26,7 +26,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
 });
 
 Route::get('/test', function () {
-    dd(now()->format('d/m/Y'));
+    return view('client.index');
 });
 
 require __DIR__.'/auth.php';
