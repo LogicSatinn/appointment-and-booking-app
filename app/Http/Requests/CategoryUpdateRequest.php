@@ -16,6 +16,13 @@ class CategoryUpdateRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => $this->get('name')
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,6 +32,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'note' => ['string'],
         ];
     }

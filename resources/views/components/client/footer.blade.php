@@ -1,18 +1,12 @@
-<footer class="pt-8 pt-md-13 pt-xl-15 position-relative bg-light">
-    <!-- Shape -->
-    <div class="shape shape-blur mb-n-1 shape-top shape-flip-both svg-shim text-white mt-n-1">
-        <svg viewBox="0 0 1920 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill="currentColor" d="M0,229l1920,0V-0.4c0,25.8-19.6,47.3-45.2,49.8L54.8,223.8C25.4,226.6,0,203.5,0,174V229z"/>
-        </svg>
-
-    </div>
-
+<!-- FOOTER
+================================================== -->
+<footer class="pt-8 pt-md-11 bg-white">
     <div class="container">
         <div class="row" id="accordionFooter">
             <div class="col-12 col-md-4 col-lg-4">
 
                 <!-- Brand -->
-                <img src="{{ asset('frontend/img/brand-dark.svg')}}" alt="..." class="footer-brand img-fluid mb-4 h-60p">
+                <img src="{{ asset('frontend/img/brand.svg')}}" alt="..." class="footer-brand img-fluid mb-4 h-60p">
 
                 <!-- Text -->
                 <p class="text-gray-800 mb-4 font-size-sm-alone">
@@ -201,14 +195,14 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-8 offset-md-4 offset-lg-0 col-lg-4">
-                <div class="mb-5 mb-xl-0 footer-accordion">
+            <div class="col-12 col-md-4 offset-md-4 col-lg-2 offset-lg-0">
+                <div class="mb-5 mb-xl-0 ms-xl-6 footer-accordion">
 
                     <!-- Heading -->
                     <div id="widgetThree">
                         <h5 class="mb-5">
                             <button class="text-dark fw-medium footer-accordion-toggle d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#widgetcollapseThree" aria-expanded="false" aria-controls="widgetcollapseThree">
-                                Subscribe our newsletter
+                                Tracks
                                 <span class="ms-auto text-dark">
                                         <!-- Icon -->
                                         <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -226,15 +220,91 @@
                     </div>
 
                     <div id="widgetcollapseThree" class="collapse" aria-labelledby="widgetThree" data-parent="#accordionFooter">
-                        <p class="font-size-sm-alone text-gray-800 line-height-lg mb-5">Your download should start automatically, if not  Click here. Should I give up, huh?.</p>
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control rounded-left-xl placeholder-1" placeholder="Enter your email" aria-label="Enter your email" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-dark px-5 rounded-right-xl" type="button" id="button-addon2">Subscribe</button>
-                                </div>
-                            </div>
-                        </form>
+                        <!-- List -->
+                        <ul class="list-unstyled text-gray-800 font-size-sm-alone mb-0">
+                            <li class="mb-3">
+                                <a href="lesson-single-v1.html" class="text-reset">
+                                    Web Design
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="lesson-single-v2.html" class="text-reset">
+                                    Web Development
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="lesson-single-v1.html" class="text-reset">
+                                    Rails Development
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="lesson-single-v2.html" class="text-reset">
+                                    PHP Development
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="lesson-single-v1.html" class="text-reset">
+                                    Android Development
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="lesson-single-v2.html" class="text-reset">
+                                    Starting a Business
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-2 d-xl-flex">
+                <div class="mb-5 mb-xl-0 ms-xl-auto footer-accordion">
+
+                    <!-- Heading -->
+                    <div id="widgetFour">
+                        <h5 class="mb-5">
+                            <button class="text-dark fw-medium footer-accordion-toggle d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#widgetcollapseFour" aria-expanded="false" aria-controls="widgetcollapseFour">
+                                Support
+                                <span class="ms-auto text-dark">
+                                        <!-- Icon -->
+                                        <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="15" height="2" fill="currentColor"/>
+                                        </svg>
+
+                                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 7H15V9H0V7Z" fill="currentColor"/>
+                                            <path d="M6 16L6 8.74228e-08L8 0L8 16H6Z" fill="currentColor"/>
+                                        </svg>
+
+                                    </span>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="widgetcollapseFour" class="collapse" aria-labelledby="widgetFour" data-parent="#accordionFooter">
+                        <!-- List -->
+                        <ul class="list-unstyled text-gray-800 font-size-sm-alone mb-0">
+                            <li class="mb-3">
+                                <a href="docs/index.html" class="text-reset">
+                                    Documentation
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="docs/index.html" class="text-reset">
+                                    Forums
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="docs/index.html" class="text-reset">
+                                    Language Packs
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="docs/changelog.html" class="text-reset">
+                                    Release Status
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -262,7 +332,7 @@
                             </li>
                         </ul>
 
-                        <select class="form-select form-select-sm font-size-sm-alone shadow min-width-140 text-left mb-4 mb-md-0 rounded-xl" data-choices>
+                        <select class="form-select form-select-sm font-size-sm-alone shadow min-width-140 text-left mb-4 mb-md-0" data-choices>
                             <option>English</option>
                             <option>Tamil</option>
                             <option>French</option>

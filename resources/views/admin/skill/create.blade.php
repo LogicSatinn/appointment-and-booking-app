@@ -8,7 +8,7 @@
 
         <div class="block block-rounded block-bordered">
             <div class="block-content">
-                <form action="{{ route('skills.store') }}" method="POST">
+                <form action="{{ route('skills.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row push">
                         <div class="col-lg-12">
@@ -31,6 +31,16 @@
                                     @endforeach
                                 </select>
                                 @error('category')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="skill_cover_photo">Skill Cover Photo</label>
+                                <input type="file" class="form-control-file" id="skill_cover_photo" name="skill_cover_photo">
+                                @error('skill_cover_photo')
                                 <div class="alert alert-error">
                                     {{ $message }}
                                 </div>

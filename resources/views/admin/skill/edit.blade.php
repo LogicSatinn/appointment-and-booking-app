@@ -8,7 +8,7 @@
 
         <div class="block block-rounded block-bordered">
             <div class="block-content">
-                <form action="{{ route('skills.update', $skill) }}" method="POST">
+                <form action="{{ route('skills.update', $skill) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row push">
@@ -31,7 +31,17 @@
                                         <option value="{{ $key }}" @selected($skill->category_id == $key)>{{ $value }}</option>
                                     @endforeach
                                 </select>
-                                @error('category')
+                                @error('category_id')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="skill_cover_photo">Update Skill Cover Photo</label>
+                                <input type="file" class="form-control-file" id="skill_cover_photo" name="skill_cover_photo">
+                                @error('skill_cover_photo')
                                 <div class="alert alert-error">
                                     {{ $message }}
                                 </div>

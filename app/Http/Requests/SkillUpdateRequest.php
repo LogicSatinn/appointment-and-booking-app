@@ -12,9 +12,17 @@ class SkillUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
+    }
+
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => $this->get('title')
+        ]);
     }
 
     /**
@@ -26,6 +34,7 @@ class SkillUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'description' => ['required', 'string'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
         ];

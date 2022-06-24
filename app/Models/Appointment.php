@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Appointment
@@ -64,6 +65,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Appointment withoutTrashed()
  * @mixin \Eloquent
  * @method static Builder|Appointment whereSkillId($value)
+ * @method static Builder|Appointment whereTitle($value)
  */
 class Appointment extends Model
 {
@@ -75,10 +77,6 @@ class Appointment extends Model
      * @var array
      */
     protected $guarded = [];
-
-//    protected $dates = [
-//        'created_at', 'deleted_at', 'updated_at', 'from', 'to'
-//    ];
 
     /**
      * The attributes that should be cast to native types.
@@ -93,6 +91,15 @@ class Appointment extends Model
         'skill_id' => 'integer',
     ];
 
+    /**
+     * @return Attribute
+     */
+    public function slug(): Attribute
+    {
+        return Attribute::make(
+            set: fn () => strtolower(Str::snake($this->title, '-'))
+        );
+    }
 
     /**
      * @return Attribute
@@ -181,5 +188,13 @@ class Appointment extends Model
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(Client::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

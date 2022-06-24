@@ -16,6 +16,13 @@ class AppointmentUpdateRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => $this->get('title')
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +31,8 @@ class AppointmentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'from' => ['nullable', 'date_format:d/m/Y', 'after_or_equal:today', 'before_or_equal:to'],
             'to' => ['nullable', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
             'start' => ['nullable', 'date_format:H:i', 'before:end'],

@@ -25,7 +25,10 @@ class AppointmentStoreRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        $this->merge(['status' => Pending::class]);
+        $this->merge([
+            'status' => Pending::class,
+            'slug' => $this->get('title')
+        ]);
     }
 
 
@@ -38,6 +41,7 @@ class AppointmentStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'from' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'before_or_equal:to'],
             'to' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
             'start' => ['required', 'date_format:H:i', 'before:end'],

@@ -2,6 +2,7 @@
 <html lang="en">
 
 @include('client.layouts.inc.head')
+
 <body>
 
 <!-- MODALS
@@ -404,53 +405,12 @@
 </div>
 
 
-<!-- NAVBAR
-================================================== -->
-<div class="container d-none d-xl-block bg-dark">
-    <div class="d-flex align-items-center border-bottom border-white-20 pt-2 pb-4">
-        <ul class="nav mx-n3">
-            <li class="nav-item px-3">
-                <span class="font-size-sm text-white">(56) 123 456 789</span>
-            </li>
-            <li class="nav-item px-3">
-                <span class="font-size-sm text-white">hello@skola.com</span>
-            </li>
-        </ul>
-
-        <ul class="nav ms-auto me-n3 font-size-sm">
-            <li class="nav-item px-3">
-                <a href="#" class="nav-link p-0 text-white">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-            </li>
-            <li class="nav-item px-3">
-                <a href="#" class="nav-link p-0 text-white">
-                    <i class="fab fa-twitter"></i>
-                </a>
-            </li>
-            <li class="nav-item px-3">
-                <a href="#" class="nav-link p-0 text-white">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </li>
-            <li class="nav-item px-3">
-                <a href="#" class="nav-link p-0 text-white">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-
 <x-client.header/>
-
 {{ $slot }}
-
 <x-client.footer/>
 
 
 @include('client.layouts.inc.script')
-
 </body>
-
 </html>
+

@@ -44,7 +44,7 @@ class ResourceController extends Controller
             return redirect()->route('resources.index');
 
         } catch (\Exception|\Error) {
-            toast('Something went really wrong. We\re fixing this right now.', 'error');
+            toast('Something went really wrong. We\'re fixing this right now.', 'error');
 
             return back();
         }

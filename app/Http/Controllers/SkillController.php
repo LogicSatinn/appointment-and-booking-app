@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SkillController extends Controller
 {
@@ -43,7 +44,9 @@ class SkillController extends Controller
     public function store(SkillStoreRequest $request)
     {
         try {
-            Skill::create($request->validated());
+            $skill = Skill::create($request->only(['title', 'slug', 'category_id', 'description', 'status']));
+
+            $this->storeCoverPhoto($request, $skill);
 
             toast('Skill saved successfully', 'success');
 
@@ -90,6 +93,14 @@ class SkillController extends Controller
         try {
             $skill->update($request->validated());
 
+            if ($request->has('skill_cover_photo')) {
+                if (isset($skill->image_path)) {
+                    Storage::delete($skill->image_path);
+                }
+
+                $this->storeCoverPhoto($request, $skill);
+            }
+
             toast('Skill updated successfully', 'success');
 
             return redirect()->route('skills.index');
@@ -119,5 +130,16 @@ class SkillController extends Controller
             return back();
         }
 
+    }
+
+    protected function storeCoverPhoto($request, $skill)
+    {
+        $path = $request->file('skill_cover_photo')->storeAs(
+            'skill_covers',
+            $request->file('skill_cover_photo')->getClientOriginalName()
+        );
+
+        $skill->image_path = $path;
+        $skill->save();
     }
 }

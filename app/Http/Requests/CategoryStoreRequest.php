@@ -21,7 +21,10 @@ class CategoryStoreRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        $this->merge(['added_by' => auth()->id()]);
+        $this->merge([
+            'added_by' => auth()->id(),
+            'slug' => $this->get('name')
+        ]);
     }
 
     /**
@@ -33,6 +36,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'note' => ['string'],
             'added_by' => ['required', 'integer', 'exists:App\Models\User,id'],
         ];
