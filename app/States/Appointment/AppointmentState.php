@@ -8,6 +8,9 @@ use Spatie\ModelStates\StateConfig;
 
 abstract class AppointmentState extends State
 {
+
+    public function color(): string {}
+
     /**
      * @throws InvalidConfig
      */

@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientStoreRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Client;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index(Request $request)
     {
@@ -22,7 +25,7 @@ class ClientController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create(Request $request)
     {
@@ -30,14 +33,12 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\ClientStoreRequest $request
+     * @param ClientStoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ClientStoreRequest $request)
     {
-        $client = Client::create($request->validated());
-
-        $request->session()->flash('client.id', $client->id);
+        Client::create($request->validated());
 
         return redirect()->route('client.index');
     }

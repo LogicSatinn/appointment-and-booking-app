@@ -42,6 +42,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin \Eloquent
+ * @property string $slug
+ * @method static Builder|Category whereSlug($value)
  */
 class Category extends Model
 {

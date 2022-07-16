@@ -66,6 +66,8 @@ use Illuminate\Support\Str;
  * @mixin \Eloquent
  * @method static Builder|Appointment whereSkillId($value)
  * @method static Builder|Appointment whereTitle($value)
+ * @property string $slug
+ * @method static Builder|Appointment whereSlug($value)
  */
 class Appointment extends Model
 {
@@ -107,7 +109,7 @@ class Appointment extends Model
     public function from(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date('d M Y', strtotime(str_replace('-', ' ', $value))),
+            get: fn ($value) => Carbon::create($value)->toFormattedDateString(),
             set: fn ($value) => date('Y-m-d', strtotime(str_replace('/', '-', $value)))
         );
     }
@@ -119,11 +121,30 @@ class Appointment extends Model
     public function to(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date('d M Y', strtotime(str_replace('-', ' ', $value))),
+            get: fn ($value) => Carbon::create($value)->toFormattedDateString(),
             set: fn ($value) => date('Y-m-d', strtotime(str_replace('/', '-', $value)))
         );
     }
 
+    /**
+     * @return Attribute
+     */
+    public function duration(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->from)->diffInDays($this->to),
+        );
+    }
+
+    /**
+     * @return Attribute
+     */
+    public function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => 'TZS' . ' ' . $value,
+        );
+    }
 
     /**
      * @return Attribute

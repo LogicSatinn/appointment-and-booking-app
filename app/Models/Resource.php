@@ -54,6 +54,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Resource orWhereState(string $column, $states)
  * @method static Builder|Resource whereNotState(string $column, $states)
  * @method static Builder|Resource whereState($value)
+ * @property string $slug
+ * @method static Builder|Resource whereSlug($value)
  */
 class Resource extends Model
 {

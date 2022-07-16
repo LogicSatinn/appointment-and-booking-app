@@ -24,12 +24,11 @@ class ClientStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:users,id'],
-            'profession' => ['string'],
+            'name'=> ['required', 'string', 'min:3'],
+            'email' => ['required', 'email'],
+            'profession' => ['nullable', 'string'],
             'phone_number' => ['required', 'string'],
-            'address' => ['string'],
-            'status' => ['required', 'string'],
-            'softdeletes' => ['required'],
+            'address' => ['nullable', 'string'],
         ];
     }
 }

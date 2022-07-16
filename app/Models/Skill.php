@@ -53,6 +53,8 @@ use Illuminate\Support\Str;
  * @property-read int|null $appointments_count
  * @property string|null $image_path
  * @method static Builder|Skill whereImagePath($value)
+ * @property string $slug
+ * @method static Builder|Skill whereSlug($value)
  */
 class Skill extends Model
 {
@@ -72,9 +74,11 @@ class Skill extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'price' => 'decimal:2',
+        'title' => 'string',
+        'slug' => 'string',
         'category_id' => 'integer',
-        'access' => 'boolean',
+        'status' => 'string',
+        'image_path' => 'string'
     ];
 
     /**
