@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Skill;
 
-class CourseFactory extends Factory
+class SkillFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -23,12 +23,16 @@ class CourseFactory extends Factory
      */
     public function definition()
     {
+        $sentence = $this->faker->sentence(4);
         return [
-            'title' => $this->faker->sentence(4),
+            'title' => $sentence,
+            'slug' => $sentence,
             'description' => $this->faker->text,
-            'price' => $this->faker->randomFloat(2, 0, 999999.99),
+            'status' => $this->faker->randomElement([
+                'Draft',
+                'Published'
+            ]),
             'category_id' => Category::factory(),
-            'access' => $this->faker->boolean,
         ];
     }
 }

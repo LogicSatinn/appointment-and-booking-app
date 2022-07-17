@@ -23,8 +23,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name;
         return [
-            'name' => $this->faker->name,
+            'name' => $name,
+            'slug' => $name,
             'note' => $this->faker->word,
             'added_by' => User::factory(),
         ];

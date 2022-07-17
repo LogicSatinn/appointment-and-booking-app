@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Appointment;
@@ -24,12 +25,23 @@ class AppointmentFactory extends Factory
      */
     public function definition()
     {
+        $sentence = $this->faker->sentence(4);
         return [
-            'title' => $this->faker->sentence(4),
-            'duration' => $this->faker->time(),
-            'appointment_time' => $this->faker->dateTime(),
-            'resource_id' => Resource::factory(),
-            'course_id' => Skill::factory(),
+            'title' => $sentence,
+            'slug' => $sentence,
+            'from' => $this->faker->date(),
+            'to' => $this->faker->date(),
+            'start' => $this->faker->time,
+            'end' => $this->faker->time,
+            'status' => $this->faker->randomElement([
+                'Pending',
+                'Available'
+            ]),
+            'price' => rand(10000, 10000),
+            'resource_id' => Resource::factory()->state([
+                'state' => Available::class
+            ]),
+            'skill_id' => Skill::factory(),
         ];
     }
 }

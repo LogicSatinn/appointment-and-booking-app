@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClientSideController;
 use App\Http\Controllers\EnrollClientController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SkillController;
+use App\Http\Livewire\Client\Cart;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,6 +18,8 @@ Route::controller(ClientSideController::class)->group(function () {
 });
 
 Route::post('/{appointment}/client/enroll', [EnrollClientController::class, 'enroll'])->name('enroll.client');
+Route::get('/cart/{appointment}/{client}', Cart::class)->name('cart');
+Route::get('/checkout/{appointment}/{client}', [CheckoutController::class, 'index'])->name('client.checkout');
 
 Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::get('/dashboard', function () {
@@ -31,8 +35,5 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::resource('appointments', AppointmentController::class);
 });
 
-Route::get('/test', function () {
-    return view('client.cart');
-});
 
 require __DIR__.'/auth.php';

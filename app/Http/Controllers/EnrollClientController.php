@@ -15,14 +15,15 @@ class EnrollClientController extends Controller
     /**
      * @param Appointment $appointment
      * @param ClientStoreRequest $request
-     * @return Application|Factory|View
+     * @return Application
      */
     public function enroll(Appointment $appointment, ClientStoreRequest $request)
     {
-        Client::updateOrCreate($request->validated());
+        $client = Client::updateOrCreate($request->validated());
 
-        return view('cart', [
-            'appointment' => $appointment
-        ]);
+        return redirect(route('cart',  [
+            'appointment' => $appointment,
+            'client' => $client,
+        ]));
     }
 }

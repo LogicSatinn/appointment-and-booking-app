@@ -5,3 +5,5 @@
 @include('sweetalert::alert')
 
 @stack('page_js')
+
+<livewire:scripts />

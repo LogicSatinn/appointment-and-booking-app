@@ -94,7 +94,9 @@ class Client extends Model
      */
     public function appointments(): BelongsToMany
     {
-        return $this->belongsToMany(Appointment::class);
+        return $this->belongsToMany(Appointment::class)
+                    ->withPivot('no_of_seats')
+                    ->withTimestamps();
     }
 
     /**

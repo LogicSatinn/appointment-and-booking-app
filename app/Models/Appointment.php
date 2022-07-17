@@ -139,12 +139,13 @@ class Appointment extends Model
     /**
      * @return Attribute
      */
-    public function price(): Attribute
+    public function representablePrice(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => 'TZS' . ' ' . $value,
+            get: fn () => 'TZS' . ' ' . number_format($this->price),
         );
     }
+
 
     /**
      * @return Attribute
@@ -208,7 +209,9 @@ class Appointment extends Model
      */
     public function clients(): BelongsToMany
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class)
+            ->withPivot('no_of_seats')
+            ->withTimestamps();
     }
 
     /**
