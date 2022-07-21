@@ -5,7 +5,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand me-0" href="{{ url('/') }}">
-            <img src="{{ asset('frontend/img/brand.svg')}}" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('nia-lab.jpeg')}}" class="navbar-brand-img" alt="...">
         </a>
 
         <!-- Vertical Menu -->

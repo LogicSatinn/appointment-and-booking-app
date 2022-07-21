@@ -3,8 +3,8 @@
     <div class="smini-visible-block">
         <div class="content-header bg-header-dark">
             <!-- Logo -->
-            <a class="link-fx font-size-lg text-white" href="index.html">
-                <span class="text-white-75">X</span><span class="text-white">B</span>
+            <a class="link-fx font-size-lg text-white" href="{{ route('dashboard') }}">
+                <span class="text-white-75">Nia</span><span class="text-white">LaB</span>
             </a>
             <!-- END Logo -->
         </div>
@@ -15,7 +15,7 @@
     <div class="smini-hidden">
         <div class="content-header justify-content-lg-center bg-header-dark">
             <!-- Logo -->
-            <a class="link-fx font-size-lg text-white" href="index.html">
+            <a class="link-fx font-size-lg text-white" href="{{ route('dashboard') }}">
                 <span class="text-white">{{ config('app.name') }}</span>
             </a>
             <!-- END Logo -->
@@ -39,7 +39,7 @@
         <div class="smini-hide">
             <img class="img-avatar" src="{{ asset('assets/media/avatars/avatar10.jpg')}}" alt="">
             <div class="mt-3 font-w600">{{ auth()->user()->name }}</div>
-            <a class="link-fx text-muted" href="javascript:void(0)">$ 49.680,00</a>
+            <a class="link-fx text-muted" href="javascript:void(0)">Administrator</a>
         </div>
     </div>
     <!-- END Side Actions -->
@@ -54,61 +54,6 @@
                 </a>
             </li>
             <li class="nav-main-heading">Manage</li>
-{{--            <li class="nav-main-item">--}}
-{{--                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">--}}
-{{--                    <i class="nav-main-link-icon fa fa-piggy-bank"></i>--}}
-{{--                    <span class="nav-main-link-name">Accounts</span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav-main-submenu">--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Active</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Manage</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <i class="nav-main-link-icon fa fa-plus-circle"></i>--}}
-{{--                            <span class="nav-main-link-name">New Account</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--            <li class="nav-main-item">--}}
-{{--                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">--}}
-{{--                    <i class="nav-main-link-icon fa fa-money-check"></i>--}}
-{{--                    <span class="nav-main-link-name">Cards</span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav-main-submenu">--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Approved</span>--}}
-{{--                            <span class="nav-main-link-badge badge badge-pill badge-success">3</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Pending</span>--}}
-{{--                            <span class="nav-main-link-badge badge badge-pill badge-warning">1</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <span class="nav-main-link-name">Manage</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-main-item">--}}
-{{--                        <a class="nav-main-link" href="">--}}
-{{--                            <i class="nav-main-link-icon fa fa-plus-circle"></i>--}}
-{{--                            <span class="nav-main-link-name">New Card</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
             <li class="nav-main-item">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="nav-main-link-icon fa fa-money-bill"></i>
@@ -129,7 +74,7 @@
             </li>
             <li class="nav-main-item">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                    <i class="nav-main-link-icon fa fa-money-bill"></i>
+                    <i class="nav-main-link-icon fa fa-bell"></i>
                     <span class="nav-main-link-name">Appointments</span>
                 </a>
                 <ul class="nav-main-submenu">
@@ -147,51 +92,41 @@
             </li>
             <li class="nav-main-item">
                 <a class="nav-main-link" href="{{ route('categories.index') }}">
-                    <i class="nav-main-link-icon fa fa-user-circle"></i>
+                    <i class="nav-main-link-icon fa fa-archive"></i>
                     <span class="nav-main-link-name">Categories</span>
                 </a>
             </li>
             <li class="nav-main-item">
                 <a class="nav-main-link" href="{{ route('resources.index') }}">
-                    <i class="nav-main-link-icon fa fa-user-circle"></i>
+                    <i class="nav-main-link-icon fa fa-book-reader"></i>
                     <span class="nav-main-link-name">Resources</span>
                 </a>
             </li>
 
 
-            <li class="nav-main-heading">Personal</li>
+            <li class="nav-main-heading">Global</li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="">
-                    <i class="nav-main-link-icon fa fa-user-circle"></i>
-                    <span class="nav-main-link-name">Profile</span>
+                <a class="nav-main-link" href="{{ route('calendar.index') }}">
+                    <i class="nav-main-link-icon fa fa-calendar"></i>
+                    <span class="nav-main-link-name">Calendar</span>
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="">
-                    <i class="nav-main-link-icon fa fa-envelope"></i>
-                    <span class="nav-main-link-name">Messages</span>
-                    <span class="nav-main-link-badge badge badge-pill badge-success">3</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="">
+                <a class="nav-main-link" href="{{ route('settings.index') }}">
                     <i class="nav-main-link-icon fa fa-cog"></i>
                     <span class="nav-main-link-name">Settings</span>
                 </a>
             </li>
+
+            <li class="nav-main-heading"></li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="">
-                    <i class="nav-main-link-icon fa fa-lock"></i>
-                    <span class="nav-main-link-name">Security</span>
-                    <span class="nav-main-link-badge badge badge-pill badge-danger">1</span>
-                </a>
-            </li>
-            <li class="nav-main-heading">Dashboards</li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="be_pages_dashboard_all.html">
+                <a class="nav-main-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
                     <i class="nav-main-link-icon si si-arrow-left"></i>
-                    <span class="nav-main-link-name">Go Back</span>
+                    <span class="nav-main-link-name">Log Out</span>
                 </a>
+                <form action="{{ route('logout') }}" method="POST" id="logoutForm">
+                    @csrf
+                </form>
             </li>
         </ul>
     </div>

@@ -124,16 +124,35 @@
                                 <div class="card-body">
 
                                     <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Duration <span class="text-right">{{ $appointment->duration }} days</span></li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">From <span class="text-right">{{ $appointment->from }} </span></li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">To <span class="text-right">{{ $appointment->to }} </span></li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Time <span class="text-right">{{ $appointment->start }} - {{ $appointment->end }}</span></li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Lectures </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Enrolled</li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Language</li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Skill-Level</li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Deadline</li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">Certificate</li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Duration <span class="text-right">{{ $appointment->duration }} days</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            From <span class="text-right">{{ $appointment->from }} </span></li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">To
+                                            <span class="text-right">{{ $appointment->to }} </span></li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Time <span
+                                                class="text-right">{{ $appointment->start }} - {{ $appointment->end }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Lectures
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Enrolled
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Language
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Skill-Level
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Deadline
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Certificate
+                                        </li>
                                     </ul>
 
                                 </div>
@@ -352,9 +371,9 @@
 
                     <div class="pt-5 pb-4 px-5 px-lg-3 px-xl-5">
                         <div class="d-flex align-items-center mb-2">
-                            <ins class="h2 mb-0">{{ $appointment->price }}</ins>
-{{--                            <del class="ms-3">339.99</del>--}}
-{{--                            <div class="badge badge-lg badge-purple text-white ms-auto fw-normal">91% Off</div>--}}
+                            <ins class="h2 mb-0">{{ $appointment->representablePrice }}</ins>
+                            {{--                            <del class="ms-3">339.99</del>--}}
+                            {{--                            <div class="badge badge-lg badge-purple text-white ms-auto fw-normal">91% Off</div>--}}
                         </div>
 
                         <div class="d-flex align-items-center text-alizarin mb-6">
@@ -383,7 +402,7 @@
                             <span class="ms-2">{{ \Carbon\Carbon::parse(now())->diffInDays($appointment->from) }} days left !</span>
                         </div>
 
-                        <button class="btn btn-orange btn-block mb-6" type="button" data-bs-toggle="modal" data-bs-target="#enrollClient">ENROLL</button>
+                        <a class="btn btn-orange btn-block mb-6" href="{{ route('enroll-client', $appointment) }}">ENROLL</a>
 
                     </div>
                 </div>
@@ -401,98 +420,6 @@
             @foreach($otherAppointments as $otherAppointment)
                 <x-client.other-appointments-card :otherAppointment="$otherAppointment"/>
             @endforeach
-        </div>
-    </div>
-
-    <div class="modal fade" id="enrollClient" tabindex="-1" role="dialog" aria-labelledby="enrollClientTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-
-                    <!-- Close -->
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-
-                    <!-- Heading -->
-                    <h2 class="fw-bold text-center mb-1" id="enrollClientTitle">
-                        Enroll on this Appointment
-                    </h2>
-
-                    <!-- Text -->
-                    <p class="font-size-lg text-center text-muted mb-6 mb-md-8">
-                        Please fill this form with the details required. It is imperative these details are correct.
-                    </p>
-
-                    <!-- Form -->
-                    <form action="{{ route('enroll.client', $appointment) }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 col-md-12">
-
-                                <!-- First name -->
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control form-control-flush" id="name" name="name" placeholder="Name" required>
-                                    <label for="name">Name</label>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-
-                                <!-- Email -->
-                                <div class="form-label-group">
-                                    <input type="email" class="form-control form-control-flush" id="email" name="email" placeholder="Email" required>
-                                    <label for="email">Email</label>
-                                </div>
-
-                            </div>
-                            <div class="col-12 col-md-6">
-
-                                <!-- Password -->
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control form-control-flush" id="phone_number" name="phone_number" placeholder="Phone Number (eg. 25575609090909)" required>
-                                    <label for="phone_number">Phone Number (2557***)</label>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-
-                                <!-- Email -->
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control form-control-flush" id="profession" name="profession" placeholder="Profession (Optional)">
-                                    <label for="profession">Profession (Optional)</label>
-                                </div>
-
-                            </div>
-                            <div class="col-12 col-md-6">
-
-                                <!-- Password -->
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control form-control-flush" id="address" name="address" placeholder="Address (Optional)">
-                                    <label for="address">Address (Optional)</label>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-
-                                <!-- Submit -->
-                                <button class="btn btn-block btn-primary mt-3 lift" type="submit">
-                                    Continue
-                                </button>
-
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </div>
     </div>
 </x-client.master-layout>

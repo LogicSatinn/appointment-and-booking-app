@@ -18,8 +18,6 @@
                 </ol>
             </nav>
         </div>
-        <!-- Img -->
-        <img class="d-none img-fluid" src="...html" alt="...">
     </header>
 
 
@@ -33,7 +31,6 @@
                         <!-- .entry-header -->
                         <div class="entry-content">
                             <div class="woocommerce">
-                                {{--                            <form class="woocommerce-cart-form table-responsive" action="#" method="post">--}}
                                 <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
                                     <thead>
                                     <tr>
@@ -98,7 +95,6 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                {{--                            </form>--}}
                             </div>
                         </div>
                         <!-- .entry-content -->
