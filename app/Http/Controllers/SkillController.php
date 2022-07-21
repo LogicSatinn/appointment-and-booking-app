@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SkillStatus;
 use App\Http\Requests\SkillStoreRequest;
 use App\Http\Requests\SkillUpdateRequest;
 use App\Models\Category;
@@ -132,6 +133,35 @@ class SkillController extends Controller
 
     }
 
+    /**
+     * @param Skill $skill
+     * @return RedirectResponse
+     */
+    public function archiveSkill(Skill $skill): RedirectResponse
+    {
+        $skill->status = SkillStatus::ARCHIVED->value;
+        $skill->save();
+
+        return back();
+    }
+
+    /**
+     * @param Skill $skill
+     * @return RedirectResponse
+     */
+    public function publishSkill(Skill $skill): RedirectResponse
+    {
+        $skill->status = SkillStatus::PUBLISHED->value;
+        $skill->save();
+
+        return back();
+    }
+
+    /**
+     * @param $request
+     * @param $skill
+     * @return void
+     */
     protected function storeCoverPhoto($request, $skill)
     {
         $path = $request->file('skill_cover_photo')->storeAs(

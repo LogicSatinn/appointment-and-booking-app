@@ -399,7 +399,7 @@
                                     fill="currentColor"/>
                             </svg>
 
-                            <span class="ms-2">{{ \Carbon\Carbon::parse(now())->diffInDays($appointment->from) }} days left !</span>
+                            <span class="ms-2">{{ \Carbon\Carbon::parse(now())->diffInDays($appointment->from) }} day(s) left !</span>
                         </div>
 
                         <a class="btn btn-orange btn-block mb-6" href="{{ route('enroll-client', $appointment) }}">ENROLL</a>

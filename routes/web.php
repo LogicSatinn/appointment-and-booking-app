@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(ClientSideController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
+    Route::get('/skills', 'skills')->name('skills');
     Route::get('/skill-details/{skill}', 'skillDetails')->name('skillDetails');
     Route::get('/appointment-details/{appointment}', 'appointmentDetails')->name('appointmentDetails');
 });
@@ -36,6 +37,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::view('/calendar/index', 'admin.calendar.index')->name('calendar.index');
 
     Route::resource('categories', CategoryController::class);
+
+    Route::controller(SkillController::class)->prefix('skills')->group(function () {
+        Route::get('/archive-skill/{skill}', 'archiveSkill')->name('archive-skill');
+        Route::get('/publish-skill/{skill}', 'publishSkill')->name('publish-skill');
+    });
 
     Route::resource('skills', SkillController::class);
 

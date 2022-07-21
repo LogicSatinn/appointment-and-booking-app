@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum ReservationStatus: string
 {
-    case COMPLETE = 'Complete';
-    case INCOMPLETE = 'Incomplete';
+    case RESERVED = 'Reserved';
+    case BOOKED = 'Booked';
+    case PENDING = 'Pending';
 }

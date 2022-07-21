@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SkillStatus;
 use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\Skill;
@@ -19,8 +20,23 @@ class ClientSideController extends Controller
     public function index()
     {
         return view('client.index', [
-            'skills' => Skill::with('category:id,name')->get(),
-            'categories' => Category::select('id', 'name')->withCount('skills')->get()->sortByDesc('skills_count')
+            'skills' => Skill::with('category:id,name')->where('status', SkillStatus::PUBLISHED)->get(),
+            'categories' => Category::select('id', 'name')->withCount('skills')->get()->sortByDesc('skills_count'),
+            'upcomingAppointments' => Appointment::whereRelation('skill', 'status', SkillStatus::PUBLISHED)
+                ->whereBetween('from', [now(), now()->addWeek()])
+                ->with(['skill' => function ($query) {
+                    $query->where('status', SkillStatus::PUBLISHED);
+                }])->orderBy('from')->get()
+        ]);
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function skills()
+    {
+        return view('client.skills', [
+            'skills' => Skill::with('category:id,name')->where('status', SkillStatus::PUBLISHED)->get()
         ]);
     }
 

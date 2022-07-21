@@ -10,8 +10,8 @@
                         {{ $skill->title }}
                     </h1>
                     <h2 class="h3 font-w400 text-white-75">
-{{--                        All the tips and tricks you need to know to be a pro--}}
                     </h2>
+
                     <form action="{{ route('skills.destroy', $skill) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -22,6 +22,15 @@
                             <i class="fa fa-trash mr-1"></i> Delete
                         </button>
                     </form>
+                </div>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-default-primary">
+                        <a class="dropdown-item" href="{{ route('archive-skill', $skill) }}">Archive Skill</a>
+                        <a class="dropdown-item" href="{{ route('publish-skill', $skill) }}">Publish Skill</a>
+                    </div>
                 </div>
             </div>
         </div>

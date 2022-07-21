@@ -75,7 +75,7 @@ class ProcessCheckout extends Component
                 'appointment_id' => $this->appointment->id,
                 'booking_id' => $booking->id,
                 'seat_number' => rand(1, $this->appointment->resource->capacity),
-                'status' => ReservationStatus::INCOMPLETE,
+                'status' => ReservationStatus::BOOKED,
                 'reference_code' => 'NL-R' . rand(0000000, 9999999),
                 'reserved_at' => now()
             ]);
