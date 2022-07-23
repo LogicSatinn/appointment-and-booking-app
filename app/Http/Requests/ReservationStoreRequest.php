@@ -25,7 +25,7 @@ class ReservationStoreRequest extends FormRequest
     {
         return [
             'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'appointment_id' => ['required', 'integer', 'exists:appointments,id'],
+            'timetable_id' => ['required', 'integer', 'exists:timetables,id'],
             'booking_id' => ['required', 'integer', 'exists:bookings,id'],
             'seat_number' => ['required', 'integer'],
             'status' => ['required', 'string'],

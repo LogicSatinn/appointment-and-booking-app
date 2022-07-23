@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Enums\SkillLevel;
+use App\Enums\SkillStatus;
 use App\Http\Controllers\SkillController;
 use App\Http\Requests\SkillStoreRequest;
 use App\Http\Requests\SkillUpdateRequest;
@@ -24,13 +26,13 @@ class SkillControllerTest extends TestCase
      */
     public function index_displays_view()
     {
-        $courses = Skill::factory()->count(3)->create();
+        $skills = Skill::factory()->count(3)->create();
 
         $response = $this->get(route('skill.index'));
 
         $response->assertOk();
         $response->assertViewIs('skill.index');
-        $response->assertViewHas('courses');
+        $response->assertViewHas('skills');
     }
 
 
@@ -64,31 +66,50 @@ class SkillControllerTest extends TestCase
     public function store_saves_and_redirects()
     {
         $title = $this->faker->sentence(4);
+        $slug = $title;
         $description = $this->faker->text;
-        $price = $this->faker->randomFloat(/** decimal_attributes **/);
+        $modeOfDelivery = $this->faker->text;
+        $prerequisite = $this->faker->text;
+        $suitableFor = $this->faker->text;
+        $level = $this->faker->randomElement([
+            SkillLevel::BEGINNER,
+            SkillLevel::INTERMEDIATE,
+            SkillLevel::ADVANCED,
+        ]);
+        $status = $this->faker->randomElement([
+            SkillStatus::DRAFT,
+            SkillStatus::ARCHIVED,
+            SkillStatus::PUBLISHED,
+        ]);
         $category = Category::factory()->create();
-        $access = $this->faker->boolean;
 
         $response = $this->post(route('skill.store'), [
             'title' => $title,
+            'slug' => $slug,
             'description' => $description,
-            'price' => $price,
+            'mode_of_delivery' => $modeOfDelivery,
+            'prerequisite' => $prerequisite,
+            'suitable_for' => $suitableFor,
+            'level' => $level,
+            'status' => $status,
             'category_id' => $category->id,
-            'access' => $access,
         ]);
 
-        $courses = Skill::query()
+        $skills = Skill::query()
             ->where('title', $title)
             ->where('description', $description)
-            ->where('price', $price)
+            ->where('mode_of_delivery', $modeOfDelivery)
+            ->where('prerequisite', $prerequisite)
+            ->where('suitable_for', $suitableFor)
+            ->where('level', $level)
+            ->where('status', $status)
             ->where('category_id', $category->id)
-            ->where('access', $access)
             ->get();
-        $this->assertCount(1, $courses);
-        $course = $courses->first();
+        $this->assertCount(1, $skills);
+        $skill = $skills->first();
 
         $response->assertRedirect(route('skill.index'));
-        $response->assertSessionHas('skill.id', $course->id);
+        $response->assertSessionHas('skill.id', $skill->id);
     }
 
 
@@ -97,9 +118,9 @@ class SkillControllerTest extends TestCase
      */
     public function show_displays_view()
     {
-        $course = Skill::factory()->create();
+        $skill = Skill::factory()->create();
 
-        $response = $this->get(route('skill.show', $course));
+        $response = $this->get(route('skill.show', $skill));
 
         $response->assertOk();
         $response->assertViewIs('skill.show');
@@ -112,9 +133,9 @@ class SkillControllerTest extends TestCase
      */
     public function edit_displays_view()
     {
-        $course = Skill::factory()->create();
+        $skill = Skill::factory()->create();
 
-        $response = $this->get(route('skill.edit', $course));
+        $response = $this->get(route('skill.edit', $skill));
 
         $response->assertOk();
         $response->assertViewIs('skill.edit');
@@ -139,31 +160,51 @@ class SkillControllerTest extends TestCase
      */
     public function update_redirects()
     {
-        $course = Skill::factory()->create();
+        $skill = Skill::factory()->create();
         $title = $this->faker->sentence(4);
+        $slug = $title;
         $description = $this->faker->text;
-        $price = $this->faker->randomFloat(/** decimal_attributes **/);
+        $modeOfDelivery = $this->faker->text;
+        $prerequisite = $this->faker->text;
+        $suitableFor = $this->faker->text;
+        $level = $this->faker->randomElement([
+            SkillLevel::BEGINNER,
+            SkillLevel::INTERMEDIATE,
+            SkillLevel::ADVANCED,
+        ]);
+        $status = $this->faker->randomElement([
+            SkillStatus::DRAFT,
+            SkillStatus::ARCHIVED,
+            SkillStatus::PUBLISHED,
+        ]);
         $category = Category::factory()->create();
-        $access = $this->faker->boolean;
 
-        $response = $this->put(route('skill.update', $course), [
+        $response = $this->put(route('skill.update', $skill), [
             'title' => $title,
+            'slug' => $slug,
             'description' => $description,
-            'price' => $price,
+            'mode_of_delivery' => $modeOfDelivery,
+            'prerequisite' => $prerequisite,
+            'suitable_for' => $suitableFor,
+            'level' => $level,
+            'status' => $status,
             'category_id' => $category->id,
-            'access' => $access,
         ]);
 
-        $course->refresh();
+        $skill->refresh();
 
         $response->assertRedirect(route('skill.index'));
-        $response->assertSessionHas('skill.id', $course->id);
+        $response->assertSessionHas('skill.id', $skill->id);
 
-        $this->assertEquals($title, $course->title);
-        $this->assertEquals($description, $course->description);
-        $this->assertEquals($price, $course->price);
-        $this->assertEquals($category->id, $course->category_id);
-        $this->assertEquals($access, $course->access);
+        $this->assertEquals($title, $skill->title);
+        $this->assertEquals($slug, $skill->slug);
+        $this->assertEquals($description, $skill->description);
+        $this->assertEquals($modeOfDelivery, $skill->mode_of_delivery);
+        $this->assertEquals($prerequisite, $skill->prerequisite);
+        $this->assertEquals($suitableFor, $skill->suitable_for);
+        $this->assertEquals($level, $skill->level);
+        $this->assertEquals($status, $skill->status);
+        $this->assertEquals($category->id, $skill->category_id);
     }
 
 
@@ -172,12 +213,12 @@ class SkillControllerTest extends TestCase
      */
     public function destroy_deletes_and_redirects()
     {
-        $course = Skill::factory()->create();
+        $skill = Skill::factory()->create();
 
-        $response = $this->delete(route('skill.destroy', $course));
+        $response = $this->delete(route('skill.destroy', $skill));
 
         $response->assertRedirect(route('skill.index'));
 
-        $this->assertSoftDeleted($course);
+        $this->assertSoftDeleted($skill);
     }
 }

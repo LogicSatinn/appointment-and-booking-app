@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Category;
 use App\Models\Skill;
-use App\States\Appointment\Pending;
+use App\States\Timetable\NotStarted;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
          ]);
 
          Skill::factory(4)
-             ->has(Appointment::factory()->count(3)->state([
-                 'status' => Pending::class
+             ->has(Timetable::factory()->count(3)->state([
+                 'status' => NotStarted::class
              ]))
              ->for(Category::factory()->create())
              ->create();

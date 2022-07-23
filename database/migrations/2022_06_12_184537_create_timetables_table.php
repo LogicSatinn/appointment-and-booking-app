@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppointmentsTable extends Migration
+class CreateTimetablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('timetables', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug');
@@ -47,6 +47,6 @@ class CreateAppointmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('timetables');
     }
 }

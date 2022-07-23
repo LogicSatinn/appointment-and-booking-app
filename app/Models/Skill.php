@@ -49,8 +49,8 @@ use Illuminate\Support\Str;
  * @mixin \Eloquent
  * @property string $status
  * @method static Builder|Skill whereStatus($value)
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
  * @property string|null $image_path
  * @method static Builder|Skill whereImagePath($value)
  * @property string $slug
@@ -78,7 +78,11 @@ class Skill extends Model
         'slug' => 'string',
         'category_id' => 'integer',
         'status' => 'string',
-        'image_path' => 'string'
+        'image_path' => 'string',
+        'description' => 'string',
+        'mode_of_delivery' => 'string',
+        'prerequisite' => 'string',
+        'suitable_for' => 'string',
     ];
 
     /**
@@ -112,9 +116,9 @@ class Skill extends Model
     /**
      * @return HasMany
      */
-    public function appointments(): HasMany
+    public function timetables(): HasMany
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Timetable::class);
     }
 
     /**

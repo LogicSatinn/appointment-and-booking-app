@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Reservation;
@@ -63,7 +63,7 @@ class ReservationControllerTest extends TestCase
     public function store_saves_and_redirects()
     {
         $client = Client::factory()->create();
-        $appointment = Appointment::factory()->create();
+        $timetable = Timetable::factory()->create();
         $booking = Booking::factory()->create();
         $seat_number = $this->faker->numberBetween(-10000, 10000);
         $status = $this->faker->word;
@@ -72,7 +72,7 @@ class ReservationControllerTest extends TestCase
 
         $response = $this->post(route('reservation.store'), [
             'client_id' => $client->id,
-            'appointment_id' => $appointment->id,
+            'timetable_id' => $timetable->id,
             'booking_id' => $booking->id,
             'seat_number' => $seat_number,
             'status' => $status,
@@ -82,7 +82,7 @@ class ReservationControllerTest extends TestCase
 
         $reservations = Reservation::query()
             ->where('client_id', $client->id)
-            ->where('appointment_id', $appointment->id)
+            ->where('timetable_id', $timetable->id)
             ->where('booking_id', $booking->id)
             ->where('seat_number', $seat_number)
             ->where('status', $status)
@@ -146,7 +146,7 @@ class ReservationControllerTest extends TestCase
     {
         $reservation = Reservation::factory()->create();
         $client = Client::factory()->create();
-        $appointment = Appointment::factory()->create();
+        $timetable = Timetable::factory()->create();
         $booking = Booking::factory()->create();
         $seat_number = $this->faker->numberBetween(-10000, 10000);
         $status = $this->faker->word;
@@ -155,7 +155,7 @@ class ReservationControllerTest extends TestCase
 
         $response = $this->put(route('reservation.update', $reservation), [
             'client_id' => $client->id,
-            'appointment_id' => $appointment->id,
+            'timetable_id' => $timetable->id,
             'booking_id' => $booking->id,
             'seat_number' => $seat_number,
             'status' => $status,
@@ -169,7 +169,7 @@ class ReservationControllerTest extends TestCase
         $response->assertSessionHas('reservation.id', $reservation->id);
 
         $this->assertEquals($client->id, $reservation->client_id);
-        $this->assertEquals($appointment->id, $reservation->appointment_id);
+        $this->assertEquals($timetable->id, $reservation->timetable_id);
         $this->assertEquals($booking->id, $reservation->booking_id);
         $this->assertEquals($seat_number, $reservation->seat_number);
         $this->assertEquals($status, $reservation->status);

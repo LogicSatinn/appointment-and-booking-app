@@ -1,17 +1,17 @@
-@section('title', 'Appointments')
+@section('title', 'Timetables')
 
 <x-admin.master-layout>
     <div class="content">
         <h2 class="content-heading">
-            Appointments
+            Timetables
         </h2>
 
         <!-- Hover Table -->
         <div class="block block-rounded block-bordered">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Appointments Table</h3>
-                <a href="{{ route('appointments.create') }}" class="btn btn-primary">
-                    Create Appointment
+                <h3 class="block-title">Timetables Table</h3>
+                <a href="{{ route('timetables.create') }}" class="btn btn-primary">
+                    Create Timetable
                 </a>
             </div>
             <div class="block-content">
@@ -31,40 +31,40 @@
                     </thead>
                     @php $i=1 @endphp
                     <tbody>
-                    @foreach($appointments as $appointment)
+                    @foreach($timetables as $timetable)
                         <tr>
                             <th class="text-center" scope="row">{{ $i++ }}</th>
                             <td class="font-w600">
-                                {{ $appointment->title }}
+                                {{ $timetable->title }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->skill->title }}
+                                {{ $timetable->skill->title }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->resource->name }}
+                                {{ $timetable->resource->name }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->from }} - {{ $appointment->to }}
+                                {{ $timetable->from }} - {{ $timetable->to }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->start }} - {{ $appointment->end }}
+                                {{ $timetable->start }} - {{ $timetable->end }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->status }}
+                                {{ $timetable->status }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->price }}
+                                {{ $timetable->price }}
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('appointments.destroy', $appointment) }}" method="POST">
+                                <form action="{{ route('timetables.destroy', $timetable) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <div class="btn-group">
-{{--                                        <a href="{{ route('appointments.show', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
+{{--                                        <a href="{{ route('timetables.show', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
 {{--                                           title="View">--}}
 {{--                                            <i class="fa fa-eye-alt"></i>--}}
 {{--                                        </a>--}}
-                                        <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                        <a href="{{ route('timetables.edit', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="Edit">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>

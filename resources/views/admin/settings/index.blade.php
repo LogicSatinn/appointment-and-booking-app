@@ -164,5 +164,34 @@
                 </form>
             </div>
         </div>
+
+        <div class="block block-rounded block-bordered">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Other Settings</h3>
+            </div>
+            <div class="block-content p-2">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="google_calendar_credentials">Google Calendar Credentials</label>
+                                    <input type="file" id="google_calendar_credentials"
+                                           name="google_calendar_credentials">
+                                @error('google_calendar_credentials')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </x-admin.master-layout>

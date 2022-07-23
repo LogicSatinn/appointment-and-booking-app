@@ -1,14 +1,14 @@
-@section('title', 'Create Appointment')
+@section('title', 'Create Timetable')
 
 <x-admin.master-layout>
     <div class="content">
         <h2 class="content-heading">
-            Create New Appointment
+            Create New Timetable
         </h2>
 
         <div class="block block-rounded block-bordered">
             <div class="block-content">
-                <form action="{{ route('appointments.store') }}" method="POST">
+                <form action="{{ route('timetables.store') }}" method="POST">
                     @csrf
                     <div class="row push">
 
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="form-group col-lg-8">
-                            <label for="">Date Range for this appointment</label>
+                            <label for="">Date Range for this timetable</label>
                             <div class="input-daterange input-group" data-date-format="dd/mm/yyyy" data-week-start="1"
                                  data-autoclose="true" data-today-highlight="true">
                                 <input type="text" class="form-control" id="from" name="from" placeholder="From"
@@ -102,7 +102,7 @@
 
 
                         <div class="form-group col-xl-6">
-                            <label for="start">Starting Time of the appointment</label>
+                            <label for="start">Starting Time of the timetable</label>
                             <input type="text" class="js-flatpickr form-control bg-white" id="start" name="start"
                                    data-enable-time="true" data-no-calendar="true" data-date-format="H:i"
                                    data-time_24hr="true">
@@ -116,7 +116,7 @@
 
 
                         <div class="form-group col-xl-6">
-                            <label for="end">End of the Appointment (per day)</label>
+                            <label for="end">End of the Timetable (per day)</label>
                             <input type="text" class="js-flatpickr form-control bg-white" id="end" name="end"
                                    data-enable-time="true" data-no-calendar="true" data-date-format="H:i"
                                    data-time_24hr="true">

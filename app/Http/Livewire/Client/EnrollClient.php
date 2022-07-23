@@ -2,14 +2,19 @@
 
 namespace App\Http\Livewire\Client;
 
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Client;
+use App\Services\BeemSmsService;
 use App\View\Components\Client\MasterLayout;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Livewire\Component;
 
 class EnrollClient extends Component
 {
-    public $appointment;
+    public $timetable;
     public $name = 'Name';
     public $email = 'Email';
     public $phoneNumber = 'Phone Number';
@@ -25,12 +30,15 @@ class EnrollClient extends Component
         'address' => 'nullable|string|min:3'
     ];
 
-    public function mount(Appointment $appointment)
+    public function mount(Timetable $timetable)
     {
-        $this->appointment = $appointment;
+        $this->timetable = $timetable;
     }
 
-    public function saveClient()
+    /**
+     * @throws GuzzleException
+     */
+    public function saveClient(): Redirector|Application|RedirectResponse
     {
         $this->client = Client::firstOrCreate([
             'email' => $this->email,
@@ -42,8 +50,12 @@ class EnrollClient extends Component
             'address' => $this->address
         ]);
 
+        (new BeemSmsService())
+            ->content('You have enrolled for the course successfully. Please continue with the booking and reservation processes.')
+            ->getRecipients([$this->client->phone_number])->send();
+
         return redirect(route('cart', [
-            'appointment' => $this->appointment,
+            'timetable' => $this->timetable,
             'client' => $this->client
         ]));
     }

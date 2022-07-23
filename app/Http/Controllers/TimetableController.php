@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AppointmentStoreRequest;
-use App\Http\Requests\AppointmentUpdateRequest;
-use App\Models\Appointment;
+use App\Http\Requests\TimetableStoreRequest;
+use App\Http\Requests\TimetableUpdateRequest;
+use App\Models\Timetable;
 use App\Models\Resource;
 use App\Models\Skill;
 use Error;
@@ -15,16 +15,16 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class AppointmentController extends Controller
+class TimetableController extends Controller
 {
     /**
      * @return Application|Factory|View
      */
     public function index()
     {
-        $appointments = Appointment::all();
+        $timetables = Timetable::all();
 
-        return view('admin.appointment.index', compact('appointments'));
+        return view('admin.timetable.index', compact('timetables'));
     }
 
     /**
@@ -32,24 +32,24 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('admin.appointment.create', [
+        return view('admin.timetable.create', [
             'skills' => Skill::pluck('title', 'id'),
             'resources' => Resource::pluck('name', 'id')
         ]);
     }
 
     /**
-     * @param AppointmentStoreRequest $request
+     * @param TimetableStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(AppointmentStoreRequest $request)
+    public function store(TimetableStoreRequest $request)
     {
         try {
-            Appointment::create($request->validated());
+            Timetable::create($request->validated());
 
-            toast('Appointment saved successfully.', 'success');
+            toast('Timetable saved successfully.', 'success');
 
-            return redirect()->route('appointments.index');
+            return redirect()->route('timetables.index');
         } catch (Exception|Error) {
             toast('Something went really wrong. We\'re working hard to fix this.', 'error');
 
@@ -59,40 +59,40 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param Appointment $appointment
+     * @param Timetable $timetable
      * @return Application|Factory|View
      */
-    public function show(Appointment $appointment)
+    public function show(Timetable $timetable)
     {
-        return view('admin.appointment.show', compact('appointment'));
+        return view('admin.timetable.show', compact('timetable'));
     }
 
     /**
-     * @param Appointment $appointment
+     * @param Timetable $timetable
      * @return Application|Factory|View
      */
-    public function edit(Appointment $appointment)
+    public function edit(Timetable $timetable)
     {
-        return view('admin.appointment.edit', [
-            'appointment' => $appointment,
+        return view('admin.timetable.edit', [
+            'timetable' => $timetable,
             'skills' => Skill::pluck('title', 'id'),
             'resources' => Resource::pluck('name', 'id')
         ]);
     }
 
     /**
-     * @param AppointmentUpdateRequest $request
-     * @param Appointment $appointment
+     * @param TimetableUpdateRequest $request
+     * @param Timetable $timetable
      * @return RedirectResponse
      */
-    public function update(AppointmentUpdateRequest $request, Appointment $appointment)
+    public function update(TimetableUpdateRequest $request, Timetable $timetable)
     {
         try {
-            $appointment->update($request->validated());
+            $timetable->update($request->validated());
 
-            toast('Appointment updated successfully', 'success');
+            toast('Timetable updated successfully', 'success');
 
-            return redirect()->route('appointments.index');
+            return redirect()->route('timetables.index');
         } catch (Exception|Error) {
             toast('Something went really wrong. We\'re working on this right now', 'error');
 
@@ -102,17 +102,17 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param Appointment $appointment
+     * @param Timetable $timetable
      * @return RedirectResponse
      */
-    public function destroy(Appointment $appointment)
+    public function destroy(Timetable $timetable)
     {
         try {
-            $appointment->delete();
+            $timetable->delete();
 
-            toast('Appointment deleted successfully', 'success');
+            toast('Timetable deleted successfully', 'success');
 
-            return redirect()->route('appointments.index');
+            return redirect()->route('timetables.index');
         } catch (Exception|Error) {
             toast('Something went really wrong. We\re working hard to fix this.', 'error');
 

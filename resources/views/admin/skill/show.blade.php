@@ -79,7 +79,7 @@
         <!-- Lessons -->
         <div class="block block-rounded block-bordered">
             <h4 class="block-header">
-                Appointments for {{ $skill->title }}
+                Timetables for {{ $skill->title }}
             </h4>
             <div class="block-content">
                 <table class="table table-hover table-vcenter">
@@ -97,33 +97,33 @@
                     </thead>
                     @php $i=1 @endphp
                     <tbody>
-                    @foreach($appointments as $appointment)
+                    @foreach($timetables as $timetable)
                         <tr>
                             <th class="text-center" scope="row">{{ $i++ }}</th>
                             <td class="font-w600">
-                                {{ $appointment->skill->title }}
+                                {{ $timetable->skill->title }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->resource->name }}
+                                {{ $timetable->resource->name }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->from }} - {{ $appointment->to }}
+                                {{ $timetable->from }} - {{ $timetable->to }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->start }} - {{ $appointment->end }}
+                                {{ $timetable->start }} - {{ $timetable->end }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->status }}
+                                {{ $timetable->status }}
                             </td>
                             <td class="font-w600">
-                                {{ $appointment->price }}
+                                {{ $timetable->price }}
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('appointments.destroy', $appointment) }}" method="POST">
+                                <form action="{{ route('timetables.destroy', $timetable) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <div class="btn-group">
-                                        <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                        <a href="{{ route('timetables.edit', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="Edit">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>

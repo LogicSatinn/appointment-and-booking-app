@@ -12,8 +12,8 @@
                 <tbody>
                 <tr class="cart_item">
                     <td class="product-name">
-                        Seats
-                        <strong class="product-quantity">× {{ $this->clientAppointment->pivot->no_of_seats }}</strong>
+                        Seats ( @ {{$timetable->representablePrice}} )
+                        <strong class="product-quantity">× {{ $this->clientTimetable->pivot->no_of_seats }}</strong>
                     </td>
                     <td class="product-total">
                                     <span class="woocommerce-Price-amount amount">
@@ -62,7 +62,7 @@
 
                     <label for="reservation">Reserve Seat </label>
                     <div class="payment_box col-12">
-                        <p>Reserve a seat, and you'll pay directly when you arrive for the appointment.</p>
+                        <p>Reserve a seat, and you'll pay directly when you arrive for the timetable.</p>
                     </div>
                 </li>
 

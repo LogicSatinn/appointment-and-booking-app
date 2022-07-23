@@ -28,8 +28,8 @@ use Illuminate\Notifications\Notifiable;
  * @property Carbon $updated_at
  * @property string $name
  * @property string $email
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
  * @property-read Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
  * @property-read Collection|Reservation[] $reservations
@@ -93,9 +93,9 @@ class Client extends Model
     /**
      * @return BelongsToMany
      */
-    public function appointments(): BelongsToMany
+    public function timetables(): BelongsToMany
     {
-        return $this->belongsToMany(Appointment::class)
+        return $this->belongsToMany(Timetable::class)
                     ->withPivot('no_of_seats')
                     ->withTimestamps();
     }

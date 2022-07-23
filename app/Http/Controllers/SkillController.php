@@ -68,7 +68,7 @@ class SkillController extends Controller
     {
         return view('admin.skill.show', [
             'skill' => $skill,
-            'appointments' => $skill->appointments
+            'timetables' => $skill->timetables
         ]);
     }
 

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Http\Controllers\ClientController;
+use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,7 +51,7 @@ class ClientControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ClientController::class,
+            ClientController::class,
             'store',
             \App\Http\Requests\ClientStoreRequest::class
         );
@@ -60,20 +62,26 @@ class ClientControllerTest extends TestCase
      */
     public function store_saves_and_redirects()
     {
-        $user = User::factory()->create();
-        $phone_number = $this->faker->phoneNumber;
-        $status = $this->faker->word;
+        $name = $this->faker->name;
+        $email = $this->faker->email;
+        $profession = $this->faker->word;
+        $phoneNumber = $this->faker->phoneNumber;
+        $address = $this->faker->address;
 
         $response = $this->post(route('client.store'), [
-            'user_id' => $user->id,
-            'phone_number' => $phone_number,
-            'status' => $status,
+            'name' => $name,
+            'email' => $email,
+            'profession' => $profession,
+            'address' => $address,
+            'phone_number' => $phoneNumber,
         ]);
 
         $clients = Client::query()
-            ->where('user_id', $user->id)
-            ->where('phone_number', $phone_number)
-            ->where('status', $status)
+            ->where('name', $name)
+            ->where('email', $email)
+            ->where('phone_number', $phoneNumber)
+            ->where('profession', $profession)
+            ->where('address', $address)
             ->get();
         $this->assertCount(1, $clients);
         $client = $clients->first();
@@ -119,9 +127,9 @@ class ClientControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ClientController::class,
+            ClientController::class,
             'update',
-            \App\Http\Requests\ClientUpdateRequest::class
+            ClientUpdateRequest::class
         );
     }
 
@@ -131,14 +139,18 @@ class ClientControllerTest extends TestCase
     public function update_redirects()
     {
         $client = Client::factory()->create();
-        $user = User::factory()->create();
-        $phone_number = $this->faker->phoneNumber;
-        $status = $this->faker->word;
+        $name = $this->faker->name;
+        $email = $this->faker->email;
+        $profession = $this->faker->word;
+        $phoneNumber = $this->faker->phoneNumber;
+        $address = $this->faker->address;
 
         $response = $this->put(route('client.update', $client), [
-            'user_id' => $user->id,
-            'phone_number' => $phone_number,
-            'status' => $status,
+            'name' => $name,
+            'email' => $email,
+            'profession' => $profession,
+            'address' => $address,
+            'phone_number' => $phoneNumber,
         ]);
 
         $client->refresh();
@@ -146,9 +158,11 @@ class ClientControllerTest extends TestCase
         $response->assertRedirect(route('client.index'));
         $response->assertSessionHas('client.id', $client->id);
 
-        $this->assertEquals($user->id, $client->user_id);
-        $this->assertEquals($phone_number, $client->phone_number);
-        $this->assertEquals($status, $client->status);
+        $this->assertEquals($name, $client->name);
+        $this->assertEquals($email, $client->email);
+        $this->assertEquals($profession, $client->profession);
+        $this->assertEquals($phoneNumber, $client->phone_number);
+        $this->assertEquals($address, $client->address);
     }
 
 

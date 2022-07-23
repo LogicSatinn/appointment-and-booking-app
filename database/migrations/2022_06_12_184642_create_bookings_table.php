@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignId('appointment_id')
+            $table->foreignId('timetable_id')
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

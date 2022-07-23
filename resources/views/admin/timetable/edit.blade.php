@@ -1,14 +1,14 @@
-@section('title', 'Edit Appointment')
+@section('title', 'Edit Timetable')
 
 <x-admin.master-layout>
     <div class="content">
         <h2 class="content-heading">
-            Edit Appointment
+            Edit Timetable
         </h2>
 
         <div class="block block-rounded block-bordered">
             <div class="block-content">
-                <form action="{{ route('appointments.update', $appointment) }}" method="POST">
+                <form action="{{ route('timetables.update', $timetable) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row push">
@@ -16,7 +16,7 @@
 
                         <div class="form-group col-lg-6">
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" class="form-control" value="{{ $appointment->title }}">
+                            <input type="text" id="title" name="title" class="form-control" value="{{ $timetable->title }}">
                             @error('title')
                             <div class="alert alert-error">
                                 {{ $message }}
@@ -33,7 +33,7 @@
                                                     </span>
                                 </div>
                                 <input type="text" class="form-control text-center" id="price" name="price"
-                                       value="{{ $appointment->price }}">
+                                       value="{{ $timetable->price }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">.00</span>
                                 </div>
@@ -49,7 +49,7 @@
                             <label for="skill">Skill</label>
                             <select class="form-control" id="skill" name="skill_id">
                                 @foreach($skills as $key => $value)
-                                    <option value="{{ $key }}" @selected($key == $appointment->skill_id)>{{ $value }}</option>
+                                    <option value="{{ $key }}" @selected($key == $timetable->skill_id)>{{ $value }}</option>
                                 @endforeach
                             </select>
                             @error('skill_id')
@@ -64,7 +64,7 @@
                             <label for="resource">Resource</label>
                             <select class="form-control" id="resource" name="resource_id">
                                 @foreach($resources as $key => $value)
-                                    <option value="{{ $key }}" @selected($key == $appointment->resource_id)>{{ $value }}</option>
+                                    <option value="{{ $key }}" @selected($key == $timetable->resource_id)>{{ $value }}</option>
                                 @endforeach
                             </select>
                             @error('resource_id')
@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="form-group col-lg-8">
-                            <label for="">Date Range for this appointment</label>
+                            <label for="">Date Range for this timetable</label>
                             <div class="input-daterange input-group" data-date-format="dd/mm/yyyy" data-week-start="1"
                                  data-autoclose="true" data-today-highlight="true">
                                 <input type="text" class="form-control" id="from" name="from" placeholder="From"
@@ -104,10 +104,10 @@
 
 
                         <div class="form-group col-xl-6">
-                            <label for="start">Starting Time of the appointment</label>
+                            <label for="start">Starting Time of the timetable</label>
                             <input type="text" class="js-flatpickr form-control bg-white" id="start" name="start"
                                    data-enable-time="true" data-no-calendar="true" data-date-format="H:i"
-                                   data-time_24hr="true" value="{{ $appointment->start }}">
+                                   data-time_24hr="true" value="{{ $timetable->start }}">
 
                             @error('start')
                             <div class="alert alert-error">
@@ -118,10 +118,10 @@
 
 
                         <div class="form-group col-xl-6">
-                            <label for="end">End of the Appointment (per day)</label>
+                            <label for="end">End of the Timetable (per day)</label>
                             <input type="text" class="js-flatpickr form-control bg-white" id="end" name="end"
                                    data-enable-time="true" data-no-calendar="true" data-date-format="H:i"
-                                   data-time_24hr="true" value="{{ $appointment->end }}">
+                                   data-time_24hr="true" value="{{ $timetable->end }}">
 
                             @error('end')
                             <div class="alert alert-error">

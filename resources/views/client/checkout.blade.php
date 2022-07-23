@@ -70,7 +70,7 @@
 
                         <x-client.checkout-accordion-holder>
                             <x-slot:accordion-title>
-                                Appointment Details
+                                Timetable Details
                             </x-slot:accordion-title>
 
                             <x-slot:column>
@@ -80,17 +80,17 @@
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->skill->title }}
+                                        {{ $timetable->skill->title }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
 
                                 <x-client.checkout-accordion-column>
                                     <x-slot:column-name>
-                                        Appointment Title
+                                        Timetable Title
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->title }}
+                                        {{ $timetable->title }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
 
@@ -100,7 +100,7 @@
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->duration }} days
+                                        {{ $timetable->duration }} days
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
 
@@ -110,7 +110,7 @@
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->from }}
+                                        {{ $timetable->from }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
 
@@ -120,7 +120,7 @@
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->to }}
+                                        {{ $timetable->to }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
 
@@ -130,7 +130,7 @@
                                     </x-slot:column-name>
 
                                     <x-slot:column-data>
-                                        {{ $appointment->start }} - {{ $appointment->end }}
+                                        {{ $timetable->start }} - {{ $timetable->end }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
                             </x-slot:column>
@@ -169,6 +169,6 @@
 
         </div>
 
-        <livewire:client.process-checkout :client="$client" :appointment="$appointment"/>
+        <livewire:client.process-checkout :client="$client" :timetable="$timetable"/>
     </div>
 </x-client.master-layout>

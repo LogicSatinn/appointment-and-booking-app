@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ReservationMadeNotification extends Notification
+class ClientReservationMadeNotification extends Notification
 {
     use Queueable;
 
-    protected $clientAppointment;
+    protected $clientTimetable;
     protected $booking;
     protected $payment;
     /**
@@ -19,9 +19,9 @@ class ReservationMadeNotification extends Notification
      *
      * @return void
      */
-    public function __construct($clientAppointment, $booking, $payment)
+    public function __construct($clientTimetable, $booking, $payment)
     {
-        $this->clientAppointment = $clientAppointment;
+        $this->clientTimetable = $clientTimetable;
         $this->booking = $booking;
         $this->payment = $payment;
     }
@@ -41,18 +41,17 @@ class ReservationMadeNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
                     ->subject('Reservation Secured Successfully.')
-                    ->greeting('Hello There, ' . $this->clientAppointment->name)
-                    ->line('We are proud to tell you that you\'re reservation of ' . $this->clientAppointment->pivot->no_of_seats . ' seats has been successfully secured.')
+                    ->greeting('Hello There, ' . $this->clientTimetable->name)
+                    ->line('We are proud to tell you that your reservation of ' . $this->clientTimetable->pivot->no_of_seats . ' seats has been successfully secured.')
                     ->line('Here\'s your Invoice Reference Code: ' . $this->booking->reference_code)
                     ->line('And here\'s your Payment Reference Code: ' . $this->payment->reference_code . ' . You\'ll use it to make further payments.')
-                    ->line('Be informed that you may lose your seat if you do not pay before six hours of the appointment.')
-//                    ->action('Notification Action', url('/'))
+                    ->line('Be informed that you may lose your seat(s) if you do not pay before six hours of the timetable.')
                     ->line('Thank you for using our services. Have a good day!');
     }
 

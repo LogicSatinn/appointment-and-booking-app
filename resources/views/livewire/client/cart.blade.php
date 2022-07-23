@@ -47,13 +47,13 @@
                                         <td class="product-name" data-title="Product">
                                             <div class="d-flex align-items-center">
                                                 <div class="ms-6">
-                                                    {{ $appointment->title }}
+                                                    {{ $timetable->title }}
                                                 </div>
                                             </div>
                                         </td>
 
                                         <td class="product-price" data-title="Price">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ $appointment->representablePrice }}</span>
+                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ $timetable->representablePrice }}</span>
                                         </td>
 
                                         <td class="product-quantity" data-title="Quantity">

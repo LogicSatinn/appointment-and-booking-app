@@ -128,7 +128,7 @@
         <div class="container">
             <div class="row align-items-end mb-4 mb-md-7">
                 <div class="col-md mb-4 mb-md-0">
-                    <h1 class="mb-1">Upcoming Appointments</h1>
+                    <h1 class="mb-1">Upcoming Timetables</h1>
                     <p class="font-size-lg mb-0 text-capitalize">Don't miss this amazing lectures.</p>
                 </div>
                 <div class="col-md-auto">
@@ -145,17 +145,17 @@
             </div>
 
             <div class="row row-cols-lg-2">
-                @foreach($upcomingAppointments as $upcomingAppointment)
+                @foreach($upcomingTimetables as $upcomingTimetable)
                     <div class="col-lg mb-5 mb-md-6">
 
                         <div class="card border shadow p-2 lift">
                             <div class="row gx-0">
                                 <!-- Image -->
-                                <a href="{{ route('appointmentDetails', $upcomingAppointment) }}"
+                                <a href="{{ route('timetableDetails', $upcomingTimetable) }}"
                                    class="col-auto d-block mw-md-152" style="max-width: 120px;">
                                     <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                         src="{{ asset('/media/' . $upcomingAppointment->skill?->image_path)}}"
-                                         alt="{{ $upcomingAppointment->skill?->title }}">
+                                         src="{{ asset('/media/' . $upcomingTimetable->skill?->image_path)}}"
+                                         alt="{{ $upcomingTimetable->skill?->title }}">
                                 </a>
 
                                 <!-- Body -->
@@ -163,14 +163,14 @@
                                     <div class="card-body py-0 px-md-5 px-3">
                                         <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
                                             <span
-                                                class="text-white font-size-sm fw-normal">{{ $upcomingAppointment->from }}</span>
+                                                class="text-white font-size-sm fw-normal">{{ $upcomingTimetable->from }}</span>
                                         </div>
 
-                                        <a href="{{ route('appointmentDetails', $upcomingAppointment) }}"
+                                        <a href="{{ route('timetableDetails', $upcomingTimetable) }}"
                                            class="d-block mb-2"><h5
-                                                class="line-clamp-2 h-xl-52">{{ $upcomingAppointment->title }}</h5>
+                                                class="line-clamp-2 h-xl-52">{{ $upcomingTimetable->title }}</h5>
                                         </a>
-                                        <h6><span class="badge badge-black ">{{ $upcomingAppointment->skill?->category->name }}</span></h6>
+                                        <h6><span class="badge badge-black ">{{ $upcomingTimetable->skill?->category->name }}</span></h6>
                                         <ul class="nav mx-n3 d-block d-md-flex">
                                             <li class="nav-item px-3 mb-3 mb-md-0">
                                                 <div class="d-flex align-items-center">
@@ -187,14 +187,14 @@
                                                         </svg>
 
                                                     </div>
-                                                    <div class="font-size-sm">{{ $upcomingAppointment->start }}
-                                                        - {{ $upcomingAppointment->end }}</div>
+                                                    <div class="font-size-sm">{{ $upcomingTimetable->start }}
+                                                        - {{ $upcomingTimetable->end }}</div>
                                                 </div>
                                             </li>
                                             <li class="nav-item px-3 mb-3 mb-md-0">
                                                 <div class="d-flex align-items-center">
                                                     <div
-                                                        class="font-size-sm">{{ $upcomingAppointment->representablePrice }}</div>
+                                                        class="font-size-sm">{{ $upcomingTimetable->representablePrice }}</div>
                                                 </div>
                                             </li>
                                         </ul>

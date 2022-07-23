@@ -3,35 +3,39 @@
 namespace App\Http\Livewire\Client;
 
 use App\Enums\ReservationStatus;
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Payment;
 use App\Models\Reservation;
-use App\Notifications\ReservationMadeNotification;
+use App\Models\User;
+use App\Notifications\ClientReservationMadeNotification;
+use App\Notifications\NewReservationMadeNotification;
+use App\Services\BeemSmsService;
 use App\States\Booking\Pending;
+use GuzzleHttp\Exception\GuzzleException;
 use Livewire\Component;
 
 class ProcessCheckout extends Component
 {
-    public $appointment;
+    public $timetable;
     public $client;
     public $method;
 
-    public function mount(Appointment $appointment, Client $client)
+    public function mount(Timetable $timetable, Client $client)
     {
         $this->client = $client;
-        $this->appointment = $appointment->load('resource');
+        $this->timetable = $timetable->load('resource');
     }
 
-    public function getClientAppointmentProperty()
+    public function getClientTimetableProperty()
     {
-        return $this->appointment->clients()->where('client_id', $this->client->id)->first();
+        return $this->timetable->clients()->where('client_id', $this->client->id)->first();
     }
 
     public function getTotalProperty()
     {
-        return $this->clientAppointment->pivot->no_of_seats * $this->appointment->price;
+        return $this->clientTimetable->pivot->no_of_seats * $this->timetable->price;
     }
 
     public function processCheckout()
@@ -50,11 +54,14 @@ class ProcessCheckout extends Component
         //
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function reservation()
     {
         $booking = Booking::create([
             'client_id' => $this->client->id,
-            'appointment_id' => $this->appointment->id,
+            'timetable_id' => $this->timetable->id,
             'status' => Pending::class,
             'reference_code' => 'NL-B' . rand(0000000, 9999999),
             'booked_at' => now()
@@ -69,19 +76,23 @@ class ProcessCheckout extends Component
             'paid_amount' => 0,
         ]);
 
-        for ($i = 1; $i <= $this->clientAppointment->pivot->no_of_seats; $i++) {
+        for ($i = 1; $i <= $this->clientTimetable->pivot->no_of_seats; $i++) {
             Reservation::create([
                 'client_id' => $this->client->id,
-                'appointment_id' => $this->appointment->id,
+                'timetable_id' => $this->timetable->id,
                 'booking_id' => $booking->id,
-                'seat_number' => rand(1, $this->appointment->resource->capacity),
+                'seat_number' => rand(1, $this->timetable->resource->capacity),
                 'status' => ReservationStatus::BOOKED,
                 'reference_code' => 'NL-R' . rand(0000000, 9999999),
                 'reserved_at' => now()
             ]);
         }
 
-        $this->client->notify(new ReservationMadeNotification($this->getClientAppointmentProperty(), $booking, $payment));
+        $this->client->notify(new ClientReservationMadeNotification($this->getClientTimetableProperty(), $booking, $payment));
+        User::find(1)->notify(new NewReservationMadeNotification($this->timetable, $this->getClientTimetableProperty()))
+        (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
+            ->getRecipients([$this->client->phone_number])
+            ->send();
     }
 
     public function render()

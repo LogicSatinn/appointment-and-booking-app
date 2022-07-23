@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Client;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,16 +12,16 @@ use Illuminate\Http\Request;
 class CheckoutController extends Controller
 {
     /**
-     * @param Appointment $appointment
+     * @param Timetable $timetable
      * @param Client $client
      * @return Application|Factory|View
      */
-    public function index(Appointment $appointment, Client $client)
+    public function index(Timetable $timetable, Client $client)
     {
         return view('client.checkout', [
-            'appointment' => $appointment->load('skill'),
+            'timetable' => $timetable->load('skill'),
             'client' => $client,
-            'clientAppointment' => $appointment->clients()->where('client_id', $client->id)->first()
+            'clientTimetable' => $timetable->clients()->where('client_id', $client->id)->first()
         ]);
     }
 }

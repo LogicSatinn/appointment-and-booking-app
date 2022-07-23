@@ -28,7 +28,8 @@
                                 <label for="category">Category</label>
                                 <select class="form-control" id="category" name="category_id">
                                     @foreach($categories as $key => $value)
-                                        <option value="{{ $key }}" @selected($skill->category_id == $key)>{{ $value }}</option>
+                                        <option
+                                            value="{{ $key }}" @selected($skill->category_id == $key)>{{ $value }}</option>
                                     @endforeach
                                 </select>
                                 @error('category_id')
@@ -39,8 +40,26 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="level">Level</label>
+                                <select class="form-control" id="level" name="level">
+                                    <option
+                                        value="{{ \App\Enums\SkillLevel::BEGINNER->value }}" @selected($skill->level == \App\Enums\SkillLevel::BEGINNER->value)>{{ \App\Enums\SkillLevel::BEGINNER->value }}</option>
+                                    <option
+                                        value="{{ \App\Enums\SkillLevel::INTERMEDIATE->value }}" @selected($skill->level == \App\Enums\SkillLevel::INTERMEDIATE->value)>{{ \App\Enums\SkillLevel::INTERMEDIATE->value }}</option>
+                                    <option
+                                        value="{{ \App\Enums\SkillLevel::ADVANCED->value }}" @selected($skill->level == \App\Enums\SkillLevel::ADVANCED->value)>{{ \App\Enums\SkillLevel::ADVANCED->value }}</option>
+                                </select>
+                                @error('level')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="skill_cover_photo">Update Skill Cover Photo</label>
-                                <input type="file" class="form-control-file" id="skill_cover_photo" name="skill_cover_photo">
+                                <input type="file" class="form-control-file" id="skill_cover_photo"
+                                       name="skill_cover_photo">
                                 @error('skill_cover_photo')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -50,8 +69,40 @@
 
                             <div class="form-group">
                                 <label for="js-ckeditor">Description</label>
-                                <textarea id="js-ckeditor" value="{{ $skill->description }}" name="description">{{ $skill->description }}</textarea>
+                                <textarea id="js-ckeditor"
+                                          name="description">{{ $skill->description }}</textarea>
                                 @error('description')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="js-ckeditor">Mode of Delivery</label>
+                                <textarea id="js-ckeditor"
+                                          name="mode_of_delivery">{{ $skill->mode_of_delivery }}</textarea>
+                                @error('mode_of_delivery')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="js-ckeditor">Prerequisite</label>
+                                <textarea id="js-ckeditor" name="prerequisite">{{ $skill->prerequisite }}</textarea>
+                                @error('prerequisite')
+                                <div class="alert alert-error">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="js-ckeditor">Suitable For</label>
+                                <textarea id="js-ckeditor" name="suitable_for">{{ $skill->suitable_for }}</textarea>
+                                @error('suitable_for')
                                 <div class="alert alert-error">
                                     {{ $message }}
                                 </div>

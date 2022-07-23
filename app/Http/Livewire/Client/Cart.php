@@ -2,25 +2,25 @@
 
 namespace App\Http\Livewire\Client;
 
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Client;
 use App\View\Components\Client\MasterLayout;
 use Livewire\Component;
 
 class Cart extends Component
 {
-    public $appointment;
+    public $timetable;
     public $client;
     public int $seat = 1;
     public int $subTotal;
     public int $discount = 0;
     public int $total;
 
-    public function mount(Appointment $appointment, Client $client)
+    public function mount(Timetable $timetable, Client $client)
     {
-        $this->appointment = $appointment->load('resource');
+        $this->timetable = $timetable->load('resource');
         $this->client = $client;
-        $this->subTotal = $this->seat * $appointment->price;
+        $this->subTotal = $this->seat * $timetable->price;
         $this->total = $this->subTotal;
     }
 
@@ -38,7 +38,7 @@ class Cart extends Component
 
     public function updateSubTotal()
     {
-        $this->subTotal = $this->seat * $this->appointment->price;
+        $this->subTotal = $this->seat * $this->timetable->price;
         $this->updateTotal();
     }
 
@@ -49,10 +49,10 @@ class Cart extends Component
 
     public function saveCart()
     {
-        $this->appointment->clients()->attach($this->client->id, ['no_of_seats' => $this->seat]);
+        $this->timetable->clients()->attach($this->client->id, ['no_of_seats' => $this->seat]);
 
         return redirect(route('client.checkout', [
-            'appointment' => $this->appointment,
+            'timetable' => $this->timetable,
             'client' => $this->client
         ]));
     }

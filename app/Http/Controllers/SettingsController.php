@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBeemSettingsRequest;
 use App\Http\Requests\StoreGeneralSettingsRequest;
+use App\Http\Requests\StoreOtherSettingsRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

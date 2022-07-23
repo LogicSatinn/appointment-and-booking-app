@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\States\Appointment\AppointmentState;
-use App\States\Appointment\Pending;
+use App\States\Timetable\TimetableState;
+use App\States\Timetable\NotStarted;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\ModelStates\Validation\ValidStateRule;
 
-class AppointmentStoreRequest extends FormRequest
+class TimetableStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class AppointmentStoreRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'status' => Pending::class,
+            'status' => NotStarted::class,
             'slug' => $this->get('title')
         ]);
     }
@@ -46,7 +46,7 @@ class AppointmentStoreRequest extends FormRequest
             'to' => ['required', 'date_format:d/m/Y', 'after_or_equal:today', 'after_or_equal:from'],
             'start' => ['required', 'date_format:H:i', 'before:end'],
             'end' => ['required', 'date_format:H:i', 'after:start'],
-            'status' => ['required', new ValidStateRule(AppointmentState::class)],
+            'status' => ['required', new ValidStateRule(TimetableState::class)],
             'price' => ['required', 'numeric'],
             'resource_id' => ['required', 'integer', 'exists:resources,id'],
             'skill_id' => ['required', 'integer', 'exists:skills,id'],

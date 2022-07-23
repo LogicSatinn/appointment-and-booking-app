@@ -1,12 +1,12 @@
 <?php
 
-namespace App\States\Appointment;
+namespace App\States\Timetable;
 
 use Spatie\ModelStates\Exceptions\InvalidConfig;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
-abstract class AppointmentState extends State
+abstract class TimetableState extends State
 {
 
     public function color(): string {}
@@ -17,8 +17,8 @@ abstract class AppointmentState extends State
     public static function config(): StateConfig
     {
         return parent::config()
-            ->default(Pending::class)
-            ->allowTransition(Pending::class, OnGoing::class)
+            ->default(NotStarted::class)
+            ->allowTransition(NotStarted::class, OnGoing::class)
             ->allowTransition(OnGoing::class, Complete::class);
     }
 }

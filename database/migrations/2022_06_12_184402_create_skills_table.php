@@ -19,7 +19,11 @@ class CreateSkillsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('level');
             $table->longText('description');
+            $table->longText('mode_of_delivery');
+            $table->longText('prerequisite');
+            $table->longText('suitable_for');
             $table->string('status');
             $table->string('image_path')->nullable();
             $table->foreignId('category_id')

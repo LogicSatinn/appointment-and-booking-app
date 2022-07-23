@@ -1,4 +1,4 @@
-@section('title', $appointment->title)
+@section('title', $timetable->title)
 
 <x-client.master-layout>
     <!-- BREADCRUMBS
@@ -13,11 +13,11 @@
                 </li>
                 <li class="breadcrumb-item">
                     <a class="text-gray-800" href="#">
-                        Appointments
+                        Timetables
                     </a>
                 </li>
                 <li class="breadcrumb-item text-gray-800 active" aria-current="page">
-                    {{ $appointment->title }}
+                    {{ $timetable->title }}
                 </li>
             </ol>
         </nav>
@@ -43,7 +43,7 @@
 
             <div class="col-lg-8 mb-6 mb-lg-0 position-relative">
                 <h1 class="me-xl-14">
-                    {{ $appointment->title }}
+                    {{ $timetable->title }}
                 </h1>
 
                 <a href="#"
@@ -67,7 +67,7 @@
 
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Categories</h6>
-                        <a href="#" class="font-size-sm text-gray-800">{{ $appointment->skill->category->name }}</a>
+                        <a href="#" class="font-size-sm text-gray-800">{{ $timetable->skill->category->name }}</a>
                     </div>
 
                     {{--                    <div class="mb-4 mb-md-0 me-md-6 me-lg-4 me-xl-6">--}}
@@ -84,9 +84,9 @@
                     {{--                    </div>--}}
                 </div>
 
-                <a href="{{ route('skillDetails', $appointment->skill) }}" class="d-block sk-thumbnail rounded mb-6"
+                <a href="{{ route('skillDetails', $timetable->skill) }}" class="d-block sk-thumbnail rounded mb-6"
                    data-fancybox>
-                    <img class="rounded shadow-light-lg" src="{{ asset('/media/' . $appointment->skill->image_path)}}"
+                    <img class="rounded shadow-light-lg" src="{{ asset('/media/' . $timetable->skill->image_path)}}"
                          alt="...">
                 </a>
 
@@ -114,7 +114,7 @@
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel"
                          aria-labelledby="pills-overview-tab">
                         <h3 class="">Skill Description</h3>
-                        <p class="mb-6 line-height-md">{!! $appointment->skill->description !!}</p>
+                        <p class="mb-6 line-height-md">{!! $timetable->skill->description !!}</p>
                     </div>
 
                     <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab">
@@ -125,15 +125,15 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Duration <span class="text-right">{{ $appointment->duration }} days</span>
+                                            Duration <span class="text-right">{{ $timetable->duration }} days</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            From <span class="text-right">{{ $appointment->from }} </span></li>
+                                            From <span class="text-right">{{ $timetable->from }} </span></li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">To
-                                            <span class="text-right">{{ $appointment->to }} </span></li>
+                                            <span class="text-right">{{ $timetable->to }} </span></li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Time <span
-                                                class="text-right">{{ $appointment->start }} - {{ $appointment->end }}</span>
+                                                class="text-right">{{ $timetable->start }} - {{ $timetable->end }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Lectures
@@ -371,7 +371,7 @@
 
                     <div class="pt-5 pb-4 px-5 px-lg-3 px-xl-5">
                         <div class="d-flex align-items-center mb-2">
-                            <ins class="h2 mb-0">{{ $appointment->representablePrice }}</ins>
+                            <ins class="h2 mb-0">{{ $timetable->representablePrice }}</ins>
                             {{--                            <del class="ms-3">339.99</del>--}}
                             {{--                            <div class="badge badge-lg badge-purple text-white ms-auto fw-normal">91% Off</div>--}}
                         </div>
@@ -399,10 +399,10 @@
                                     fill="currentColor"/>
                             </svg>
 
-                            <span class="ms-2">{{ \Carbon\Carbon::parse(now())->diffInDays($appointment->from) }} day(s) left !</span>
+                            <span class="ms-2">{{ \Carbon\Carbon::parse(now())->diffInDays($timetable->from) }} day(s) left !</span>
                         </div>
 
-                        <a class="btn btn-orange btn-block mb-6" href="{{ route('enroll-client', $appointment) }}">ENROLL</a>
+                        <a class="btn btn-orange btn-block mb-6" href="{{ route('enroll-client', $timetable) }}">ENROLL</a>
 
                     </div>
                 </div>
@@ -411,14 +411,14 @@
         </div>
 
         <div class="text-center mb-5 mb-md-8">
-            <h1>Other Appointments</h1>
+            <h1>Other Timetables</h1>
         </div>
 
         <div class="mx-n4 mb-12"
              data-flickity='{"pageDots": true, "prevNextButtons": false, "cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'>
 
-            @foreach($otherAppointments as $otherAppointment)
-                <x-client.other-appointments-card :otherAppointment="$otherAppointment"/>
+            @foreach($otherTimetables as $otherTimetable)
+                <x-client.other-timetables-card :otherTimetable="$otherTimetable"/>
             @endforeach
         </div>
     </div>

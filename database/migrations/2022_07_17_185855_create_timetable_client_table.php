@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointment_client', function (Blueprint $table) {
-            $table->foreignId('appointment_id')->constrained();
+        Schema::create('timetable_client', function (Blueprint $table) {
+            $table->foreignId('timetable_id')->constrained();
             $table->foreignId('client_id')->constrained();
             $table->integer('no_of_seats')->nullable();
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_client');
+        Schema::dropIfExists('timetable_client');
     }
 };

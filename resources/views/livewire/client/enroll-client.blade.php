@@ -14,12 +14,12 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a class="text-gray-800" href="#">
-                            Appointment
+                            Timetable
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a class="text-gray-800" href="{{ route('appointmentDetails', $appointment) }}">
-                            {{ $appointment->title }}
+                        <a class="text-gray-800" href="{{ route('timetableDetails', $timetable) }}">
+                            {{ $timetable->title }}
                         </a>
                     </li>
                     <li class="breadcrumb-item text-gray-800 active" aria-current="page">

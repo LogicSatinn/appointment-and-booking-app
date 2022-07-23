@@ -26,7 +26,7 @@ use Spatie\ModelStates\HasStates;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property int $appointment_id
+ * @property int $timetable_id
  * @property-read Client $client
  * @property-read Skill|null $skill
  * @property-read Collection|Payment[] $payments
@@ -38,7 +38,7 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Booking newQuery()
  * @method static \Illuminate\Database\Query\Builder|Booking onlyTrashed()
  * @method static Builder|Booking query()
- * @method static Builder|Booking whereAppointmentId($value)
+ * @method static Builder|Booking whereTimetableId($value)
  * @method static Builder|Booking whereBookedAt($value)
  * @method static Builder|Booking whereClientId($value)
  * @method static Builder|Booking whereCreatedAt($value)
@@ -70,7 +70,7 @@ class Booking extends Model
     protected $casts = [
         'id' => 'integer',
         'client_id' => 'integer',
-        'appointment_id' => 'integer',
+        'timetable_id' => 'integer',
         'booked_at' => 'timestamp',
         'status' => BookingState::class
     ];
@@ -102,9 +102,9 @@ class Booking extends Model
     /**
      * @return BelongsTo
      */
-    public function appointment(): BelongsTo
+    public function timetable(): BelongsTo
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Timetable::class);
     }
 
 }

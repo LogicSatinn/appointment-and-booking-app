@@ -5,18 +5,18 @@ namespace Database\Factories;
 use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Skill;
 use App\Models\Resource;
 
-class AppointmentFactory extends Factory
+class TimetableFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Appointment::class;
+    protected $model = Timetable::class;
 
     /**
      * Define the model's default state.
@@ -34,7 +34,7 @@ class AppointmentFactory extends Factory
             'start' => $this->faker->time,
             'end' => $this->faker->time,
             'status' => $this->faker->randomElement([
-                'Pending',
+                'NotStarted',
                 'Available'
             ]),
             'price' => rand(10000, 10000),

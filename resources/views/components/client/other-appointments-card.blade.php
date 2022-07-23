@@ -1,29 +1,29 @@
-@props(['otherAppointment'])
+@props(['otherTimetable'])
 
 <div class="col-md-6 col-lg-4 col-xl-3 pb-4 pb-md-5" style="padding-right:15px;padding-left:15px;">
     <!-- Card -->
     <div class="card border shadow-dark-hover p-2 sk-fade">
         <!-- Image -->
         <div class="card-zoom position-relative">
-            <a href="{{ route('appointmentDetails', $otherAppointment) }}" class="card-img sk-thumbnail img-ratio-3 d-block">
-                <img class="rounded shadow-light-lg" src="{{ asset('/media/'.$otherAppointment->skill->image_path)}}" alt="...">
+            <a href="{{ route('timetableDetails', $otherTimetable) }}" class="card-img sk-thumbnail img-ratio-3 d-block">
+                <img class="rounded shadow-light-lg" src="{{ asset('/media/'.$otherTimetable->skill->image_path)}}" alt="...">
             </a>
 
             <span class="sk-fade-right badge-float bottom-0 right-0 mb-2 me-2">
-                            <ins class="h5 mb-0 text-white">{{ $otherAppointment->price }}</ins>
+                            <ins class="h5 mb-0 text-black">{{ $otherTimetable->representablePrice }}</ins>
                         </span>
         </div>
 
         <!-- Footer -->
         <div class="card-footer px-2 pb-2 mb-1 pt-4 position-relative">
             <!-- Preheading -->
-            <a href="{{ route('skillDetails', $otherAppointment->skill) }}"><span
-                    class="mb-1 d-inline-block text-gray-800">{{ $otherAppointment->skill->category->name }}</span></a>
+            <a href="{{ route('skillDetails', $otherTimetable->skill) }}"><span
+                    class="mb-1 d-inline-block text-gray-800">{{ $otherTimetable->skill->category->name }}</span></a>
 
             <!-- Heading -->
             <div class="position-relative">
-                <a href="{{ route('appointmentDetails', $otherAppointment) }}" class="d-block stretched-link"><h5
-                        class="line-clamp-2 h-md-48 h-lg-58 me-md-8 me-lg-10 me-xl-4 mb-2">{{ $otherAppointment->title }}</h5></a>
+                <a href="{{ route('timetableDetails', $otherTimetable) }}" class="d-block stretched-link"><h5
+                        class="line-clamp-2 h-md-48 h-lg-58 me-md-8 me-lg-10 me-xl-4 mb-2">{{ $otherTimetable->title }}</h5></a>
 
                 <div class="row mx-n2 align-items-end">
                     <div class="col px-2">
@@ -40,7 +40,7 @@
                                         </svg>
 
                                     </div>
-                                    <div class="font-size-sm">{{ $otherAppointment->from }} - {{ $otherAppointment->to }}</div>
+                                    <div class="font-size-sm">{{ $otherTimetable->from }} - {{ $otherTimetable->to }}</div>
                                 </div>
                             </li>
                         </ul>

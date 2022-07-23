@@ -37,7 +37,7 @@
     <!-- Side Actions -->
     <div class="content-side content-side-full text-center bg-body-light">
         <div class="smini-hide">
-            <img class="img-avatar" src="{{ asset('assets/media/avatars/avatar10.jpg')}}" alt="">
+            <img class="img-avatar" src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" alt="">
             <div class="mt-3 font-w600">{{ auth()->user()->name }}</div>
             <a class="link-fx text-muted" href="javascript:void(0)">Administrator</a>
         </div>
@@ -48,14 +48,14 @@
     <div class="content-side content-side-full">
         <ul class="nav-main">
             <li class="nav-main-item">
-                <a class="nav-main-link active" href="{{ route('dashboard') }}">
+                <a class="nav-main-link @if(request()->routeIs('dashboard')) active @endif" href="{{ route('dashboard') }}">
                     <i class="nav-main-link-icon fa fa-rocket"></i>
                     <span class="nav-main-link-name">Overview</span>
                 </a>
             </li>
             <li class="nav-main-heading">Manage</li>
             <li class="nav-main-item">
-                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                <a class="nav-main-link nav-main-link-submenu @if(request()->routeIs('skills.*')) active @endif" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="nav-main-link-icon fa fa-money-bill"></i>
                     <span class="nav-main-link-name">Skills</span>
                 </a>
@@ -73,31 +73,31 @@
                 </ul>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                <a class="nav-main-link nav-main-link-submenu @if(request()->routeIs('timetables.*')) active @endif" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                     <i class="nav-main-link-icon fa fa-bell"></i>
-                    <span class="nav-main-link-name">Appointments</span>
+                    <span class="nav-main-link-name">Timetables</span>
                 </a>
                 <ul class="nav-main-submenu">
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="{{ route('appointments.index') }}">
-                            <span class="nav-main-link-name">All Appointments</span>
+                        <a class="nav-main-link" href="{{ route('timetables.index') }}">
+                            <span class="nav-main-link-name">All Timetables</span>
                         </a>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="{{ route('appointments.create') }}">
-                            <span class="nav-main-link-name">New Appointment</span>
+                        <a class="nav-main-link" href="{{ route('timetables.create') }}">
+                            <span class="nav-main-link-name">New Timetable</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="{{ route('categories.index') }}">
+                <a class="nav-main-link @if(request()->routeIs('categories.index')) active @endif" href="{{ route('categories.index') }}">
                     <i class="nav-main-link-icon fa fa-archive"></i>
                     <span class="nav-main-link-name">Categories</span>
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="{{ route('resources.index') }}">
+                <a class="nav-main-link @if(request()->routeIs('resources.index')) active @endif" href="{{ route('resources.index') }}">
                     <i class="nav-main-link-icon fa fa-book-reader"></i>
                     <span class="nav-main-link-name">Resources</span>
                 </a>
@@ -106,13 +106,13 @@
 
             <li class="nav-main-heading">Global</li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="{{ route('calendar.index') }}">
+                <a class="nav-main-link @if(request()->routeIs('calendar.index')) active @endif" href="{{ route('calendar.index') }}">
                     <i class="nav-main-link-icon fa fa-calendar"></i>
                     <span class="nav-main-link-name">Calendar</span>
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link" href="{{ route('settings.index') }}">
+                <a class="nav-main-link @if(request()->routeIs('settings.index')) active @endif" href="{{ route('settings.index') }}">
                     <i class="nav-main-link-icon fa fa-cog"></i>
                     <span class="nav-main-link-name">Settings</span>
                 </a>

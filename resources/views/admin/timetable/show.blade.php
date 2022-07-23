@@ -2,6 +2,6 @@
     @extends('layouts.app')
 
     @section('content')
-        appointment.show template
+        timetable.show template
     @endsection
 --}}

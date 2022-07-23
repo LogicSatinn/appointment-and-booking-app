@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\AddedBy;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -61,16 +62,22 @@ class CategoryControllerTest extends TestCase
     public function store_saves_and_redirects()
     {
         $name = $this->faker->name;
-        $added_by = AddedBy::factory()->create();
+        $slug = $name;
+        $note = $this->faker->word;
+        $addedBy = User::factory()->create();
 
         $response = $this->post(route('category.store'), [
             'name' => $name,
-            'added_by' => $added_by->id,
+            'slug' => $slug,
+            'note' => $note,
+            'added_by' => $addedBy->id,
         ]);
 
         $categories = Category::query()
             ->where('name', $name)
-            ->where('added_by', $added_by->id)
+            ->where('slug', $slug)
+            ->where('note', $note)
+            ->where('added_by', $addedBy->id)
             ->get();
         $this->assertCount(1, $categories);
         $category = $categories->first();
@@ -129,11 +136,15 @@ class CategoryControllerTest extends TestCase
     {
         $category = Category::factory()->create();
         $name = $this->faker->name;
-        $added_by = AddedBy::factory()->create();
+        $slug = $name;
+        $note = $this->faker->word;
+        $addedBy = User::factory()->create();
 
         $response = $this->put(route('category.update', $category), [
             'name' => $name,
-            'added_by' => $added_by->id,
+            'slug' => $slug,
+            'note' => $note,
+            'added_by' => $addedBy->id,
         ]);
 
         $category->refresh();
@@ -142,7 +153,9 @@ class CategoryControllerTest extends TestCase
         $response->assertSessionHas('category.id', $category->id);
 
         $this->assertEquals($name, $category->name);
-        $this->assertEquals($added_by->id, $category->added_by);
+        $this->assertEquals($slug, $category->slug);
+        $this->assertEquals($note, $category->note);
+        $this->assertEquals($addedBy->id, $category->added_by);
     }
 
 

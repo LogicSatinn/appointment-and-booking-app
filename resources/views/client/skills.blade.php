@@ -108,7 +108,7 @@
                                                     </svg>
 
                                                 </div>
-                                                <div class="font-size-sm">{{ $skill->appointments()->count() }} lessons</div>
+                                                <div class="font-size-sm">{{ $skill->timetables()->count() }} lessons</div>
                                             </div>
                                         </li>
                                     </ul>

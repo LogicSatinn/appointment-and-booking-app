@@ -29,8 +29,8 @@ use Spatie\ModelStates\HasStates;
  * @property Carbon $updated_at
  * @property string|null $note
  * @property int $capacity
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
  * @property-read Collection|Skill[] $courses
  * @property-read int|null $courses_count
  * @method static ResourceFactory factory(...$parameters)
@@ -93,9 +93,9 @@ class Resource extends Model
     /**
      * @return HasMany
      */
-    public function appointments(): HasMany
+    public function timetables(): HasMany
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Timetable::class);
     }
 
     /**

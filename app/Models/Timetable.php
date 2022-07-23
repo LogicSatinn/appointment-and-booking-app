@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\States\Appointment\AppointmentState;
+use App\States\Timetable\TimetableState;
 use Carbon\Carbon;
-use Database\Factories\AppointmentFactory;
+use Database\Factories\TimetableFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,12 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
- * App\Models\Appointment
+ * App\Models\Timetable
  *
  * @property int $id
  * @property string $title
  * @property Carbon $duration
- * @property Carbon $appointment_time
+ * @property Carbon $timetable_time
  * @property int $resource_id
  * @property int $skill_id
  * @property Carbon $deleted_at
@@ -42,34 +42,34 @@ use Illuminate\Support\Str;
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
  * @property-read Resource $resource
- * @method static AppointmentFactory factory(...$parameters)
- * @method static Builder|Appointment newModelQuery()
- * @method static Builder|Appointment newQuery()
- * @method static \Illuminate\Database\Query\Builder|Appointment onlyTrashed()
- * @method static Builder|Appointment query()
- * @method static Builder|Appointment whereClientId($value)
- * @method static Builder|Appointment whereCreatedAt($value)
- * @method static Builder|Appointment whereDeletedAt($value)
- * @method static Builder|Appointment whereDuration($value)
- * @method static Builder|Appointment whereEnd($value)
- * @method static Builder|Appointment whereFrom($value)
- * @method static Builder|Appointment whereId($value)
- * @method static Builder|Appointment wherePrice($value)
- * @method static Builder|Appointment whereResourceId($value)
- * @method static Builder|Appointment whereSkillsId($value)
- * @method static Builder|Appointment whereStart($value)
- * @method static Builder|Appointment whereStatus($value)
- * @method static Builder|Appointment whereTo($value)
- * @method static Builder|Appointment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Appointment withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Appointment withoutTrashed()
+ * @method static TimetableFactory factory(...$parameters)
+ * @method static Builder|Timetable newModelQuery()
+ * @method static Builder|Timetable newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Timetable onlyTrashed()
+ * @method static Builder|Timetable query()
+ * @method static Builder|Timetable whereClientId($value)
+ * @method static Builder|Timetable whereCreatedAt($value)
+ * @method static Builder|Timetable whereDeletedAt($value)
+ * @method static Builder|Timetable whereDuration($value)
+ * @method static Builder|Timetable whereEnd($value)
+ * @method static Builder|Timetable whereFrom($value)
+ * @method static Builder|Timetable whereId($value)
+ * @method static Builder|Timetable wherePrice($value)
+ * @method static Builder|Timetable whereResourceId($value)
+ * @method static Builder|Timetable whereSkillsId($value)
+ * @method static Builder|Timetable whereStart($value)
+ * @method static Builder|Timetable whereStatus($value)
+ * @method static Builder|Timetable whereTo($value)
+ * @method static Builder|Timetable whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Timetable withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Timetable withoutTrashed()
  * @mixin \Eloquent
- * @method static Builder|Appointment whereSkillId($value)
- * @method static Builder|Appointment whereTitle($value)
+ * @method static Builder|Timetable whereSkillId($value)
+ * @method static Builder|Timetable whereTitle($value)
  * @property string $slug
- * @method static Builder|Appointment whereSlug($value)
+ * @method static Builder|Timetable whereSlug($value)
  */
-class Appointment extends Model
+class Timetable extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -87,7 +87,7 @@ class Appointment extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'status' => AppointmentState::class,
+        'status' => TimetableState::class,
         'price' => 'decimal:2',
         'resource_id' => 'integer',
         'skill_id' => 'integer',

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\SkillStatus;
-use App\Models\Appointment;
+use App\Models\Timetable;
 use App\Models\Category;
 use App\Models\Skill;
 use Illuminate\Contracts\Foundation\Application;
@@ -22,7 +22,7 @@ class ClientSideController extends Controller
         return view('client.index', [
             'skills' => Skill::with('category:id,name')->where('status', SkillStatus::PUBLISHED)->get(),
             'categories' => Category::select('id', 'name')->withCount('skills')->get()->sortByDesc('skills_count'),
-            'upcomingAppointments' => Appointment::whereRelation('skill', 'status', SkillStatus::PUBLISHED)
+            'upcomingTimetables' => Timetable::whereRelation('skill', 'status', SkillStatus::PUBLISHED)
                 ->whereBetween('from', [now(), now()->addWeek()])
                 ->with(['skill' => function ($query) {
                     $query->where('status', SkillStatus::PUBLISHED);
@@ -48,19 +48,19 @@ class ClientSideController extends Controller
     {
         return view('client.skill-details', [
             'skill' => $skill,
-            'appointments' => $skill->appointments
+            'timetables' => $skill->timetables
         ]);
     }
 
     /**
-     * @param Appointment $appointment
+     * @param Timetable $timetable
      * @return Application|Factory|View
      */
-    public function appointmentDetails(Appointment $appointment)
+    public function timetableDetails(Timetable $timetable)
     {
-        return view('client.appointment-details', [
-            'appointment' => $appointment->load('skill.category'),
-            'otherAppointments' => Appointment::with('skill.category')->whereSkillId($appointment->skill->id)->whereNot('id', $appointment->id)->get()
+        return view('client.timetable-details', [
+            'timetable' => $timetable->load('skill.category'),
+            'otherTimetables' => Timetable::with('skill.category')->whereSkillId($timetable->skill->id)->whereNot('id', $timetable->id)->get()
         ]);
     }
 }

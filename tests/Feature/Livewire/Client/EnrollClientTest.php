@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Livewire\CLient;
+namespace Tests\Feature\Livewire\Client;
 
 use App\Http\Livewire\CLient\EnrollClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
