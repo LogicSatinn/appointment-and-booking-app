@@ -37,6 +37,9 @@ class SkillStoreRequest extends FormRequest
             'title' => ['required', 'string'],
             'slug' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'mode_of_delivery' => ['required', 'string'],
+            'prerequisite' => ['required', 'string'],
+            'suitable_for' => ['required', 'string'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'status' => ['required'],
             'skill_cover_photo' => ['required', 'file', 'image']

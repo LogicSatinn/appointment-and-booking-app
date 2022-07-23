@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\BookingMethod;
 use App\States\Booking\BookingState;
 use Carbon\Carbon;
 use Database\Factories\BookingFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -71,9 +73,22 @@ class Booking extends Model
         'id' => 'integer',
         'client_id' => 'integer',
         'timetable_id' => 'integer',
-        'booked_at' => 'timestamp',
-        'status' => BookingState::class
+        'status' => BookingState::class,
+        'total_amount' => 'decimal:2',
+        'paid_amount' => 'decimal:2',
+        'due_amount' => 'decimal:2',
+        'booking_method' => BookingMethod::class,
     ];
+
+    /**
+     * @return Attribute
+     */
+    public function bookedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::create($value)->toFormattedDateString(),
+        );
+    }
 
     /**
      * @return HasMany
@@ -107,4 +122,11 @@ class Booking extends Model
         return $this->belongsTo(Timetable::class);
     }
 
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'reference_code';
+    }
 }

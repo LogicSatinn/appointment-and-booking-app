@@ -45,7 +45,7 @@ class SkillController extends Controller
     public function store(SkillStoreRequest $request)
     {
         try {
-            $skill = Skill::create($request->only(['title', 'slug', 'category_id', 'description', 'status']));
+            $skill = Skill::create($request->safe()->only(['title', 'slug', 'category_id', 'description', 'status', 'mode_of_delivery', 'prerequisite', 'suitable_for']));
 
             $this->storeCoverPhoto($request, $skill);
 

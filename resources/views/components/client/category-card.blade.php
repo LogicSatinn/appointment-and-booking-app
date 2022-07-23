@@ -7,7 +7,7 @@
         <div class="card-footer px-0 pb-0 pt-3">
             <h5 class="mb-0 line-clamp-1">{{ $category->name }}</h5>
             @isset($category->skills_count)
-            <p class="mb-0 line-clamp-1">Over {{ $category->skills_count }} Courses</p>
+            <p class="mb-0 line-clamp-1">Over {{ $category->skills_count }} Skills</p>
             @endisset
         </div>
     </div>

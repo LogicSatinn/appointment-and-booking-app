@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('timetable_client', function (Blueprint $table) {
+        Schema::create('client_timetable', function (Blueprint $table) {
             $table->foreignId('timetable_id')->constrained();
             $table->foreignId('client_id')->constrained();
             $table->integer('no_of_seats')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('timetable_client');
+        Schema::dropIfExists('client_timetable');
     }
 };

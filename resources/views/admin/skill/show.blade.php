@@ -2,7 +2,7 @@
 
 <x-admin.master-layout>
     <!-- Hero -->
-    <div class="bg-dark bg-image" style="background-image: url('{{ asset('assets/media/photos/photo23@2x.jpg')}}');">
+    <div class="bg-dark bg-image" style="background-image: url('{{ asset('nia-lab.jpeg')}}');">
         <div class="bg-black-75">
             <div class="content content-full content-top">
                 <div class="py-4 text-center">

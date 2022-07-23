@@ -4,7 +4,7 @@
 
     <title> @yield('title') | {{ config('app.name') }}</title>
 
-    <meta name="description" content="Nia Lab, Computer Skills, Soft Skills, Computers, Computer Course">
+    <meta name="description" content="Nia Lab, Computer Skills, Soft Skills, Computers, Computer Skill">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Icons -->

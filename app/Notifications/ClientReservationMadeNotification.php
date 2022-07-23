@@ -13,17 +13,15 @@ class ClientReservationMadeNotification extends Notification
 
     protected $clientTimetable;
     protected $booking;
-    protected $payment;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($clientTimetable, $booking, $payment)
+    public function __construct($clientTimetable, $booking)
     {
         $this->clientTimetable = $clientTimetable;
         $this->booking = $booking;
-        $this->payment = $payment;
     }
 
     /**
@@ -49,8 +47,7 @@ class ClientReservationMadeNotification extends Notification
                     ->subject('Reservation Secured Successfully.')
                     ->greeting('Hello There, ' . $this->clientTimetable->name)
                     ->line('We are proud to tell you that your reservation of ' . $this->clientTimetable->pivot->no_of_seats . ' seats has been successfully secured.')
-                    ->line('Here\'s your Invoice Reference Code: ' . $this->booking->reference_code)
-                    ->line('And here\'s your Payment Reference Code: ' . $this->payment->reference_code . ' . You\'ll use it to make further payments.')
+                    ->line('Here\'s your Invoice Reference Code: ' . $this->booking->reference_code . ' . You\'ll use it to make further payments.')
                     ->line('Be informed that you may lose your seat(s) if you do not pay before six hours of the timetable.')
                     ->line('Thank you for using our services. Have a good day!');
     }

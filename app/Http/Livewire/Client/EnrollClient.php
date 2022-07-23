@@ -51,7 +51,7 @@ class EnrollClient extends Component
         ]);
 
         (new BeemSmsService())
-            ->content('You have enrolled for the course successfully. Please continue with the booking and reservation processes.')
+            ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
             ->getRecipients([$this->client->phone_number])->send();
 
         return redirect(route('cart', [

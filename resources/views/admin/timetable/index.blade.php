@@ -53,17 +53,17 @@
                                 {{ $timetable->status }}
                             </td>
                             <td class="font-w600">
-                                {{ $timetable->price }}
+                                {{ $timetable->representablePrice }}
                             </td>
                             <td class="text-center">
                                 <form action="{{ route('timetables.destroy', $timetable) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <div class="btn-group">
-{{--                                        <a href="{{ route('timetables.show', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"--}}
-{{--                                           title="View">--}}
-{{--                                            <i class="fa fa-eye-alt"></i>--}}
-{{--                                        </a>--}}
+                                        <a href="{{ route('timetables.show', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
+                                           title="View">
+                                            <i class="fa fa-eye-alt"></i>
+                                        </a>
                                         <a href="{{ route('timetables.edit', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="Edit">
                                             <i class="fa fa-pencil-alt"></i>

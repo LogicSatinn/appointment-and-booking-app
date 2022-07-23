@@ -4,5 +4,5 @@ namespace App\States\Payment;
 
 class Pending extends PaymentState
 {
-    public static string $name = 'NotStarted';
+    public static string $name = 'Pending';
 }

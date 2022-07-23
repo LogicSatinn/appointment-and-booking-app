@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -20,7 +21,10 @@ Route::controller(ClientSideController::class)->group(function () {
 
 Route::get('timetable/enroll-client/{timetable}', EnrollClient::class)->name('enroll-client');
 Route::get('/cart/{timetable}/{client}', Cart::class)->name('cart');
-Route::get('/checkout/{timetable}/{client}', [CheckoutController::class, 'index'])->name('client.checkout');
+Route::controller(CheckoutController::class)->prefix('checkout')->group(function () {
+    Route::get('/{timetable}/{client}', 'index')->name('client.checkout');
+    Route::get('/reservation-complete/{booking}/{timetable}/{client}', 'reservationComplete')->name('reservation-complete');
+});
 
 Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::get('/dashboard', function () {
@@ -48,6 +52,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::resource('resources', ResourceController::class);
 
     Route::resource('timetables', TimetableController::class);
+
+    Route::resource('bookings', BookingController::class)->only(['index']);
 });
 
 require __DIR__.'/auth.php';

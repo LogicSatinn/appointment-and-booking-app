@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\SkillLevel;
+use App\Rules\CheckForAllocatedResourceRule;
 use App\States\Timetable\TimetableState;
 use App\States\Timetable\NotStarted;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 use Spatie\ModelStates\Validation\ValidStateRule;
 
 class TimetableStoreRequest extends FormRequest
@@ -48,8 +51,9 @@ class TimetableStoreRequest extends FormRequest
             'end' => ['required', 'date_format:H:i', 'after:start'],
             'status' => ['required', new ValidStateRule(TimetableState::class)],
             'price' => ['required', 'numeric'],
-            'resource_id' => ['required', 'integer', 'exists:resources,id'],
+            'resource_id' => ['required', 'integer', 'exists:resources,id', new CheckForAllocatedResourceRule()],
             'skill_id' => ['required', 'integer', 'exists:skills,id'],
+            'level' => ['required', new Enum(SkillLevel::class)]
         ];
     }
 }

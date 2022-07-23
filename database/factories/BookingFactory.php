@@ -26,10 +26,12 @@ class BookingFactory extends Factory
     {
         return [
             'client_id' => Client::factory(),
-            'course_id' => Skill::factory(),
             'status' => $this->faker->word,
             'reference_code' => $this->faker->word,
             'booked_at' => $this->faker->dateTime(),
+            'paid_amount' => $this->faker->randomFloat(2, 0, 999999.99),
+            'total_amount' => $this->faker->randomFloat(2, 0, 999999.99),
+            'due_amount' => $this->faker->randomFloat(2, 0, 999999.99),
         ];
     }
 }

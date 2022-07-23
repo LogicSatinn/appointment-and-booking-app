@@ -47,7 +47,7 @@ class NewReservationMadeNotification extends Notification
                     ->subject('New Reservation Made')
                     ->greeting('Howdy Admin.')
                     ->line('There is a new reservation made by a client moments ago.')
-                    ->line('Details...')
+                    ->line('Details')
                     ->line('-------------------------------------------------------------------')
                     ->line('Skill: ' . $this->timetable->skill->title)
                     ->line('Timetable Title: ' . $this->timetable->title)

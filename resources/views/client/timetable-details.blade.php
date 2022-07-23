@@ -7,7 +7,7 @@
         <nav class="mb-5 mb-md-8 mt-2" aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-scroll">
                 <li class="breadcrumb-item">
-                    <a class="text-gray-800" href="#">
+                    <a class="text-gray-800" href="{{ url('/') }}">
                         Home
                     </a>
                 </li>
@@ -136,23 +136,23 @@
                                                 class="text-right">{{ $timetable->start }} - {{ $timetable->end }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Lectures
+                                            Lectures <span
+                                                class="text-right">{{ $timetable->duration }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Enrolled
+                                            Enrolled <span
+                                                class="text-right">{{ $timetable->clients()->count() }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Language
+                                            Skill-Level <span
+                                                class="text-right">{{ $timetable->level->value }}</span>
                                         </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Skill-Level
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Deadline
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Certificate
-                                        </li>
+{{--                                        <li class="list-group-item d-flex justify-content-between align-items-center">--}}
+{{--                                            Deadline--}}
+{{--                                        </li>--}}
+{{--                                        <li class="list-group-item d-flex justify-content-between align-items-center">--}}
+{{--                                            Certificate--}}
+{{--                                        </li>--}}
                                     </ul>
 
                                 </div>
@@ -168,7 +168,7 @@
                                     class="border rounded shadow d-flex align-items-center justify-content-center px-9 py-8">
                                     <div class="m-2 text-center">
                                         <h1 class="display-2 mb-0 fw-medium mb-n1">4.93</h1>
-                                        <h5 class="mb-0">Course rating</h5>
+                                        <h5 class="mb-0">Skill rating</h5>
                                         <div class="star-rating">
                                             <div class="rating" style="width:100%;"></div>
                                         </div>
@@ -308,7 +308,7 @@
 
                         <div class="border shadow rounded p-6 p-md-9">
                             <h3 class="mb-2">Add Reviews & Rate</h3>
-                            <div class="">What is it like to Course?</div>
+                            <div class="">What is it like to Skill?</div>
                             <form>
                                 <div class="clearfix">
                                     <fieldset class="slect-rating mb-3">
@@ -347,7 +347,7 @@
                                 <div class="form-group mb-6">
                                     <label for="exampleInputTitle1">Review Title</label>
                                     <input type="text" class="form-control placeholder-1" id="exampleInputTitle1"
-                                           placeholder="Courses">
+                                           placeholder="Skills">
                                 </div>
 
                                 <div class="form-group mb-6">

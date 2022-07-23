@@ -71,6 +71,15 @@
 
                     <h3 class="">Skill Description</h3>
                     <p class="mb-6 line-height-md">{!! $skill->description !!}</p>
+
+                    <h3 class="">Mode of Delivery</h3>
+                    <p class="mb-6 line-height-md">{!! $skill->mode_of_delivery !!}</p>
+
+                    <h3 class="">Prerequisite</h3>
+                    <p class="mb-6 line-height-md">{!! $skill->prerequisite !!}</p>
+
+                    <h3 class="">Suitable For</h3>
+                    <p class="mb-6 line-height-md">{!! $skill->suitable_for !!}</p>
                 </div>
 
                 <div id="schedule" class="mb-8">

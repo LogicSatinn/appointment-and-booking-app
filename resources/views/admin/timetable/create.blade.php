@@ -128,6 +128,21 @@
                             @enderror
                         </div>
 
+                        <div class="form-group col-xl-6">
+                            <label for="level">Level</label>
+                            <select class="form-control" id="level" name="level">
+                                @foreach(\App\Enums\SkillLevel::cases() as $skillLevel)
+                                    <option
+                                        value="{{ $skillLevel->value }}" >{{ $skillLevel->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('level')
+                            <div class="alert alert-error">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group col-12">
                             <button class="btn btn-primary" type="submit"> Save</button>
                         </div>
@@ -148,7 +163,6 @@
         <script src="{{ asset('assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
         <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js')}}"></script>
 
-        <!-- Page JS Helpers (Flatpickr + BS Datepicker + BS Colorpicker + BS Maxlength + Select2 + Ion Range Slider + Masked Inputs + Password Strength Meter plugins) -->
         <script>jQuery(function () {
                 Dashmix.helpers(['flatpickr', 'datepicker']);
             });</script>

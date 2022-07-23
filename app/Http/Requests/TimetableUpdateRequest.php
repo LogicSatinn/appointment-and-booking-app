@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\SkillLevel;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class TimetableUpdateRequest extends FormRequest
 {
@@ -40,6 +42,7 @@ class TimetableUpdateRequest extends FormRequest
             'price' => ['nullable', 'numeric'],
             'resource_id' => ['nullable', 'integer', 'exists:resources,id'],
             'skill_id' => ['nullable', 'integer', 'exists:skills,id'],
+            'level' => ['required', new Enum(SkillLevel::class)]
         ];
     }
 }

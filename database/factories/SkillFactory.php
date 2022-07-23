@@ -38,11 +38,6 @@ class SkillFactory extends Factory
                 SkillStatus::ARCHIVED,
                 SkillStatus::PUBLISHED,
             ]),
-            'level' => $this->faker->randomElement([
-                SkillLevel::BEGINNER,
-                SkillLevel::INTERMEDIATE,
-                SkillLevel::ADVANCED,
-            ]),
             'category_id' => Category::factory(),
         ];
     }

@@ -83,16 +83,16 @@
                                     </tr>
 
 
-                                    <tr>
-                                        <td colspan="5" class="actions">
-                                            <div class="coupon">
-                                                <label for="coupon_code">Coupon:</label>
-                                                <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code" autocomplete="off"> <input type="submit" class="button" name="apply_coupon" value="Apply coupon">
-                                            </div>
+{{--                                    <tr>--}}
+{{--                                        <td colspan="5" class="actions">--}}
+{{--                                            <div class="coupon">--}}
+{{--                                                <label for="coupon_code">Coupon:</label>--}}
+{{--                                                <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code" autocomplete="off"> <input type="submit" class="button" name="apply_coupon" value="Apply coupon">--}}
+{{--                                            </div>--}}
 
-                                            <input type="submit" class="button" name="update_cart" value="Update cart">
-                                        </td>
-                                    </tr>
+{{--                                            <input type="submit" class="button" name="update_cart" value="Update cart">--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
                                     </tbody>
                                 </table>
                             </div>

@@ -19,6 +19,7 @@ class CreateTimetablesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('level');
             $table->date('from');
             $table->date('to');
             $table->time('start');

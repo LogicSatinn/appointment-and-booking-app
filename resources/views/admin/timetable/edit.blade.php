@@ -16,7 +16,8 @@
 
                         <div class="form-group col-lg-6">
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" class="form-control" value="{{ $timetable->title }}">
+                            <input type="text" id="title" name="title" class="form-control"
+                                   value="{{ $timetable->title }}">
                             @error('title')
                             <div class="alert alert-error">
                                 {{ $message }}
@@ -49,7 +50,8 @@
                             <label for="skill">Skill</label>
                             <select class="form-control" id="skill" name="skill_id">
                                 @foreach($skills as $key => $value)
-                                    <option value="{{ $key }}" @selected($key == $timetable->skill_id)>{{ $value }}</option>
+                                    <option
+                                        value="{{ $key }}" @selected($key == $timetable->skill_id)>{{ $value }}</option>
                                 @endforeach
                             </select>
                             @error('skill_id')
@@ -64,7 +66,8 @@
                             <label for="resource">Resource</label>
                             <select class="form-control" id="resource" name="resource_id">
                                 @foreach($resources as $key => $value)
-                                    <option value="{{ $key }}" @selected($key == $timetable->resource_id)>{{ $value }}</option>
+                                    <option
+                                        value="{{ $key }}" @selected($key == $timetable->resource_id)>{{ $value }}</option>
                                 @endforeach
                             </select>
                             @error('resource_id')
@@ -79,7 +82,7 @@
                             <div class="input-daterange input-group" data-date-format="dd/mm/yyyy" data-week-start="1"
                                  data-autoclose="true" data-today-highlight="true">
                                 <input type="text" class="form-control" id="from" name="from" placeholder="From"
-                                       data-week-start="1" data-autoclose="true" data-today-highlight="true" >
+                                       data-week-start="1" data-autoclose="true" data-today-highlight="true">
                                 <div class="input-group-prepend input-group-append">
                                                     <span class="input-group-text font-w600">
                                                         <i class="fa fa-fw fa-arrow-right"></i>
@@ -130,6 +133,21 @@
                             @enderror
                         </div>
 
+                        <div class="form-group col-xl-6">
+                            <label for="level">Level</label>
+                            <select class="form-control" id="level" name="level">
+                                @foreach(\App\Enums\SkillLevel::cases() as $skillLevel)
+                                <option
+                                    value="{{ $skillLevel->value }}" @selected($skill->level == $skillLevel->value)>{{ $skillLevel->name }}</option>
+                                    @endforeach
+                             </select>
+                            @error('level')
+                            <div class="alert alert-error">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group col-12">
                             <button class="btn btn-primary" type="submit"> Save</button>
                         </div>
@@ -150,7 +168,6 @@
         <script src="{{ asset('assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
         <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js')}}"></script>
 
-        <!-- Page JS Helpers (Flatpickr + BS Datepicker + BS Colorpicker + BS Maxlength + Select2 + Ion Range Slider + Masked Inputs + Password Strength Meter plugins) -->
         <script>jQuery(function () {
                 Dashmix.helpers(['flatpickr', 'datepicker']);
             });</script>

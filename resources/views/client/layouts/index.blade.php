@@ -3,7 +3,7 @@
 
 @include('client.layouts.inc.head')
 
-<body class="bg-white">
+<body {{ $attributes->class(['bg-white']) }}>
 
 <x-client.header/>
 {{ $slot }}

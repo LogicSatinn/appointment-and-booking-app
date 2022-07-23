@@ -22,7 +22,7 @@
                             <div class="form-group col-md-6">
                                 <label for="site_name">Site Name</label>
                                 <input type="text" class="form-control" id="site_name" name="site_name"
-                                       value="{{ setting('site_name') ?? 'N/A' }}">
+                                       value="{{ setting('site_name') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('site_name')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -32,7 +32,7 @@
                             <div class="form-group col-md-6">
                                 <label for="contact_email">Contact Email</label>
                                 <input type="email" class="form-control" id="contact_email" name="contact_email"
-                                       value="{{ setting('contact_email') ?? 'N/A' }}">
+                                       value="{{ setting('contact_email') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('contact_email')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -46,7 +46,7 @@
                                 <label for="contact_phone_number">Contact Phone Number</label>
                                 <input type="text" class="form-control" id="contact_phone_number"
                                        name="contact_phone_number"
-                                       value="{{ setting('site_name') ?? 'Eg. +255700000000' }}">
+                                       value="{{ setting('site_name') ?? 'Eg. +255700000000' }}" onfocus="this.value=''">
                                 @error('contact_phone_number')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -57,7 +57,7 @@
                                 <label for="facebook_social_media_link">Facebook Social Media Link</label>
                                 <input type="text" class="form-control" id="facebook_social_media_link"
                                        name="facebook_social_media_link"
-                                       value="{{ setting('facebook_social_media_link') ?? 'N/A' }}">
+                                       value="{{ setting('facebook_social_media_link') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('facebook_social_media_link')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -71,7 +71,7 @@
                                 <label for="twitter_social_media_link">Twitter Social Media Link</label>
                                 <input type="text" class="form-control" id="twitter_social_media_link"
                                        name="twitter_social_media_link"
-                                       value="{{ setting('twitter_social_media_link') ?? 'N/A' }}">
+                                       value="{{ setting('twitter_social_media_link') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('twitter_social_media_link')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -82,7 +82,7 @@
                                 <label for="instagram_social_media_link">Instagram Social Media Link</label>
                                 <input type="text" class="form-control" id="instagram_social_media_link"
                                        name="instagram_social_media_link"
-                                       value="{{ setting('instagram_social_media_link') ?? 'N/A' }}">
+                                       value="{{ setting('instagram_social_media_link') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('instagram_social_media_link')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -95,7 +95,7 @@
                             <div class="form-group col-12">
                                 <label for="address">Address</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                       value="{{ setting('address') ?? 'N/A' }}">
+                                       value="{{ setting('address') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('address')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -124,7 +124,7 @@
                             <div class="form-group col-md-6">
                                 <label for="beem_api_key">Beem Api Key</label>
                                 <input type="text" class="form-control" id="beem_api_key" name="beem_api_key"
-                                       value="{{ setting('beem_api_key') ?? 'N/A' }}">
+                                       value="{{ setting('beem_api_key') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('beem_api_key')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -135,7 +135,7 @@
                             <div class="form-group col-md-6">
                                 <label for="beem_sender_name">Beem Sender Name</label>
                                 <input type="text" class="form-control" id="beem_sender_name"
-                                       name="beem_sender_name" value="{{ setting('beem_sender_name') ?? 'N/A' }}">
+                                       name="beem_sender_name" value="{{ setting('beem_sender_name') ?? 'N/A' }}" onfocus="this.value=''">
                                 @error('beem_sender_name')
                                 <div class="alert alert-error">
                                     {{ $message }}
@@ -148,7 +148,7 @@
                             <div class="form-group col-md-12">
                                 <label for="beem_secret_key">Beem Secret Key</label>
                                 <textarea type="email" class="form-control" id="beem_secret_key" name="beem_secret_key"
-                                          rows="3">{{ setting('beem_secret_key') ?? 'N/A' }}</textarea>
+                                          rows="3" onfocus="this.value=''">{{ setting('beem_secret_key') ?? 'N/A' }}</textarea>
                                 @error('beem_secret_key')
                                 <div class="alert alert-error">
                                     {{ $message }}

@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TimetableController extends Controller
 {
@@ -50,12 +51,13 @@ class TimetableController extends Controller
             toast('Timetable saved successfully.', 'success');
 
             return redirect()->route('timetables.index');
-        } catch (Exception|Error) {
+        } catch (Exception|Error $e) {
             toast('Something went really wrong. We\'re working hard to fix this.', 'error');
+
+            Log::debug('TimetableController::store => ' . $e);
 
             return back();
         }
-
     }
 
     /**
@@ -64,7 +66,9 @@ class TimetableController extends Controller
      */
     public function show(Timetable $timetable)
     {
-        return view('admin.timetable.show', compact('timetable'));
+        return view('admin.timetable.show', [
+            'timetable' => $timetable->load('clients', 'bookings', 'resource')
+        ]);
     }
 
     /**
@@ -93,12 +97,13 @@ class TimetableController extends Controller
             toast('Timetable updated successfully', 'success');
 
             return redirect()->route('timetables.index');
-        } catch (Exception|Error) {
+        } catch (Exception|Error $e) {
             toast('Something went really wrong. We\'re working on this right now', 'error');
+
+            Log::debug('TimetableController::update => ' . $e);
 
             return back();
         }
-
     }
 
     /**

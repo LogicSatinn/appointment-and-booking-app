@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SkillLevel;
 use App\States\Timetable\TimetableState;
 use Carbon\Carbon;
 use Database\Factories\TimetableFactory;
@@ -91,6 +92,7 @@ class Timetable extends Model
         'price' => 'decimal:2',
         'resource_id' => 'integer',
         'skill_id' => 'integer',
+        'level' => SkillLevel::class
     ];
 
     /**
@@ -178,6 +180,13 @@ class Timetable extends Model
         );
     }
 
+    /**
+     * @return HasMany
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 
     /**
      * @return HasMany

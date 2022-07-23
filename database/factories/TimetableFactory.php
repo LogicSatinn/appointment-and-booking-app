@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\SkillLevel;
 use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -40,6 +41,11 @@ class TimetableFactory extends Factory
             'price' => rand(10000, 10000),
             'resource_id' => Resource::factory()->state([
                 'state' => Available::class
+            ]),
+            'level' => $this->faker->randomElement([
+                SkillLevel::BEGINNER,
+                SkillLevel::INTERMEDIATE,
+                SkillLevel::ADVANCED,
             ]),
             'skill_id' => Skill::factory(),
         ];

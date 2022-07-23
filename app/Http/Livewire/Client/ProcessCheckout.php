@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Client;
 
+use App\Enums\BookingMethod;
 use App\Enums\ReservationStatus;
 use App\Models\Timetable;
 use App\Models\Booking;
@@ -64,16 +65,11 @@ class ProcessCheckout extends Component
             'timetable_id' => $this->timetable->id,
             'status' => Pending::class,
             'reference_code' => 'NL-B' . rand(0000000, 9999999),
-            'booked_at' => now()
-        ]);
-
-        $payment = Payment::create([
-            'booking_id' => $booking->id,
-            'reference_code' => 'NL-P' . rand(0000000, 9999999),
-            'status' => \App\States\Payment\Pending::class,
+            'booked_at' => now(),
             'total_amount' => $this->total,
             'due_amount' => 0,
             'paid_amount' => 0,
+            'booking_method' => BookingMethod::RESERVATION,
         ]);
 
         for ($i = 1; $i <= $this->clientTimetable->pivot->no_of_seats; $i++) {
@@ -88,11 +84,17 @@ class ProcessCheckout extends Component
             ]);
         }
 
-        $this->client->notify(new ClientReservationMadeNotification($this->getClientTimetableProperty(), $booking, $payment));
-        User::find(1)->notify(new NewReservationMadeNotification($this->timetable, $this->getClientTimetableProperty()))
+        $this->client->notify(new ClientReservationMadeNotification($this->clientTimetable, $booking));
+//        User::find(1)->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
         (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
             ->getRecipients([$this->client->phone_number])
             ->send();
+
+        return redirect(route('reservation-complete', [
+            'booking' => $booking,
+            'client' => $this->client,
+            'timetable' => $this->timetable
+        ]));
     }
 
     public function render()

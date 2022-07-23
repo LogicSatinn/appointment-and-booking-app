@@ -40,23 +40,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="level">Level</label>
-                                <select class="form-control" id="level" name="level">
-                                    <option
-                                        value="{{ \App\Enums\SkillLevel::BEGINNER->value }}" @selected($skill->level == \App\Enums\SkillLevel::BEGINNER->value)>{{ \App\Enums\SkillLevel::BEGINNER->value }}</option>
-                                    <option
-                                        value="{{ \App\Enums\SkillLevel::INTERMEDIATE->value }}" @selected($skill->level == \App\Enums\SkillLevel::INTERMEDIATE->value)>{{ \App\Enums\SkillLevel::INTERMEDIATE->value }}</option>
-                                    <option
-                                        value="{{ \App\Enums\SkillLevel::ADVANCED->value }}" @selected($skill->level == \App\Enums\SkillLevel::ADVANCED->value)>{{ \App\Enums\SkillLevel::ADVANCED->value }}</option>
-                                </select>
-                                @error('level')
-                                <div class="alert alert-error">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label for="skill_cover_photo">Update Skill Cover Photo</label>
                                 <input type="file" class="form-control-file" id="skill_cover_photo"
                                        name="skill_cover_photo">
