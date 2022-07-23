@@ -2,7 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Http\Controllers\ResourceController;
+use App\Http\Requests\ResourceStoreRequest;
+use App\Http\Requests\ResourceUpdateRequest;
 use App\Models\Resource;
+use App\States\Resource\Available;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -48,9 +52,9 @@ class ResourceControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ResourceController::class,
+            ResourceController::class,
             'store',
-            \App\Http\Requests\ResourceStoreRequest::class
+            ResourceStoreRequest::class
         );
     }
 
@@ -60,19 +64,25 @@ class ResourceControllerTest extends TestCase
     public function store_saves_and_redirects()
     {
         $name = $this->faker->name;
-        $no_of_seats = $this->faker->numberBetween(-10000, 10000);
-        $available = $this->faker->boolean;
+        $slug = $name;
+        $note = $this->faker->paragraph;
+        $capacity = $this->faker->numberBetween(100, 900);
+        $status = Available::class;
 
         $response = $this->post(route('resource.store'), [
             'name' => $name,
-            'no_of_seats' => $no_of_seats,
-            'available' => $available,
+            'slug' => $slug,
+            'note' => $note,
+            'capacity' => $capacity,
+            'status' => $status,
         ]);
 
         $resources = Resource::query()
             ->where('name', $name)
-            ->where('no_of_seats', $no_of_seats)
-            ->where('available', $available)
+            ->where('slug', $slug)
+            ->where('note', $note)
+            ->where('capacity', $capacity)
+            ->where('status', $status)
             ->get();
         $this->assertCount(1, $resources);
         $resource = $resources->first();
@@ -118,9 +128,9 @@ class ResourceControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ResourceController::class,
+            ResourceController::class,
             'update',
-            \App\Http\Requests\ResourceUpdateRequest::class
+            ResourceUpdateRequest::class
         );
     }
 
@@ -131,13 +141,17 @@ class ResourceControllerTest extends TestCase
     {
         $resource = Resource::factory()->create();
         $name = $this->faker->name;
-        $no_of_seats = $this->faker->numberBetween(-10000, 10000);
-        $available = $this->faker->boolean;
+        $slug = $name;
+        $note = $this->faker->paragraph;
+        $capacity = $this->faker->numberBetween(100, 900);
+        $status = Available::class;
 
         $response = $this->put(route('resource.update', $resource), [
             'name' => $name,
-            'no_of_seats' => $no_of_seats,
-            'available' => $available,
+            'slug' => $slug,
+            'note' => $note,
+            'capacity' => $capacity,
+            'status' => $status,
         ]);
 
         $resource->refresh();
@@ -146,8 +160,10 @@ class ResourceControllerTest extends TestCase
         $response->assertSessionHas('resource.id', $resource->id);
 
         $this->assertEquals($name, $resource->name);
-        $this->assertEquals($no_of_seats, $resource->no_of_seats);
-        $this->assertEquals($available, $resource->available);
+        $this->assertEquals($slug, $resource->slug);
+        $this->assertEquals($note, $resource->note);
+        $this->assertEquals($capacity, $resource->capacity);
+        $this->assertEquals($status, $resource->status);
     }
 
 

@@ -20,7 +20,7 @@
                     <tr>
                         <th class="text-center" style="width: 50px;">#</th>
                         <th>Title</th>
-                        <th>Description</th>
+                        <th>Status</th>
                         <th class="d-none d-sm-table-cell" style="width: 15%;">Category</th>
                         <th class="text-center" style="width: 100px;">Actions</th>
                     </tr>

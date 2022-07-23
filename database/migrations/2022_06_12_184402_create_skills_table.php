@@ -18,8 +18,13 @@ class CreateSkillsTable extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->longText('description');
+            $table->longText('mode_of_delivery');
+            $table->longText('prerequisite');
+            $table->longText('suitable_for');
             $table->string('status');
+            $table->string('image_path')->nullable();
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete()

@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Timetable;
+use App\Models\Category;
+use App\Models\Skill;
+use App\Models\User;
+use App\States\Timetable\NotStarted;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,11 +19,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-         \App\Models\User::factory()->create([
-             'name' => 'Admin',
+         User::factory()->create([
+             'name' => 'Daniel Tairo',
              'email' => 'admin@nia-lab.app',
          ]);
+
+         if (config('app.name') == 'local') {
+             Skill::factory(4)
+                 ->has(Timetable::factory()->count(3)->state([
+                     'status' => NotStarted::class
+                 ]))
+                 ->for(Category::factory()->create())
+                 ->create();
+         }
     }
 }

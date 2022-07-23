@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use App\Enums\BookingMethod;
+use App\States\Booking\BookingState;
 use Carbon\Carbon;
 use Database\Factories\BookingFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\ModelStates\HasStates;
 
 /**
  * App\Models\Booking
@@ -24,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property int $appointment_id
+ * @property int $timetable_id
  * @property-read Client $client
  * @property-read Skill|null $skill
  * @property-read Collection|Payment[] $payments
@@ -36,7 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Booking newQuery()
  * @method static \Illuminate\Database\Query\Builder|Booking onlyTrashed()
  * @method static Builder|Booking query()
- * @method static Builder|Booking whereAppointmentId($value)
+ * @method static Builder|Booking whereTimetableId($value)
  * @method static Builder|Booking whereBookedAt($value)
  * @method static Builder|Booking whereClientId($value)
  * @method static Builder|Booking whereCreatedAt($value)
@@ -51,7 +55,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Booking extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasStates;
 
     /**
      * The attributes that aren't mass assignable.
@@ -68,9 +72,23 @@ class Booking extends Model
     protected $casts = [
         'id' => 'integer',
         'client_id' => 'integer',
-        'skill_id' => 'integer',
-        'booked_at' => 'timestamp',
+        'timetable_id' => 'integer',
+        'status' => BookingState::class,
+        'total_amount' => 'decimal:2',
+        'paid_amount' => 'decimal:2',
+        'due_amount' => 'decimal:2',
+        'booking_method' => BookingMethod::class,
     ];
+
+    /**
+     * @return Attribute
+     */
+    public function bookedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::create($value)->toFormattedDateString(),
+        );
+    }
 
     /**
      * @return HasMany
@@ -99,9 +117,16 @@ class Booking extends Model
     /**
      * @return BelongsTo
      */
-    public function skill(): BelongsTo
+    public function timetable(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(Timetable::class);
     }
 
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'reference_code';
+    }
 }

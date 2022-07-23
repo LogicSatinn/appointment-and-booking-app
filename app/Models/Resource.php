@@ -7,12 +7,14 @@ use Carbon\Carbon;
 use Database\Factories\ResourceFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
 /**
@@ -27,8 +29,8 @@ use Spatie\ModelStates\HasStates;
  * @property Carbon $updated_at
  * @property string|null $note
  * @property int $capacity
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
  * @property-read Collection|Skill[] $courses
  * @property-read int|null $courses_count
  * @method static ResourceFactory factory(...$parameters)
@@ -52,6 +54,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Resource orWhereState(string $column, $states)
  * @method static Builder|Resource whereNotState(string $column, $states)
  * @method static Builder|Resource whereState($value)
+ * @property string $slug
+ * @method static Builder|Resource whereSlug($value)
  */
 class Resource extends Model
 {
@@ -76,11 +80,22 @@ class Resource extends Model
     ];
 
     /**
+     * @return Attribute
+     */
+    public function slug(): Attribute
+    {
+        return Attribute::make(
+            set: fn() => strtolower(Str::snake($this->name, '-'))
+        );
+    }
+
+
+    /**
      * @return HasMany
      */
-    public function appointments(): HasMany
+    public function timetables(): HasMany
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Timetable::class);
     }
 
     /**
@@ -89,5 +104,13 @@ class Resource extends Model
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

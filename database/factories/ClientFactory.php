@@ -24,11 +24,11 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
             'profession' => $this->faker->word,
             'phone_number' => $this->faker->phoneNumber,
-            'address' => $this->faker->word,
-            'status' => $this->faker->word,
+            'address' => $this->faker->address,
         ];
     }
 }

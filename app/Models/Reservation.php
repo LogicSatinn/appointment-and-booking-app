@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $client_id
- * @property int $appointment_id
+ * @property int $timetable_id
  * @property int $booking_id
  * @property int $seat_number
  * @property string $status
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read Appointment $appointment
+ * @property-read Timetable $timetable
  * @property-read Booking $booking
  * @property-read Client $client
  * @method static ReservationFactory factory(...$parameters)
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Reservation newQuery()
  * @method static \Illuminate\Database\Query\Builder|Reservation onlyTrashed()
  * @method static Builder|Reservation query()
- * @method static Builder|Reservation whereAppointmentId($value)
+ * @method static Builder|Reservation whereTimetableId($value)
  * @method static Builder|Reservation whereBookingId($value)
  * @method static Builder|Reservation whereClientId($value)
  * @method static Builder|Reservation whereCreatedAt($value)
@@ -66,7 +66,7 @@ class Reservation extends Model
     protected $casts = [
         'id' => 'integer',
         'client_id' => 'integer',
-        'appointment_id' => 'integer',
+        'timetable_id' => 'integer',
         'booking_id' => 'integer',
         'reserved_at' => 'timestamp',
     ];
@@ -82,9 +82,9 @@ class Reservation extends Model
     /**
      * @return BelongsTo
      */
-    public function appointment(): BelongsTo
+    public function timetable(): BelongsTo
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Timetable::class);
     }
 
     /**

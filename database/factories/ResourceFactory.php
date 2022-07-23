@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Resource;
@@ -22,10 +23,14 @@ class ResourceFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name;
+
         return [
-            'name' => $this->faker->name,
-            'no_of_seats' => $this->faker->numberBetween(-10000, 10000),
-            'available' => $this->faker->boolean,
+            'name' => $name,
+            'slug' => $name,
+            'note' => $this->faker->paragraph,
+            'capacity' => $this->faker->numberBetween(100, 900),
+            'state' => Available::class,
         ];
     }
 }

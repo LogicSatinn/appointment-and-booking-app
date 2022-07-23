@@ -25,11 +25,13 @@ class BookingStoreRequest extends FormRequest
     {
         return [
             'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'course_id' => ['required', 'integer', 'exists:courses,id'],
+            'skill_id' => ['required', 'integer', 'exists:courses,id'],
             'status' => ['required', 'string'],
             'reference_code' => ['required', 'string'],
             'booked_at' => ['required'],
-            'softdeletes' => ['required'],
+            'total_amount' => ['required', 'numeric'],
+            'paid_amount' => ['required', 'numeric'],
+            'due_amount' => ['required', 'numeric'],
         ];
     }
 }

@@ -20,7 +20,10 @@ class SkillStoreRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $this->merge(['status' => SkillStatus::DRAFT->value]);
+        $this->merge([
+            'status' => SkillStatus::DRAFT->value,
+            'slug' => $this->get('title')
+        ]);
     }
 
     /**
@@ -32,9 +35,14 @@ class SkillStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'mode_of_delivery' => ['required', 'string'],
+            'prerequisite' => ['required', 'string'],
+            'suitable_for' => ['required', 'string'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'status' => ['required'],
+            'skill_cover_photo' => ['required', 'file', 'image']
         ];
     }
 }

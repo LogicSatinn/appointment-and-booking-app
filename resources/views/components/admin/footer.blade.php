@@ -6,7 +6,7 @@
               Copyright  &copy; <span data-toggle="year-copy"></span>
             </div>
             <div class="col-sm-6 order-sm-1 text-center text-sm-left">
-                Nia Lab - Appointment Scheduling App
+                Nia Lab - Timetable Scheduling App
             </div>
         </div>
     </div>

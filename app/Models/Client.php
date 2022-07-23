@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * App\Models\Client
@@ -27,8 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $updated_at
  * @property string $name
  * @property string $email
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
  * @property-read Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
  * @property-read Collection|Reservation[] $reservations
@@ -54,7 +55,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Client extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     /**
      * The attributes that aren't mass assignable.
@@ -70,7 +71,6 @@ class Client extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'user_id' => 'integer',
     ];
 
     /**
@@ -92,9 +92,11 @@ class Client extends Model
     /**
      * @return BelongsToMany
      */
-    public function appointments(): BelongsToMany
+    public function timetables(): BelongsToMany
     {
-        return $this->belongsToMany(Appointment::class);
+        return $this->belongsToMany(Timetable::class)
+                    ->withPivot('no_of_seats')
+                    ->withTimestamps();
     }
 
     /**

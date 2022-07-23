@@ -11,9 +11,15 @@ class ResourceUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
+    }
+
+
+    public function prepareForValidation()
+    {
+        $this->merge(['slug' => $this->get('name')]);
     }
 
     /**
@@ -25,6 +31,7 @@ class ResourceUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
             'capacity' => ['required', 'integer'],
             'note' => ['nullable', 'string']
         ];

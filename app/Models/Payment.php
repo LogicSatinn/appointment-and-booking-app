@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\States\Payment\PaymentState;
 use Carbon\Carbon;
 use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -67,6 +68,7 @@ class Payment extends Model
         'total_amount' => 'decimal:2',
         'due_amount' => 'decimal:2',
         'booking_id' => 'integer',
+        'status' => PaymentState::class
     ];
 
     /**

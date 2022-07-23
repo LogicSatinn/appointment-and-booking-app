@@ -26,4 +26,5 @@
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
+    <livewire:styles />
 </head>

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Skill
@@ -48,8 +49,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property string $status
  * @method static Builder|Skill whereStatus($value)
- * @property-read Collection|Appointment[] $appointments
- * @property-read int|null $appointments_count
+ * @property-read Collection|Timetable[] $timetables
+ * @property-read int|null $timetables_count
+ * @property string|null $image_path
+ * @method static Builder|Skill whereImagePath($value)
+ * @property string $slug
+ * @method static Builder|Skill whereSlug($value)
  */
 class Skill extends Model
 {
@@ -69,12 +74,30 @@ class Skill extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'price' => 'decimal:2',
+        'title' => 'string',
+        'slug' => 'string',
         'category_id' => 'integer',
-        'access' => 'boolean',
+        'status' => 'string',
+        'image_path' => 'string',
+        'description' => 'string',
+        'mode_of_delivery' => 'string',
+        'prerequisite' => 'string',
+        'suitable_for' => 'string',
     ];
 
+    /**
+     * @return Attribute
+     */
+    public function slug(): Attribute
+    {
+        return Attribute::make(
+            set: fn () => strtolower(Str::snake($this->title, '-'))
+        );
+    }
 
+    /**
+     * @return Attribute
+     */
     public function status(): Attribute
     {
         return Attribute::make(
@@ -93,9 +116,9 @@ class Skill extends Model
     /**
      * @return HasMany
      */
-    public function appointments(): HasMany
+    public function timetables(): HasMany
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Timetable::class);
     }
 
     /**
@@ -121,4 +144,13 @@ class Skill extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
 }

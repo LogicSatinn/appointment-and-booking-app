@@ -17,10 +17,8 @@ class CreatePaymentsTable extends Migration
 
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_method');
-            $table->decimal('paid_amount', 8, 2);
-            $table->decimal('total_amount', 8, 2);
-            $table->decimal('due_amount', 8, 2);
+            $table->string('payment_method')->nullable();
+            $table->decimal('amount', 8, 2)->default(0);
             $table->string('status');
             $table->foreignId('booking_id')
                 ->constrained()

@@ -16,8 +16,14 @@ class CreateSkillTagTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('skill_tag', function (Blueprint $table) {
-            $table->foreignId('skill_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('tag_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('skill_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('tag_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
 
         Schema::enableForeignKeyConstraints();

@@ -4,7 +4,7 @@
 
     <title> @yield('title') | {{ config('app.name') }}</title>
 
-    <meta name="description" content="Nia Lab, Computer Skills, Soft Skills, Computers, Computer Course">
+    <meta name="description" content="Nia Lab, Computer Skills, Soft Skills, Computers, Computer Skill">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Icons -->
@@ -25,4 +25,6 @@
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
     <link rel="stylesheet" id="css-theme" href="{{ asset('assets/css/themes/xwork.min.css')}}">
     <!-- END Stylesheets -->
+
+    <livewire:styles />
 </head>

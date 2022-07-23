@@ -25,9 +25,7 @@ class PaymentFactory extends Factory
     {
         return [
             'payment_method' => $this->faker->word,
-            'paid_amount' => $this->faker->randomFloat(2, 0, 999999.99),
-            'total_amount' => $this->faker->randomFloat(2, 0, 999999.99),
-            'due_amount' => $this->faker->randomFloat(2, 0, 999999.99),
+            'amount' => $this->faker->randomFloat(2, 0, 999999.99),
             'status' => $this->faker->word,
             'booking_id' => Booking::factory(),
             'reference_code' => $this->faker->word,
