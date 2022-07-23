@@ -97,15 +97,9 @@
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link @if(request()->routeIs('bookings.index')) active @endif" href="{{ route('categories.index') }}">
+                <a class="nav-main-link @if(request()->routeIs('bookings.index')) active @endif" href="{{ route('bookings.index') }}">
                     <i class="nav-main-link-icon fa fa-ticket-alt"></i>
                     <span class="nav-main-link-name">Booking</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link @if(request()->routeIs('categories.index')) active @endif" href="{{ route('categories.index') }}">
-                    <i class="nav-main-link-icon fa fa-archive"></i>
-                    <span class="nav-main-link-name">Instructors</span>
                 </a>
             </li>
             <li class="nav-main-item">

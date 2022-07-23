@@ -67,7 +67,7 @@ class TimetableController extends Controller
     public function show(Timetable $timetable)
     {
         return view('admin.timetable.show', [
-            'timetable' => $timetable->load('clients', 'bookings', 'resource')
+            'timetable' => $timetable->load('clients', 'bookings.reservations', 'resource')
         ]);
     }
 

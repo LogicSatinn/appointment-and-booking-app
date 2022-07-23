@@ -53,7 +53,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
 
     Route::resource('timetables', TimetableController::class);
 
-    Route::resource('bookings', BookingController::class)->only(['index']);
+    Route::resource('bookings', BookingController::class)->only(['index', 'destroy']);
 });
 
 require __DIR__.'/auth.php';
