@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
          User::factory()->create([
              'name' => 'Daniel Tairo',
-             'email' => 'admin@nia-lab.app',
+             'email' => 'chaupele@hotmail.com',
          ]);
 
          if (config('app.name') == 'local') {

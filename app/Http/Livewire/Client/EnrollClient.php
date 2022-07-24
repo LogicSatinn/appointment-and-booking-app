@@ -25,7 +25,7 @@ class EnrollClient extends Component
     protected $rules = [
         'name' => 'required|string|min:3',
         'email' => 'required|string|email',
-        'phoneNumber' => 'required|string',
+        'phoneNumber' => 'required|string|starts_with:255|unique:clients,phone_number',
         'profession' => 'nullable|string|min:3',
         'address' => 'nullable|string|min:3'
     ];
@@ -40,24 +40,33 @@ class EnrollClient extends Component
      */
     public function saveClient(): Redirector|Application|RedirectResponse
     {
-        $this->client = Client::firstOrCreate([
-            'email' => $this->email,
-            'phone_number' => $this->phoneNumber
-        ],
-        [
-            'name' => $this->name,
-            'profession' => $this->profession,
-            'address' => $this->address
-        ]);
+        $validatedData = $this->validate();
 
-        (new BeemSmsService())
-            ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
-            ->getRecipients([$this->client->phone_number])->send();
+        try {
+            $this->client = Client::firstOrCreate([
+                'email' => $this->email,
+                'phone_number' => $this->phoneNumber
+            ], [
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'phone_number' => $validatedData['phoneNumber'],
+                'profession' => $validatedData['profession'],
+                'address' => $validatedData['address']
+            ]);
 
-        return redirect(route('cart', [
-            'timetable' => $this->timetable,
-            'client' => $this->client
-        ]));
+            (new BeemSmsService())
+                ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
+                ->getRecipients([$this->client->phone_number])->send();
+
+            return redirect(route('cart', [
+                'timetable' => $this->timetable,
+                'client' => $this->client
+            ]));
+        } catch (\Exception|\Error $e) {
+            toast($e->getMessage() . 'Please try again later.', 'error');
+
+            return back();
+        }
     }
 
     public function render()

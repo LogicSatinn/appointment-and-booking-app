@@ -141,12 +141,17 @@
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Enrolled <span
-                                                class="text-right">{{ $timetable->clients()->count() }}</span>
+                                                class="text-right">{{ $timetable->clients->count() }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Number of Seats Remaining <span
+                                                class="text-right">{{ $timetable->resource->capacity - $timetable->clients->count() }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             Skill-Level <span
                                                 class="text-right">{{ $timetable->level->value }}</span>
                                         </li>
+
 {{--                                        <li class="list-group-item d-flex justify-content-between align-items-center">--}}
 {{--                                            Deadline--}}
 {{--                                        </li>--}}

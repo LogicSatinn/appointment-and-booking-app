@@ -40,7 +40,7 @@ class CheckForAllocatedResourceRule implements Rule, DataAwareRule
      */
     public function passes($attribute, $value)
     {
-        return Timetable::where('resource_id', $this->data['resource_id'])
+        return !Timetable::where('resource_id', $this->data['resource_id'])
             ->where('from', $this->data['from'])
             ->orWhere('to', $this->data['to'])
             ->where('start', $this->data['start'])

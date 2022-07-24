@@ -59,7 +59,7 @@ class ClientSideController extends Controller
     public function timetableDetails(Timetable $timetable)
     {
         return view('client.timetable-details', [
-            'timetable' => $timetable->load('skill.category'),
+            'timetable' => $timetable->load('skill.category', 'clients', 'resource'),
             'otherTimetables' => Timetable::with('skill.category')->whereSkillId($timetable->skill->id)->whereNot('id', $timetable->id)->get()
         ]);
     }

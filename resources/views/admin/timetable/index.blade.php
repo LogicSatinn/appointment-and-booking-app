@@ -62,7 +62,7 @@
                                     <div class="btn-group">
                                         <a href="{{ route('timetables.show', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="View">
-                                            <i class="fa fa-eye-alt"></i>
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                         <a href="{{ route('timetables.edit', $timetable) }}" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                            title="Edit">

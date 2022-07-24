@@ -51,7 +51,8 @@ class TimetableStoreRequest extends FormRequest
             'end' => ['required', 'date_format:H:i', 'after:start'],
             'status' => ['required', new ValidStateRule(TimetableState::class)],
             'price' => ['required', 'numeric'],
-            'resource_id' => ['required', 'integer', 'exists:resources,id', new CheckForAllocatedResourceRule()],
+            // 'resource_id' => ['required', 'integer', 'exists:resources,id', new CheckForAllocatedResourceRule()],
+            'resource_id' => ['required', 'integer', 'exists:resources,id'],
             'skill_id' => ['required', 'integer', 'exists:skills,id'],
             'level' => ['required', new Enum(SkillLevel::class)]
         ];

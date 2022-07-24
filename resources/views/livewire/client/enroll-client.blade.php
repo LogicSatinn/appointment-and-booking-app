@@ -48,6 +48,9 @@
                             Name
                         </label>
                         <input type="text" class="form-control" id="name" wire:model="name" onfocus="this.value=''">
+                        @error('name')
+                            <span class="alert alert-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Email -->
@@ -56,6 +59,9 @@
                             Email
                         </label>
                         <input type="email" class="form-control" id="email" wire:model="email" onfocus="this.value=''">
+                        @error('email')
+                            <span class="alert alert-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-5">
@@ -63,6 +69,9 @@
                             Phone Number
                         </label>
                         <input type="text" class="form-control" id="phone_number" wire:model="phoneNumber" onfocus="this.value=''">
+                        @error('phoneNumber')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-5">
@@ -70,6 +79,9 @@
                             Profession (Optional)
                         </label>
                         <input type="text" class="form-control" id="profession" wire:model="profession" onfocus="this.value=''">
+                        @error('profession')
+                            <span class="alert alert-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-5">
@@ -77,6 +89,9 @@
                             Address (Optional)
                         </label>
                         <input type="text" class="form-control" id="address" wire:model="address" onfocus="this.value=''">
+                        @error('address')
+                            <span class="alert alert-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Submit -->

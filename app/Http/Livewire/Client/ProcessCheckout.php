@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Client;
 
 use App\Enums\BookingMethod;
 use App\Enums\ReservationStatus;
+use App\Jobs\ProcessReservationAndNotification;
 use App\Models\Timetable;
 use App\Models\Booking;
 use App\Models\Client;
@@ -56,7 +57,6 @@ class ProcessCheckout extends Component
     }
 
     /**
-     * @throws GuzzleException
      */
     public function reservation()
     {
@@ -72,23 +72,7 @@ class ProcessCheckout extends Component
             'booking_method' => BookingMethod::RESERVATION,
         ]);
 
-        for ($i = 1; $i <= $this->clientTimetable->pivot->no_of_seats; $i++) {
-            Reservation::create([
-                'client_id' => $this->client->id,
-                'timetable_id' => $this->timetable->id,
-                'booking_id' => $booking->id,
-                'seat_number' => rand(1, $this->timetable->resource->capacity),
-                'status' => ReservationStatus::BOOKED,
-                'reference_code' => 'NL-R' . rand(0000000, 9999999),
-                'reserved_at' => now()
-            ]);
-        }
-
-        $this->client->notify(new ClientReservationMadeNotification($this->clientTimetable, $booking));
-//        User::find(1)->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
-        (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
-            ->getRecipients([$this->client->phone_number])
-            ->send();
+        ProcessReservationAndNotification::dispatch($booking, $this->client, $this->timetable);
 
         return redirect(route('reservation-complete', [
             'booking' => $booking,
