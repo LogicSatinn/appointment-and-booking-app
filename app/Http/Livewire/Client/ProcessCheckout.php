@@ -3,19 +3,11 @@
 namespace App\Http\Livewire\Client;
 
 use App\Enums\BookingMethod;
-use App\Enums\ReservationStatus;
 use App\Jobs\ProcessReservationAndNotification;
 use App\Models\Timetable;
 use App\Models\Booking;
 use App\Models\Client;
-use App\Models\Payment;
-use App\Models\Reservation;
-use App\Models\User;
-use App\Notifications\ClientReservationMadeNotification;
-use App\Notifications\NewReservationMadeNotification;
-use App\Services\BeemSmsService;
 use App\States\Booking\Pending;
-use GuzzleHttp\Exception\GuzzleException;
 use Livewire\Component;
 
 class ProcessCheckout extends Component
@@ -30,15 +22,18 @@ class ProcessCheckout extends Component
         $this->timetable = $timetable->load('resource');
     }
 
+
     public function getClientTimetableProperty()
     {
         return $this->timetable->clients()->where('client_id', $this->client->id)->first();
     }
 
+
     public function getTotalProperty()
     {
         return $this->clientTimetable->pivot->no_of_seats * $this->timetable->price;
     }
+
 
     public function processCheckout()
     {
@@ -51,13 +46,13 @@ class ProcessCheckout extends Component
         }
     }
 
+
     public function directPayment()
     {
         //
     }
 
-    /**
-     */
+
     public function reservation()
     {
         $booking = Booking::create([
@@ -80,6 +75,7 @@ class ProcessCheckout extends Component
             'timetable' => $this->timetable
         ]));
     }
+
 
     public function render()
     {

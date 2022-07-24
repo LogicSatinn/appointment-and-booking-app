@@ -17,7 +17,7 @@ class BeemSmsService
      * @return void
      * @throws GuzzleException
      */
-    public function send()
+    public function send(): void
     {
         $client = new Client();
 

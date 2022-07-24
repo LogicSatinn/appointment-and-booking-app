@@ -11,7 +11,6 @@ use App\Http\Controllers\SkillController;
 use App\Http\Livewire\Client\Cart;
 use App\Http\Livewire\Client\EnrollClient;
 use Illuminate\Support\Facades\Route;
-use Shoket\Laravel\Facades\Shoket;
 
 Route::controller(ClientSideController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -55,25 +54,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
     Route::resource('timetables', TimetableController::class);
 
     Route::resource('bookings', BookingController::class)->only(['index', 'destroy']);
-});
-
-Route::get('/charge', function () {
-    $chargeResponse = Shoket::makePaymentRequest([
-        "amount" => "200",
-        "customer_name" => "John Doe",
-        "email" =>  "john@user.com",
-        "number_used" => "255684663691",
-        "channel" =>  "Airtel"
-    ]);
-
-    $reference = $chargeResponse['reference'];
-
-    $verifyResponse = Shoket::verifyPaymentRequest($reference, [
-        "provider_name" => "Airtel",
-        "provider_code" => "AIRTELMONEY"
-    ]);
-
-    dd($chargeResponse, $verifyResponse);
 });
 
 require __DIR__.'/auth.php';
