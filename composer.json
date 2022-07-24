@@ -16,6 +16,7 @@
         "multicaret/laravel-acquaintances": "^3.5",
         "openpesa/laravel-pesa": "^1.0",
         "realrashid/sweet-alert": "^5.1",
+        "shoket/laravel-shoket": "^0.0.4",
         "spatie/laravel-model-states": "^2.4"
     },
     "require-dev": {
@@ -23,6 +24,7 @@
         "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^2.1",
+        "kevincobain2000/laravel-erd": "^1.6",
         "laravel-shift/blueprint": "^2.4",
         "laravel/breeze": "^1.9",
         "laravel/sail": "^1.0.1",

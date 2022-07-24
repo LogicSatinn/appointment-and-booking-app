@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba178399bcd44fbaee29bbac3b1965ef",
+    "content-hash": "c2be3daf176a6a20a500f1cee992e91b",
     "packages": [
         {
             "name": "anlutro/l4-settings",
@@ -3712,6 +3712,148 @@
             "time": "2022-05-28T13:28:03+00:00"
         },
         {
+            "name": "shoket/laravel-shoket",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alphaolomi/laravel-shoket.git",
+                "reference": "7d808dc59f201c44b5b08fc40e4ea8bb0181fdaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alphaolomi/laravel-shoket/zipball/7d808dc59f201c44b5b08fc40e4ea8bb0181fdaa",
+                "reference": "7d808dc59f201c44b5b08fc40e4ea8bb0181fdaa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0|^9.0",
+                "php": "^8.0|^8.1",
+                "shoket/php-shoket": "^0.0.4",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^5.10",
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^6.22",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Shoket\\Laravel\\ShoketServiceProvider"
+                    ],
+                    "aliases": {
+                        "Shoket": "Shoket\\Laravel\\Facades\\Shoket"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Shoket\\Laravel\\": "src",
+                    "Shoket\\Laravel\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alpha Olomi",
+                    "email": "alphaolomi@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Shoket Intergation",
+            "homepage": "https://github.com/shoket/laravel-shoket",
+            "keywords": [
+                "laravel",
+                "laravel-shoket",
+                "payment",
+                "shoket"
+            ],
+            "support": {
+                "issues": "https://github.com/alphaolomi/laravel-shoket/issues",
+                "source": "https://github.com/alphaolomi/laravel-shoket/tree/v0.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/alphaolomi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-05-25T09:25:38+00:00"
+        },
+        {
+            "name": "shoket/php-shoket",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alphaolomi/php-shoket.git",
+                "reference": "32bd5869bebd2cad7b717fc882f71d9633a4e0b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alphaolomi/php-shoket/zipball/32bd5869bebd2cad7b717fc882f71d9633a4e0b2",
+                "reference": "32bd5869bebd2cad7b717fc882f71d9633a4e0b2",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.4",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.6",
+                "pestphp/pest": "^1.21"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Shoket\\SDK\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alpha Olomi",
+                    "email": "alphaolomi@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Shoket is a PHP client for the Shoket Payment API.",
+            "homepage": "https://alphaolomi.github.io/php-shoket/",
+            "keywords": [
+                "alphaolomi",
+                "mobile-money",
+                "payment-api",
+                "payments",
+                "php-shoket",
+                "shoket",
+                "tanzania"
+            ],
+            "support": {
+                "issues": "https://github.com/alphaolomi/php-shoket/issues",
+                "source": "https://github.com/alphaolomi/php-shoket/tree/v0.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/alphaolomi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-05-25T09:14:42+00:00"
+        },
+        {
             "name": "spatie/laravel-model-states",
             "version": "2.4.0",
             "source": {
@@ -7164,6 +7306,72 @@
             "time": "2022-03-08T14:47:39+00:00"
         },
         {
+            "name": "kevincobain2000/laravel-erd",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevincobain2000/laravel-erd.git",
+                "reference": "c3cdb941977dee18518590de260df54525cbf985"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevincobain2000/laravel-erd/zipball/c3cdb941977dee18518590de260df54525cbf985",
+                "reference": "c3cdb941977dee18518590de260df54525cbf985",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^7.4|^8.0",
+                "spatie/laravel-package-tools": "^1.4.3"
+            },
+            "require-dev": {
+                "brianium/paratest": "^6.2",
+                "nunomaduro/collision": "^5.3",
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.3",
+                "spatie/laravel-ray": "^1.23",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kevincobain2000\\LaravelERD\\LaravelERDServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelERD": "Kevincobain2000\\LaravelERD\\LaravelERDFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kevincobain2000\\LaravelERD\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pulkit Kathuria",
+                    "email": "kevincobain2000@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A tool to automatically generate interactive ERD relationships in Models for Laravel",
+            "homepage": "https://github.com/kevincobain2000/laravel-erd",
+            "keywords": [
+                "kevincobain2000",
+                "laravel erd generator",
+                "laravel-erd"
+            ],
+            "support": {
+                "issues": "https://github.com/kevincobain2000/laravel-erd/issues",
+                "source": "https://github.com/kevincobain2000/laravel-erd/tree/1.6"
+            },
+            "time": "2021-11-30T02:22:27+00:00"
+        },
+        {
             "name": "laravel-shift/blueprint",
             "version": "v2.4.0",
             "source": {
@@ -10538,7 +10746,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
