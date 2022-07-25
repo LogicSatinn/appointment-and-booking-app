@@ -59,7 +59,7 @@ class ProcessReservationAndNotification implements ShouldQueue
         }
 
         $this->client->notify(new ClientReservationMadeNotification($this->clientTimetable, $this->booking));
-        User::find(1)->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
+        User::whereEmail('chaupele@hotmial.com')->firstOrFail()->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
         (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
             ->getRecipients([$this->client->phone_number])
             ->send();
