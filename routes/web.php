@@ -57,3 +57,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::resource('instructor', App\Http\Controllers\InstructorController::class);
