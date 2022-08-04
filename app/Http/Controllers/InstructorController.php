@@ -5,81 +5,81 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InstructorStoreRequest;
 use App\Http\Requests\InstructorUpdateRequest;
 use App\Models\Instructor;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|Factory|View
      */
     public function index(Request $request)
     {
         $instructors = Instructor::all();
 
-        return view('instructor.index', compact('instructors'));
+        return view('admin.instructor.index', compact('instructors'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|Factory|View
      */
     public function create(Request $request)
     {
-        return view('instructor.create');
+        return view('admin.instructor.create');
     }
 
     /**
-     * @param \App\Http\Requests\InstructorStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param InstructorStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(InstructorStoreRequest $request)
     {
-        $instructor = Instructor::create($request->validated());
-
-        $request->session()->flash('instructor.id', $instructor->id);
+        Instructor::create($request->validated());
 
         return redirect()->route('instructor.index');
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Instructor $instructor
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Instructor $instructor
+     * @return Application|Factory|View
      */
     public function show(Request $request, Instructor $instructor)
     {
-        return view('instructor.show', compact('instructor'));
+        return view('admin.instructor.show', compact('instructor'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Instructor $instructor
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Instructor $instructor
+     * @return Application|Factory|View
      */
     public function edit(Request $request, Instructor $instructor)
     {
-        return view('instructor.edit', compact('instructor'));
+        return view('admin.instructor.edit', compact('instructor'));
     }
 
     /**
-     * @param \App\Http\Requests\InstructorUpdateRequest $request
-     * @param \App\Models\Instructor $instructor
-     * @return \Illuminate\Http\Response
+     * @param InstructorUpdateRequest $request
+     * @param Instructor $instructor
+     * @return RedirectResponse
      */
     public function update(InstructorUpdateRequest $request, Instructor $instructor)
     {
         $instructor->update($request->validated());
 
-        $request->session()->flash('instructor.id', $instructor->id);
-
         return redirect()->route('instructor.index');
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Instructor $instructor
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Instructor $instructor
+     * @return RedirectResponse
      */
     public function destroy(Request $request, Instructor $instructor)
     {

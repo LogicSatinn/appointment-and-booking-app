@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Database\Factories\CategoryFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,7 +42,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @property string $slug
  * @method static Builder|Category whereSlug($value)
  */

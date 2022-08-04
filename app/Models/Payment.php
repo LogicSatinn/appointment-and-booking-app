@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
  * @mixin \Eloquent
+ * @property string $amount
+ * @method static Builder|Payment whereAmount($value)
  */
 class Payment extends Model
 {

@@ -6,6 +6,7 @@ use App\Enums\SkillLevel;
 use App\States\Timetable\TimetableState;
 use Carbon\Carbon;
 use Database\Factories\TimetableFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -64,11 +65,15 @@ use Illuminate\Support\Str;
  * @method static Builder|Timetable whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Timetable withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Timetable withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @method static Builder|Timetable whereSkillId($value)
  * @method static Builder|Timetable whereTitle($value)
  * @property string $slug
  * @method static Builder|Timetable whereSlug($value)
+ * @property SkillLevel $level
+ * @property-read Collection|Booking[] $bookings
+ * @property-read int|null $bookings_count
+ * @method static Builder|Timetable whereLevel($value)
  */
 class Timetable extends Model
 {

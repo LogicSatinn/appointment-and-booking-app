@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -53,10 +54,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
 
     Route::resource('timetables', TimetableController::class);
 
+    Route::resource('instructors', InstructorController::class);
+
     Route::resource('bookings', BookingController::class)->only(['index', 'destroy']);
 });
 
 require __DIR__.'/auth.php';
-
-
-Route::resource('instructor', App\Http\Controllers\InstructorController::class);

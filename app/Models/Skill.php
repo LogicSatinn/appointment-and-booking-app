@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Database\Factories\SkillFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -46,7 +48,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Skill whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Skill withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Skill withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @property string $status
  * @method static Builder|Skill whereStatus($value)
  * @property-read Collection|Timetable[] $timetables
@@ -55,6 +57,13 @@ use Illuminate\Support\Str;
  * @method static Builder|Skill whereImagePath($value)
  * @property string $slug
  * @method static Builder|Skill whereSlug($value)
+ * @property string $mode_of_delivery
+ * @property string $prerequisite
+ * @property string $suitable_for
+ * @method static SkillFactory factory(...$parameters)
+ * @method static Builder|Skill whereModeOfDelivery($value)
+ * @method static Builder|Skill wherePrerequisite($value)
+ * @method static Builder|Skill whereSuitableFor($value)
  */
 class Skill extends Model
 {

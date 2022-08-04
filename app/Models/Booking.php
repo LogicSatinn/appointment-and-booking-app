@@ -52,6 +52,19 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Query\Builder|Booking withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Booking withoutTrashed()
  * @mixin \Eloquent
+ * @property string $paid_amount
+ * @property string $total_amount
+ * @property string $due_amount
+ * @property BookingMethod|null $booking_method
+ * @property-read Timetable $timetable
+ * @method static Builder|Booking orWhereNotState(string $column, $states)
+ * @method static Builder|Booking orWhereState(string $column, $states)
+ * @method static Builder|Booking whereBookingMethod($value)
+ * @method static Builder|Booking whereDueAmount($value)
+ * @method static Builder|Booking whereNotState(string $column, $states)
+ * @method static Builder|Booking wherePaidAmount($value)
+ * @method static Builder|Booking whereState(string $column, $states)
+ * @method static Builder|Booking whereTotalAmount($value)
  */
 class Booking extends Model
 {

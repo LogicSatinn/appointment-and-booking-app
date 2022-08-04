@@ -108,6 +108,12 @@
                     <span class="nav-main-link-name">Resources</span>
                 </a>
             </li>
+            <li class="nav-main-item">
+                <a class="nav-main-link @if(request()->routeIs('instructors.index')) active @endif" href="{{ route('instructors.index') }}">
+                    <i class="nav-main-link-icon fa fa-chalkboard-teacher"></i>
+                    <span class="nav-main-link-name">Instructors</span>
+                </a>
+            </li>
 
 
             <li class="nav-main-heading">Global</li>

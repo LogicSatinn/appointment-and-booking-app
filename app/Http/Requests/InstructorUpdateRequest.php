@@ -27,11 +27,6 @@ class InstructorUpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:instructors,email'],
             'phone_number' => ['required', 'string', 'unique:instructors,phone_number'],
-            'password' => ['required', 'password'],
-            'email_verified_at' => ['required', 'email'],
-            'banned_at' => ['required'],
-            'remember_token' => ['string'],
-            'softdeletes' => ['required'],
         ];
     }
 }
