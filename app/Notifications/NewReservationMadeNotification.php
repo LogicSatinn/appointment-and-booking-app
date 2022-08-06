@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -12,7 +11,9 @@ class NewReservationMadeNotification extends Notification
     use Queueable;
 
     protected $timetable;
+
     protected $clientTimetable;
+
     /**
      * Create a new notification instance.
      *
@@ -49,10 +50,10 @@ class NewReservationMadeNotification extends Notification
                     ->line('There is a new reservation made by a client moments ago.')
                     ->line('Details')
                     ->line('-------------------------------------------------------------------')
-                    ->line('Skill: ' . $this->timetable->skill->title)
-                    ->line('Timetable Title: ' . $this->timetable->title)
-                    ->line('Number of Seats: ' . $this->clientTimetable->pivot->no_of_seats)
-                    ->line('Name of Client: ' . $this->clientTimetable->name)
+                    ->line('Skill: '.$this->timetable->skill->title)
+                    ->line('Timetable Title: '.$this->timetable->title)
+                    ->line('Number of Seats: '.$this->clientTimetable->pivot->no_of_seats)
+                    ->line('Name of Client: '.$this->clientTimetable->name)
                     ->line('Further details can be found in the application. Have a good day!');
     }
 

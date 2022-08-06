@@ -3,8 +3,6 @@
 namespace Tests\Feature\Livewire\Client;
 
 use App\Http\Livewire\CLient\EnrollClient;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

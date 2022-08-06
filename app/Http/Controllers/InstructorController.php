@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class InstructorController extends Controller
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
      */
     public function index(Request $request)
@@ -25,7 +25,7 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
      */
     public function create(Request $request)
@@ -34,7 +34,7 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param InstructorStoreRequest $request
+     * @param  InstructorStoreRequest  $request
      * @return RedirectResponse
      */
     public function store(InstructorStoreRequest $request)
@@ -45,8 +45,8 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Instructor $instructor
+     * @param  Request  $request
+     * @param  Instructor  $instructor
      * @return Application|Factory|View
      */
     public function show(Request $request, Instructor $instructor)
@@ -55,8 +55,8 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Instructor $instructor
+     * @param  Request  $request
+     * @param  Instructor  $instructor
      * @return Application|Factory|View
      */
     public function edit(Request $request, Instructor $instructor)
@@ -65,8 +65,8 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param InstructorUpdateRequest $request
-     * @param Instructor $instructor
+     * @param  InstructorUpdateRequest  $request
+     * @param  Instructor  $instructor
      * @return RedirectResponse
      */
     public function update(InstructorUpdateRequest $request, Instructor $instructor)
@@ -77,8 +77,8 @@ class InstructorController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Instructor $instructor
+     * @param  Request  $request
+     * @param  Instructor  $instructor
      * @return RedirectResponse
      */
     public function destroy(Request $request, Instructor $instructor)

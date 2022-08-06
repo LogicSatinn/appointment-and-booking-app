@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\States\Reservation\ReservationStatus;
 use Carbon\Carbon;
 use Database\Factories\ReservationFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read Timetable $timetable
  * @property-read Booking $booking
  * @property-read Client $client
+ *
  * @method static ReservationFactory factory(...$parameters)
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
@@ -65,9 +67,8 @@ class Reservation extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'client_id' => 'integer',
-        'timetable_id' => 'integer',
-        'booking_id' => 'integer',
+        'status' => ReservationStatus::class,
+        'reference_code' => 'string',
         'reserved_at' => 'timestamp',
     ];
 
@@ -94,5 +95,4 @@ class Reservation extends Model
     {
         return $this->belongsTo(Booking::class);
     }
-
 }

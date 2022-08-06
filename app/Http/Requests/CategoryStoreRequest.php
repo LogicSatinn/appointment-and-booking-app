@@ -23,7 +23,7 @@ class CategoryStoreRequest extends FormRequest
     {
         $this->merge([
             'added_by' => auth()->id(),
-            'slug' => $this->get('name')
+            'slug' => $this->get('name'),
         ]);
     }
 

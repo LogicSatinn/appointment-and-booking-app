@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -24,7 +23,6 @@ class CreateAcquaintancesInteractionsTable extends Migration
             $table->double('relation_value')->nullable();
             $table->string('relation_type')->nullable();
             $table->timestamps();
-
 
             $table->foreign('user_id')
                   ->references($userModel->getKeyName())

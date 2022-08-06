@@ -11,7 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -25,9 +24,8 @@ class CategoryController extends Controller
         return view('admin.category.index', compact('categories'));
     }
 
-
     /**
-     * @param CategoryStoreRequest $request
+     * @param  CategoryStoreRequest  $request
      * @return RedirectResponse
      */
     public function store(CategoryStoreRequest $request)
@@ -43,7 +41,6 @@ class CategoryController extends Controller
 
             return back();
         }
-
     }
 
 //    /**
@@ -55,10 +52,9 @@ class CategoryController extends Controller
 //        return view('admin.category.show', compact('category'));
 //    }
 
-
     /**
-     * @param CategoryUpdateRequest $request
-     * @param Category $category
+     * @param  CategoryUpdateRequest  $request
+     * @param  Category  $category
      * @return RedirectResponse
      */
     public function update(CategoryUpdateRequest $request, Category $category)
@@ -74,11 +70,10 @@ class CategoryController extends Controller
 
             return back();
         }
-
     }
 
     /**
-     * @param Category $category
+     * @param  Category  $category
      * @return RedirectResponse
      */
     public function destroy(Category $category)

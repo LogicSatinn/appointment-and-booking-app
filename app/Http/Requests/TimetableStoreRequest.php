@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Enums\SkillLevel;
 use App\Rules\CheckForAllocatedResourceRule;
-use App\States\Timetable\TimetableState;
 use App\States\Timetable\NotStarted;
+use App\States\Timetable\TimetableState;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Spatie\ModelStates\Validation\ValidStateRule;
@@ -22,7 +22,6 @@ class TimetableStoreRequest extends FormRequest
         return true;
     }
 
-
     /**
      * @return void
      */
@@ -30,10 +29,9 @@ class TimetableStoreRequest extends FormRequest
     {
         $this->merge([
             'status' => NotStarted::class,
-            'slug' => $this->get('title')
+            'slug' => $this->get('title'),
         ]);
     }
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,7 +52,7 @@ class TimetableStoreRequest extends FormRequest
             // 'resource_id' => ['required', 'integer', 'exists:resources,id', new CheckForAllocatedResourceRule()],
             'resource_id' => ['required', 'integer', 'exists:resources,id'],
             'skill_id' => ['required', 'integer', 'exists:skills,id'],
-            'level' => ['required', new Enum(SkillLevel::class)]
+            'level' => ['required', new Enum(SkillLevel::class)],
         ];
     }
 }

@@ -24,7 +24,7 @@ class StoreOtherSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'google_calendar_credentials' => ['required', 'file', 'mimes:json']
+            'google_calendar_credentials' => ['required', 'file', 'mimes:json'],
         ];
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TagController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -21,7 +21,7 @@ class TagController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -30,7 +30,7 @@ class TagController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\TagStoreRequest $request
+     * @param  \App\Http\Requests\TagStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(TagStoreRequest $request)
@@ -43,8 +43,8 @@ class TagController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Tag $tag
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Tag $tag)
@@ -53,8 +53,8 @@ class TagController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Tag $tag
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Tag $tag)
@@ -63,8 +63,8 @@ class TagController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\TagUpdateRequest $request
-     * @param \App\Models\Tag $tag
+     * @param  \App\Http\Requests\TagUpdateRequest  $request
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function update(TagUpdateRequest $request, Tag $tag)
@@ -77,8 +77,8 @@ class TagController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Tag $tag
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Tag $tag)

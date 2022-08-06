@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -21,7 +21,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -30,7 +30,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\PaymentStoreRequest $request
+     * @param  \App\Http\Requests\PaymentStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PaymentStoreRequest $request)
@@ -43,8 +43,8 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Payment $payment
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Payment $payment)
@@ -53,8 +53,8 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Payment $payment
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Payment $payment)
@@ -63,8 +63,8 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\PaymentUpdateRequest $request
-     * @param \App\Models\Payment $payment
+     * @param  \App\Http\Requests\PaymentUpdateRequest  $request
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function update(PaymentUpdateRequest $request, Payment $payment)
@@ -77,8 +77,8 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Payment $payment
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Payment $payment)

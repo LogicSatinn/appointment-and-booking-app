@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
  * @method static InstructorFactory factory(...$parameters)
  * @method static Builder|Instructor newModelQuery()
  * @method static Builder|Instructor newQuery()

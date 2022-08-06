@@ -20,8 +20,11 @@ class ProcessReservationAndNotification implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $booking;
+
     protected $client;
+
     protected $timetable;
+
     protected $clientTimetable;
 
     /**
@@ -40,6 +43,7 @@ class ProcessReservationAndNotification implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     *
      * @throws GuzzleException
      */
     public function handle()
@@ -53,8 +57,8 @@ class ProcessReservationAndNotification implements ShouldQueue
                 'booking_id' => $this->booking->id,
                 'seat_number' => rand(1, $this->timetable->resource->capacity),
                 'status' => ReservationStatus::BOOKED,
-                'reference_code' => 'NL-R' . rand(0000000, 9999999),
-                'reserved_at' => now()
+                'reference_code' => 'NL-R'.rand(0000000, 9999999),
+                'reserved_at' => now(),
             ]);
         }
 

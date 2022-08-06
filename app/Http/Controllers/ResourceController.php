@@ -31,7 +31,7 @@ class ResourceController extends Controller
     }
 
     /**
-     * @param ResourceStoreRequest $request
+     * @param  ResourceStoreRequest  $request
      * @return RedirectResponse
      */
     public function store(ResourceStoreRequest $request)
@@ -42,17 +42,15 @@ class ResourceController extends Controller
             toast('Resource has been created successfully.', 'success');
 
             return redirect()->route('resources.index');
-
         } catch (\Exception|\Error) {
             toast('Something went really wrong. We\'re fixing this right now.', 'error');
 
             return back();
         }
-
     }
 
     /**
-     * @param Resource $resource
+     * @param  resource  $resource
      * @return Application|Factory|View
      */
     public function show(Resource $resource)
@@ -61,7 +59,7 @@ class ResourceController extends Controller
     }
 
     /**
-     * @param Resource $resource
+     * @param  resource  $resource
      * @return Application|Factory|View
      */
     public function edit(Resource $resource)
@@ -70,8 +68,8 @@ class ResourceController extends Controller
     }
 
     /**
-     * @param ResourceUpdateRequest $request
-     * @param Resource $resource
+     * @param  ResourceUpdateRequest  $request
+     * @param  resource  $resource
      * @return RedirectResponse
      */
     public function update(ResourceUpdateRequest $request, Resource $resource)
@@ -82,17 +80,15 @@ class ResourceController extends Controller
             toast('Resource updated successfully', 'success');
 
             return redirect()->route('resources.index');
-
         } catch (\Exception|\Error) {
             toast('Something went really wrong. We\re fixing this right now.', 'error');
 
             return back();
         }
-
     }
 
     /**
-     * @param Resource $resource
+     * @param  resource  $resource
      * @return RedirectResponse
      */
     public function destroy(Resource $resource)
@@ -108,6 +104,5 @@ class ResourceController extends Controller
 
             return back();
         }
-
     }
 }

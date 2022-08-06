@@ -10,7 +10,6 @@ abstract class ResourceState extends State
 {
     abstract public function color(): string;
 
-
     /**
      * @throws InvalidConfig
      */

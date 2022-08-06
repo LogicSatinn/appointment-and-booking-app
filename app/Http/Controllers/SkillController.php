@@ -13,7 +13,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class SkillController extends Controller
@@ -34,12 +33,12 @@ class SkillController extends Controller
     public function create()
     {
         return view('admin.skill.create', [
-            'categories' => Category::pluck('name', 'id')
+            'categories' => Category::pluck('name', 'id'),
         ]);
     }
 
     /**
-     * @param SkillStoreRequest $request
+     * @param  SkillStoreRequest  $request
      * @return RedirectResponse
      */
     public function store(SkillStoreRequest $request)
@@ -57,36 +56,35 @@ class SkillController extends Controller
 
             return back();
         }
-
     }
 
     /**
-     * @param Skill $skill
+     * @param  Skill  $skill
      * @return Application|Factory|View
      */
     public function show(Skill $skill)
     {
         return view('admin.skill.show', [
             'skill' => $skill,
-            'timetables' => $skill->timetables
+            'timetables' => $skill->timetables,
         ]);
     }
 
     /**
-     * @param Skill $skill
+     * @param  Skill  $skill
      * @return Application|Factory|View
      */
     public function edit(Skill $skill)
     {
         return view('admin.skill.edit', [
             'skill' => $skill,
-            'categories' => Category::pluck('name', 'id')
+            'categories' => Category::pluck('name', 'id'),
         ]);
     }
 
     /**
-     * @param SkillUpdateRequest $request
-     * @param Skill $skill
+     * @param  SkillUpdateRequest  $request
+     * @param  Skill  $skill
      * @return RedirectResponse
      */
     public function update(SkillUpdateRequest $request, Skill $skill)
@@ -110,11 +108,10 @@ class SkillController extends Controller
 
             return back();
         }
-
     }
 
     /**
-     * @param Skill $skill
+     * @param  Skill  $skill
      * @return RedirectResponse
      */
     public function destroy(Skill $skill)
@@ -130,11 +127,10 @@ class SkillController extends Controller
 
             return back();
         }
-
     }
 
     /**
-     * @param Skill $skill
+     * @param  Skill  $skill
      * @return RedirectResponse
      */
     public function archiveSkill(Skill $skill): RedirectResponse
@@ -146,7 +142,7 @@ class SkillController extends Controller
     }
 
     /**
-     * @param Skill $skill
+     * @param  Skill  $skill
      * @return RedirectResponse
      */
     public function publishSkill(Skill $skill): RedirectResponse

@@ -8,9 +8,6 @@ use Spatie\ModelStates\StateConfig;
 
 abstract class TimetableState extends State
 {
-
-    public function color(): string {}
-
     /**
      * @throws InvalidConfig
      */

@@ -30,7 +30,7 @@ class StoreGeneralSettingsRequest extends FormRequest
             'facebook_social_media_link' => ['nullable', 'url', 'string'],
             'twitter_social_media_link' => ['nullable', 'url', 'string'],
             'instagram_social_media_link' => ['nullable', 'url', 'string'],
-            'address' => ['required', 'string']
+            'address' => ['required', 'string'],
         ];
     }
 }

@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Resource;
 use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use App\Models\Resource;
 
 class ResourceFactory extends Factory
 {

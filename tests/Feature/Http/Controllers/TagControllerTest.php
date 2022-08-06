@@ -29,7 +29,6 @@ class TagControllerTest extends TestCase
         $response->assertViewHas('tags');
     }
 
-
     /**
      * @test
      */
@@ -40,7 +39,6 @@ class TagControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('tag.create');
     }
-
 
     /**
      * @test
@@ -75,7 +73,6 @@ class TagControllerTest extends TestCase
         $response->assertSessionHas('tag.id', $tag->id);
     }
 
-
     /**
      * @test
      */
@@ -90,7 +87,6 @@ class TagControllerTest extends TestCase
         $response->assertViewHas('tag');
     }
 
-
     /**
      * @test
      */
@@ -104,7 +100,6 @@ class TagControllerTest extends TestCase
         $response->assertViewIs('tag.edit');
         $response->assertViewHas('tag');
     }
-
 
     /**
      * @test
@@ -137,7 +132,6 @@ class TagControllerTest extends TestCase
 
         $this->assertEquals($name, $tag->name);
     }
-
 
     /**
      * @test

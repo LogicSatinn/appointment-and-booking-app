@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -12,7 +11,9 @@ class ClientReservationMadeNotification extends Notification
     use Queueable;
 
     protected $clientTimetable;
+
     protected $booking;
+
     /**
      * Create a new notification instance.
      *
@@ -45,9 +46,9 @@ class ClientReservationMadeNotification extends Notification
     {
         return (new MailMessage)
                     ->subject('Reservation Secured Successfully.')
-                    ->greeting('Hello There, ' . $this->clientTimetable->name)
-                    ->line('We are proud to tell you that your reservation of ' . $this->clientTimetable->pivot->no_of_seats . ' seats has been successfully secured.')
-                    ->line('Here\'s your Invoice Reference Code: ' . $this->booking->reference_code . ' . You\'ll use it to make further payments.')
+                    ->greeting('Hello There, '.$this->clientTimetable->name)
+                    ->line('We are proud to tell you that your reservation of '.$this->clientTimetable->pivot->no_of_seats.' seats has been successfully secured.')
+                    ->line('Here\'s your Invoice Reference Code: '.$this->booking->reference_code.' . You\'ll use it to make further payments.')
                     ->line('Be informed that you may lose your seat(s) if you do not pay before six hours of the timetable.')
                     ->line('Thank you for using our services. Have a good day!');
     }

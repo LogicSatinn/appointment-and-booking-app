@@ -26,7 +26,7 @@ class StoreBeemSettingsRequest extends FormRequest
         return [
             'beem_api_key' => ['required', 'string'],
             'beem_secret_key' => ['required', 'string'],
-            'beem_sender_name' => ['nullable', 'string', 'min:3', 'max:19']
+            'beem_sender_name' => ['nullable', 'string', 'min:3', 'max:19'],
         ];
     }
 }

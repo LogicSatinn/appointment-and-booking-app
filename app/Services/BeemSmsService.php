@@ -4,17 +4,19 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class BeemSmsService
 {
     public string $message;
+
     public string $url = 'https://apisms.beem.africa/v1/send';
+
     public array $recipientAddress;
 
     /**
      * @return void
+     *
      * @throws GuzzleException
      */
     public function send(): void
@@ -41,14 +43,14 @@ class BeemSmsService
     }
 
     /**
-     * @param array $recipients
+     * @param  array  $recipients
      * @return $this
      */
     public function getRecipients(array $recipients = []): static
     {
         $recipient = [];
 
-        foreach($recipients as $eachRecipient) {
+        foreach ($recipients as $eachRecipient) {
             $recipient[] = array_fill_keys(['dest_addr'], $eachRecipient);
         }
 
@@ -63,13 +65,13 @@ class BeemSmsService
 
         $this->recipientAddress = $recipientAddress;
 
-        Log::debug("Recipients: " . json_encode($recipientAddress));
+        Log::debug('Recipients: '.json_encode($recipientAddress));
 
         return $this;
     }
 
     /**
-     * @param string $message
+     * @param  string  $message
      * @return $this
      */
     public function content(string $message = ''): static

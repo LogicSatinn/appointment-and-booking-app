@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Controllers;
 use App\Http\Controllers\ClientController;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Models\Client;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -32,7 +31,6 @@ class ClientControllerTest extends TestCase
         $response->assertViewHas('clients');
     }
 
-
     /**
      * @test
      */
@@ -43,7 +41,6 @@ class ClientControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('client.create');
     }
-
 
     /**
      * @test
@@ -90,7 +87,6 @@ class ClientControllerTest extends TestCase
         $response->assertSessionHas('client.id', $client->id);
     }
 
-
     /**
      * @test
      */
@@ -105,7 +101,6 @@ class ClientControllerTest extends TestCase
         $response->assertViewHas('client');
     }
 
-
     /**
      * @test
      */
@@ -119,7 +114,6 @@ class ClientControllerTest extends TestCase
         $response->assertViewIs('client.edit');
         $response->assertViewHas('client');
     }
-
 
     /**
      * @test
@@ -164,7 +158,6 @@ class ClientControllerTest extends TestCase
         $this->assertEquals($phoneNumber, $client->phone_number);
         $this->assertEquals($address, $client->address);
     }
-
 
     /**
      * @test

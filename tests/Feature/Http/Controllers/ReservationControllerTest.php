@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Timetable;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Reservation;
+use App\Models\Timetable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -32,7 +32,6 @@ class ReservationControllerTest extends TestCase
         $response->assertViewHas('reservations');
     }
 
-
     /**
      * @test
      */
@@ -43,7 +42,6 @@ class ReservationControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('reservation.create');
     }
-
 
     /**
      * @test
@@ -96,7 +94,6 @@ class ReservationControllerTest extends TestCase
         $response->assertSessionHas('reservation.id', $reservation->id);
     }
 
-
     /**
      * @test
      */
@@ -111,7 +108,6 @@ class ReservationControllerTest extends TestCase
         $response->assertViewHas('reservation');
     }
 
-
     /**
      * @test
      */
@@ -125,7 +121,6 @@ class ReservationControllerTest extends TestCase
         $response->assertViewIs('reservation.edit');
         $response->assertViewHas('reservation');
     }
-
 
     /**
      * @test
@@ -176,7 +171,6 @@ class ReservationControllerTest extends TestCase
         $this->assertEquals($reference_code, $reservation->reference_code);
         $this->assertEquals($reserved_at, $reservation->reserved_at);
     }
-
 
     /**
      * @test

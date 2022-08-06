@@ -35,7 +35,6 @@ class SkillControllerTest extends TestCase
         $response->assertViewHas('skills');
     }
 
-
     /**
      * @test
      */
@@ -46,7 +45,6 @@ class SkillControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('skill.create');
     }
-
 
     /**
      * @test
@@ -112,7 +110,6 @@ class SkillControllerTest extends TestCase
         $response->assertSessionHas('skill.id', $skill->id);
     }
 
-
     /**
      * @test
      */
@@ -127,7 +124,6 @@ class SkillControllerTest extends TestCase
         $response->assertViewHas('skill');
     }
 
-
     /**
      * @test
      */
@@ -141,7 +137,6 @@ class SkillControllerTest extends TestCase
         $response->assertViewIs('skill.edit');
         $response->assertViewHas('skill');
     }
-
 
     /**
      * @test
@@ -206,7 +201,6 @@ class SkillControllerTest extends TestCase
         $this->assertEquals($status, $skill->status);
         $this->assertEquals($category->id, $skill->category_id);
     }
-
 
     /**
      * @test

@@ -33,6 +33,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $timetables_count
  * @property-read Collection|Skill[] $courses
  * @property-read int|null $courses_count
+ *
  * @method static ResourceFactory factory(...$parameters)
  * @method static Builder|Resource newModelQuery()
  * @method static Builder|Resource newQuery()
@@ -49,18 +50,21 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
  * @mixin Eloquent
+ *
  * @property mixed|null $state
+ *
  * @method static Builder|Resource orWhereNotState(string $column, $states)
  * @method static Builder|Resource orWhereState(string $column, $states)
  * @method static Builder|Resource whereNotState(string $column, $states)
  * @method static Builder|Resource whereState($value)
+ *
  * @property string $slug
+ *
  * @method static Builder|Resource whereSlug($value)
  */
 class Resource extends Model
 {
     use HasFactory, SoftDeletes, HasStates;
-
 
     /**
      * The attributes that aren't mass assignable.
@@ -68,6 +72,15 @@ class Resource extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = $model->name;
+        });
+    }
 
     /**
      * The attributes that should be cast to native types.
@@ -85,10 +98,9 @@ class Resource extends Model
     public function slug(): Attribute
     {
         return Attribute::make(
-            set: fn() => strtolower(Str::snake($this->name, '-'))
+            set: fn () => strtolower(Str::snake($this->name, '-'))
         );
     }
-
 
     /**
      * @return HasMany

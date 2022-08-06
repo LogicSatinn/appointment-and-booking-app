@@ -29,7 +29,6 @@ class InstructorControllerTest extends TestCase
         $response->assertViewHas('instructors');
     }
 
-
     /**
      * @test
      */
@@ -40,7 +39,6 @@ class InstructorControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('instructor.create');
     }
-
 
     /**
      * @test
@@ -90,7 +88,6 @@ class InstructorControllerTest extends TestCase
         $response->assertSessionHas('instructor.id', $instructor->id);
     }
 
-
     /**
      * @test
      */
@@ -105,7 +102,6 @@ class InstructorControllerTest extends TestCase
         $response->assertViewHas('instructor');
     }
 
-
     /**
      * @test
      */
@@ -119,7 +115,6 @@ class InstructorControllerTest extends TestCase
         $response->assertViewIs('instructor.edit');
         $response->assertViewHas('instructor');
     }
-
 
     /**
      * @test
@@ -167,7 +162,6 @@ class InstructorControllerTest extends TestCase
         $this->assertEquals($email_verified_at, $instructor->email_verified_at);
         $this->assertEquals($banned_at, $instructor->banned_at);
     }
-
 
     /**
      * @test

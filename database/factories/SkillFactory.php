@@ -2,12 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Enums\SkillLevel;
-use App\Enums\SkillStatus;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Skill;
+use App\States\Skill\SkillStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SkillFactory extends Factory
 {
@@ -26,6 +24,7 @@ class SkillFactory extends Factory
     public function definition()
     {
         $sentence = $this->faker->sentence(4);
+
         return [
             'title' => $sentence,
             'slug' => $sentence,
@@ -33,11 +32,7 @@ class SkillFactory extends Factory
             'mode_of_delivery' => $this->faker->text,
             'prerequisite' => $this->faker->text,
             'suitable_for' => $this->faker->text,
-            'status' => $this->faker->randomElement([
-                SkillStatus::DRAFT,
-                SkillStatus::ARCHIVED,
-                SkillStatus::PUBLISHED,
-            ]),
+            'status' => SkillStatus::class,
             'category_id' => Category::factory(),
         ];
     }

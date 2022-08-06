@@ -19,14 +19,14 @@ class ResourceStoreRequest extends FormRequest
         return true;
     }
 
-
     public function prepareForValidation()
     {
         $this->merge([
             'state' => Available::class,
-            'slug' => $this->get('name')
+            'slug' => $this->get('name'),
         ]);
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -39,7 +39,7 @@ class ResourceStoreRequest extends FormRequest
             'slug' => ['required', 'string'],
             'capacity' => ['required', 'integer'],
             'state' => ['required', new ValidStateRule(ResourceState::class)],
-            'note' => ['nullable', 'string']
+            'note' => ['nullable', 'string'],
         ];
     }
 }
