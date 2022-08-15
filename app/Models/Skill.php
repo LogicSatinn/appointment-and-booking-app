@@ -127,16 +127,6 @@ class Skill extends Model
     }
 
     /**
-     * @return Attribute
-     */
-    public function status(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => ucfirst($value)
-        );
-    }
-
-    /**
      * @return HasMany
      */
     public function bookings(): HasMany
