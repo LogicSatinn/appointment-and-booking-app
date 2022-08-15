@@ -19,7 +19,7 @@ class TimetableWidget extends FullCalendarWidget
                     'id' => $items['id'],
                     'title' => $items['title'],
                     'start' => Carbon::createFromDate($items['from'])->toDateTimeString(),
-                    'end' => Carbon::createFromDate($items['to'])->toDateTimeString()
+                    'end' => Carbon::createFromDate($items['to'])->toDateTimeString(),
                 ];
             })
             ->toArray();

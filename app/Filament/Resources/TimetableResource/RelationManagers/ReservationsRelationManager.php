@@ -50,7 +50,7 @@ class ReservationsRelationManager extends RelationManager
                 TextInput::make('status')
                     ->default(Pending::$name)
                     ->disabled()
-                    ->required()
+                    ->required(),
             ]);
     }
 
@@ -73,13 +73,13 @@ class ReservationsRelationManager extends RelationManager
                 ->colors([
                     'warning' => 'Pending',
                     'primary' => 'Reserved',
-                    'success' => 'Booked'
+                    'success' => 'Booked',
                 ]),
                 TextColumn::make('seat_number')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('reserved_at')
-                    ->dateTime()
+                    ->dateTime(),
             ])
             ->filters([
                 //

@@ -46,10 +46,10 @@ class BookingsRelationManager extends RelationManager
                 Select::make('booking_method')
                     ->options([
                         BookingMethod::DIRECT_PAYMENT,
-                        BookingMethod::RESERVATION
+                        BookingMethod::RESERVATION,
                     ]),
                 DatePicker::make('booked_at')
-                    ->required()
+                    ->required(),
             ]);
     }
 
@@ -70,21 +70,21 @@ class BookingsRelationManager extends RelationManager
                     ->icons([
                         'heroicon-o-clock' => 'Pending',
                         'heroicon-o-check' => 'Paid',
-                        'heroicon-o-x' => 'Failed'
+                        'heroicon-o-x' => 'Failed',
                     ])->iconPosition('after'),
                 TextColumn::make('total_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->total_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->total_amount))
                     ->sortable(),
                 TextColumn::make('paid_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
                     ->sortable(),
                 TextColumn::make('due_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->due_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->due_amount))
                     ->sortable(),
                 TextColumn::make('booking_method'),
                 TextColumn::make('booked_at')
                     ->dateTime()
-                    ->sortable()
+                    ->sortable(),
             ])
             ->filters([
                 //

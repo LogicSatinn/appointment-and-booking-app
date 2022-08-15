@@ -3,6 +3,7 @@
 /**
  * Consider this file the root configuration object for FullCalendar.
  * Any configuration added here, will be added to the calendar.
+ *
  * @see https://fullcalendar.io/docs#toc
  */
 

@@ -95,13 +95,13 @@ class TimetableResource extends Resource
                     ->colors([
                         'success' => 'Beginner',
                         'primary' => 'Intermediate',
-                        'warning' => 'Advanced'
+                        'warning' => 'Advanced',
                     ]),
                 BadgeColumn::make('status')
                     ->icons([
                         'heroicon-o-bell' => 'Not Started',
                         'heroicon-o-microphone' => 'Ongoing',
-                        'heroicon-o-badge-check' => 'Completed'
+                        'heroicon-o-badge-check' => 'Completed',
                     ])->iconPosition('after'),
                 TextColumn::make('from')
                     ->date(),
@@ -132,7 +132,7 @@ class TimetableResource extends Resource
         return [
             ClientsRelationManager::class,
             BookingsRelationManager::class,
-            ReservationsRelationManager::class
+            ReservationsRelationManager::class,
         ];
     }
 
@@ -157,7 +157,7 @@ class TimetableResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            TimetableWidget::class
+            TimetableWidget::class,
         ];
     }
 }
