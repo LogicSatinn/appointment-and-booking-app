@@ -21,7 +21,7 @@ class TimetableUpdateRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'slug' => $this->get('title')
+            'slug' => $this->get('title'),
         ]);
     }
 
@@ -42,7 +42,7 @@ class TimetableUpdateRequest extends FormRequest
             'price' => ['nullable', 'numeric'],
             'resource_id' => ['nullable', 'integer', 'exists:resources,id'],
             'skill_id' => ['nullable', 'integer', 'exists:skills,id'],
-            'level' => ['required', new Enum(SkillLevel::class)]
+            'level' => ['required', new Enum(SkillLevel::class)],
         ];
     }
 }

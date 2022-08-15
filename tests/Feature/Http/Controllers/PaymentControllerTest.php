@@ -30,7 +30,6 @@ class PaymentControllerTest extends TestCase
         $response->assertViewHas('payments');
     }
 
-
     /**
      * @test
      */
@@ -41,7 +40,6 @@ class PaymentControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('payment.create');
     }
-
 
     /**
      * @test
@@ -94,7 +92,6 @@ class PaymentControllerTest extends TestCase
         $response->assertSessionHas('payment.id', $payment->id);
     }
 
-
     /**
      * @test
      */
@@ -109,7 +106,6 @@ class PaymentControllerTest extends TestCase
         $response->assertViewHas('payment');
     }
 
-
     /**
      * @test
      */
@@ -123,7 +119,6 @@ class PaymentControllerTest extends TestCase
         $response->assertViewIs('payment.edit');
         $response->assertViewHas('payment');
     }
-
 
     /**
      * @test
@@ -174,7 +169,6 @@ class PaymentControllerTest extends TestCase
         $this->assertEquals($booking->id, $payment->booking_id);
         $this->assertEquals($reference_code, $payment->reference_code);
     }
-
 
     /**
      * @test

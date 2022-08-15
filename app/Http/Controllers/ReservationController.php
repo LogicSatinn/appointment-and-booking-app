@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ReservationController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -21,7 +21,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -30,7 +30,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\ReservationStoreRequest $request
+     * @param  \App\Http\Requests\ReservationStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ReservationStoreRequest $request)
@@ -43,8 +43,8 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Reservation $reservation
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Reservation $reservation)
@@ -53,8 +53,8 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Reservation $reservation
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Reservation $reservation)
@@ -63,8 +63,8 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\ReservationUpdateRequest $request
-     * @param \App\Models\Reservation $reservation
+     * @param  \App\Http\Requests\ReservationUpdateRequest  $request
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function update(ReservationUpdateRequest $request, Reservation $reservation)
@@ -77,8 +77,8 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Reservation $reservation
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Reservation $reservation)

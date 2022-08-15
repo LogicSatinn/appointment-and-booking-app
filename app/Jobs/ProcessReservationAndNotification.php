@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
-use App\Enums\ReservationStatus;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Notifications\ClientReservationMadeNotification;
 use App\Notifications\NewReservationMadeNotification;
 use App\Services\BeemSmsService;
+use App\States\Reservation\ReservationStatus;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,8 +20,11 @@ class ProcessReservationAndNotification implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $booking;
+
     protected $client;
+
     protected $timetable;
+
     protected $clientTimetable;
 
     /**
@@ -40,6 +43,7 @@ class ProcessReservationAndNotification implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     *
      * @throws GuzzleException
      */
     public function handle()
@@ -52,16 +56,16 @@ class ProcessReservationAndNotification implements ShouldQueue
                 'timetable_id' => $this->timetable->id,
                 'booking_id' => $this->booking->id,
                 'seat_number' => rand(1, $this->timetable->resource->capacity),
-                'status' => ReservationStatus::BOOKED,
-                'reference_code' => 'NL-R' . rand(0000000, 9999999),
-                'reserved_at' => now()
+                'status' => ReservationStatus::class,
+                'reference_code' => 'NL-R'.rand(0000000, 9999999),
+                'reserved_at' => now(),
             ]);
         }
 
         $this->client->notify(new ClientReservationMadeNotification($this->clientTimetable, $this->booking));
-        User::whereEmail('chaupele@hotmial.com')->firstOrFail()->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
-        (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
-            ->getRecipients([$this->client->phone_number])
-            ->send();
+//        User::whereEmail('chaupele@hotmial.com')->first()->notify(new NewReservationMadeNotification($this->timetable, $this->clientTimetable));
+//        (new BeemSmsService())->content('Hello There. Your reservation has been secured. You will receive an email with further details.')
+//            ->getRecipients([$this->client->phone_number])
+//            ->send();
     }
 }

@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Booking $booking
+ *
  * @method static PaymentFactory factory(...$parameters)
  * @method static Builder|Payment newModelQuery()
  * @method static Builder|Payment newQuery()
@@ -45,6 +46,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @property string $amount
+ *
+ * @method static Builder|Payment whereAmount($value)
  */
 class Payment extends Model
 {
@@ -68,7 +73,7 @@ class Payment extends Model
         'total_amount' => 'decimal:2',
         'due_amount' => 'decimal:2',
         'booking_id' => 'integer',
-        'status' => PaymentState::class
+        'status' => PaymentState::class,
     ];
 
     /**
@@ -78,5 +83,4 @@ class Payment extends Model
     {
         return $this->belongsTo(Booking::class);
     }
-
 }

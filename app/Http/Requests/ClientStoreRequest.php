@@ -24,7 +24,7 @@ class ClientStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> ['required', 'string', 'min:3'],
+            'name' => ['required', 'string', 'min:3'],
             'email' => ['required', 'email'],
             'profession' => ['nullable', 'string'],
             'phone_number' => ['required', 'string'],

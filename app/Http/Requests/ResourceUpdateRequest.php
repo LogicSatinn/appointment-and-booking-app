@@ -16,7 +16,6 @@ class ResourceUpdateRequest extends FormRequest
         return true;
     }
 
-
     public function prepareForValidation()
     {
         $this->merge(['slug' => $this->get('name')]);
@@ -33,7 +32,7 @@ class ResourceUpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'slug' => ['required', 'string'],
             'capacity' => ['required', 'integer'],
-            'note' => ['nullable', 'string']
+            'note' => ['nullable', 'string'],
         ];
     }
 }

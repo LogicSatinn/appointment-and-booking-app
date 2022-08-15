@@ -19,7 +19,7 @@ class CategoryUpdateRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'slug' => $this->get('name')
+            'slug' => $this->get('name'),
         ]);
     }
 

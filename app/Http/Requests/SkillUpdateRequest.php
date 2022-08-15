@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\SkillStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SkillUpdateRequest extends FormRequest
@@ -17,11 +16,10 @@ class SkillUpdateRequest extends FormRequest
         return true;
     }
 
-
     public function prepareForValidation()
     {
         $this->merge([
-            'slug' => $this->get('title')
+            'slug' => $this->get('title'),
         ]);
     }
 

@@ -31,7 +31,6 @@ class BookingControllerTest extends TestCase
         $response->assertViewHas('bookings');
     }
 
-
     /**
      * @test
      */
@@ -42,7 +41,6 @@ class BookingControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('booking.create');
     }
-
 
     /**
      * @test
@@ -89,7 +87,6 @@ class BookingControllerTest extends TestCase
         $response->assertSessionHas('booking.id', $booking->id);
     }
 
-
     /**
      * @test
      */
@@ -104,7 +101,6 @@ class BookingControllerTest extends TestCase
         $response->assertViewHas('booking');
     }
 
-
     /**
      * @test
      */
@@ -118,7 +114,6 @@ class BookingControllerTest extends TestCase
         $response->assertViewIs('booking.edit');
         $response->assertViewHas('booking');
     }
-
 
     /**
      * @test
@@ -163,7 +158,6 @@ class BookingControllerTest extends TestCase
         $this->assertEquals($reference_code, $booking->reference_code);
         $this->assertEquals($booked_at, $booking->booked_at);
     }
-
 
     /**
      * @test

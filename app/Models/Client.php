@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -35,6 +37,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
  * @property-read User|null $user
+ *
  * @method static ClientFactory factory(...$parameters)
  * @method static Builder|Client newModelQuery()
  * @method static Builder|Client newQuery()
@@ -52,6 +55,9 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|Client withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Client withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
  */
 class Client extends Model
 {

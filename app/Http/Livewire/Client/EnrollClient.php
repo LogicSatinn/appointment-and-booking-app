@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Client;
 
-use App\Models\Timetable;
 use App\Models\Client;
+use App\Models\Timetable;
 use App\Services\BeemSmsService;
 use App\View\Components\Client\MasterLayout;
 use GuzzleHttp\Exception\GuzzleException;
@@ -15,11 +15,17 @@ use Livewire\Component;
 class EnrollClient extends Component
 {
     public $timetable;
+
     public $name = 'Name';
+
     public $email = 'Email';
+
     public $phoneNumber = 'Phone Number';
+
     public $profession = null;
+
     public $address = null;
+
     public $client;
 
     protected $rules = [
@@ -27,7 +33,7 @@ class EnrollClient extends Component
         'email' => 'required|string|email',
         'phoneNumber' => 'required|string|starts_with:255|unique:clients,phone_number',
         'profession' => 'nullable|string|min:3',
-        'address' => 'nullable|string|min:3'
+        'address' => 'nullable|string|min:3',
     ];
 
     public function mount(Timetable $timetable)
@@ -45,13 +51,13 @@ class EnrollClient extends Component
         try {
             $this->client = Client::firstOrCreate([
                 'email' => $this->email,
-                'phone_number' => $this->phoneNumber
+                'phone_number' => $this->phoneNumber,
             ], [
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'phone_number' => $validatedData['phoneNumber'],
                 'profession' => $validatedData['profession'],
-                'address' => $validatedData['address']
+                'address' => $validatedData['address'],
             ]);
 
             (new BeemSmsService())
@@ -60,10 +66,10 @@ class EnrollClient extends Component
 
             return redirect(route('cart', [
                 'timetable' => $this->timetable,
-                'client' => $this->client
+                'client' => $this->client,
             ]));
         } catch (\Exception|\Error $e) {
-            toast($e->getMessage() . 'Please try again later.', 'error');
+            toast($e->getMessage().'Please try again later.', 'error');
 
             return back();
         }

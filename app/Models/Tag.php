@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $updated_at
  * @property-read Collection|Skill[] $courses
  * @property-read int|null $courses_count
+ *
  * @method static TagFactory factory(...$parameters)
  * @method static Builder|Tag newModelQuery()
  * @method static Builder|Tag newQuery()

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\AddedBy;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,7 +30,6 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('categories');
     }
 
-
     /**
      * @test
      */
@@ -42,7 +40,6 @@ class CategoryControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('category.create');
     }
-
 
     /**
      * @test
@@ -86,7 +83,6 @@ class CategoryControllerTest extends TestCase
         $response->assertSessionHas('category.id', $category->id);
     }
 
-
     /**
      * @test
      */
@@ -101,7 +97,6 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('category');
     }
 
-
     /**
      * @test
      */
@@ -115,7 +110,6 @@ class CategoryControllerTest extends TestCase
         $response->assertViewIs('category.edit');
         $response->assertViewHas('category');
     }
-
 
     /**
      * @test
@@ -157,7 +151,6 @@ class CategoryControllerTest extends TestCase
         $this->assertEquals($note, $category->note);
         $this->assertEquals($addedBy->id, $category->added_by);
     }
-
 
     /**
      * @test

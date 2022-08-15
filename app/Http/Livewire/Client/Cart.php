@@ -2,18 +2,23 @@
 
 namespace App\Http\Livewire\Client;
 
-use App\Models\Timetable;
 use App\Models\Client;
+use App\Models\Timetable;
 use App\View\Components\Client\MasterLayout;
 use Livewire\Component;
 
 class Cart extends Component
 {
     public $timetable;
+
     public $client;
+
     public int $seat = 1;
+
     public int $subTotal;
+
     public int $discount = 0;
+
     public int $total;
 
     public function mount(Timetable $timetable, Client $client)
@@ -53,7 +58,7 @@ class Cart extends Component
 
         return redirect(route('client.checkout', [
             'timetable' => $this->timetable,
-            'client' => $this->client
+            'client' => $this->client,
         ]));
     }
 

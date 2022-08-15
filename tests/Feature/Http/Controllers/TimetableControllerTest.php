@@ -5,9 +5,9 @@ namespace Tests\Feature\Http\Controllers;
 use App\Http\Controllers\TimetableController;
 use App\Http\Requests\TimetableStoreRequest;
 use App\Http\Requests\TimetableUpdateRequest;
-use App\Models\Timetable;
-use App\Models\Skill;
 use App\Models\Resource;
+use App\Models\Skill;
+use App\Models\Timetable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -34,7 +34,6 @@ class TimetableControllerTest extends TestCase
         $response->assertViewHas('timetables');
     }
 
-
     /**
      * @test
      */
@@ -45,7 +44,6 @@ class TimetableControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('timetable.create');
     }
-
 
     /**
      * @test
@@ -72,7 +70,7 @@ class TimetableControllerTest extends TestCase
         $end = $this->faker->time;
         $status = $this->faker->randomElement([
             'NotStarted',
-            'Available'
+            'Available',
         ]);
         $price = rand(10000, 10000);
         $resource = Resource::factory()->create();
@@ -110,7 +108,6 @@ class TimetableControllerTest extends TestCase
         $response->assertSessionHas('timetable.id', $timetable->id);
     }
 
-
     /**
      * @test
      */
@@ -125,7 +122,6 @@ class TimetableControllerTest extends TestCase
         $response->assertViewHas('timetable');
     }
 
-
     /**
      * @test
      */
@@ -139,7 +135,6 @@ class TimetableControllerTest extends TestCase
         $response->assertViewIs('timetable.edit');
         $response->assertViewHas('timetable');
     }
-
 
     /**
      * @test
@@ -167,7 +162,7 @@ class TimetableControllerTest extends TestCase
         $end = $this->faker->time;
         $status = $this->faker->randomElement([
             'NotStarted',
-            'Available'
+            'Available',
         ]);
         $price = rand(10000, 10000);
         $resource = Resource::factory()->create();
@@ -202,7 +197,6 @@ class TimetableControllerTest extends TestCase
         $this->assertEquals($resource->id, $timetable->resource_id);
         $this->assertEquals($skill->id, $timetable->skill_id);
     }
-
 
     /**
      * @test

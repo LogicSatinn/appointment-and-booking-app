@@ -33,7 +33,6 @@ class ResourceControllerTest extends TestCase
         $response->assertViewHas('resources');
     }
 
-
     /**
      * @test
      */
@@ -44,7 +43,6 @@ class ResourceControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('resource.create');
     }
-
 
     /**
      * @test
@@ -91,7 +89,6 @@ class ResourceControllerTest extends TestCase
         $response->assertSessionHas('resource.id', $resource->id);
     }
 
-
     /**
      * @test
      */
@@ -106,7 +103,6 @@ class ResourceControllerTest extends TestCase
         $response->assertViewHas('resource');
     }
 
-
     /**
      * @test
      */
@@ -120,7 +116,6 @@ class ResourceControllerTest extends TestCase
         $response->assertViewIs('resource.edit');
         $response->assertViewHas('resource');
     }
-
 
     /**
      * @test
@@ -165,7 +160,6 @@ class ResourceControllerTest extends TestCase
         $this->assertEquals($capacity, $resource->capacity);
         $this->assertEquals($status, $resource->status);
     }
-
 
     /**
      * @test

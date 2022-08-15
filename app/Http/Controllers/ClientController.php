@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Application|Factory|View
      */
     public function index(Request $request)
@@ -24,7 +24,7 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Application|Factory|View
      */
     public function create(Request $request)
@@ -33,7 +33,7 @@ class ClientController extends Controller
     }
 
     /**
-     * @param ClientStoreRequest $request
+     * @param  ClientStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ClientStoreRequest $request)
@@ -44,8 +44,8 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Client $client
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Client $client)
@@ -54,8 +54,8 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Client $client
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Client $client)
@@ -64,8 +64,8 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\ClientUpdateRequest $request
-     * @param \App\Models\Client $client
+     * @param  \App\Http\Requests\ClientUpdateRequest  $request
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function update(ClientUpdateRequest $request, Client $client)
@@ -78,8 +78,8 @@ class ClientController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Client $client
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Client $client)
