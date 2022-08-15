@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SkillResource\Pages;
-use App\Filament\Resources\SkillResource\RelationManagers;
+use App\Filament\Resources\SkillResource\RelationManagers\TimetablesRelationManager;
 use App\Models\Skill;
 use Exception;
 use Filament\Forms\Components\FileUpload;
@@ -14,7 +14,15 @@ use Filament\Pages\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -22,18 +30,18 @@ class SkillResource extends Resource
 {
     protected static ?string $model = Skill::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-film';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 FileUpload::make('image_path')
-                    ->required(static fn(Page $livewire): bool => $livewire instanceof Pages\CreateSkill)
+                    ->required(static fn (Page $livewire): bool => $livewire instanceof Pages\CreateSkill)
                     ->preserveFilenames()
                     ->directory('skill_covers')
                     ->image()
-                    ->label(static fn(Page $livewire): string => $livewire instanceof Pages\EditSkill ? 'Change Cover Photo' : 'Cover Photo')
+                    ->label(static fn (Page $livewire): string => $livewire instanceof Pages\EditSkill ? 'Change Cover Photo' : 'Cover Photo')
                     ->columnSpan([
                         'sm' => 12,
                         'md' => 12,
@@ -143,31 +151,37 @@ class SkillResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image_path')->rounded()->label('Cover Photo'),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('category.name'),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('created_at')
+                ImageColumn::make('image_path')->rounded()->label('Cover Photo'),
+                TextColumn::make('title')->limit(20),
+                TextColumn::make('category.name'),
+                TextColumn::make('status'),
+                BadgeColumn::make('status')
+                    ->icons([
+                        'heroicon-o-document' => 'Draft',
+                        'heroicon-o-archive' => 'Archived',
+                        'heroicon-o-truck' => 'Published',
+                    ])->iconPosition('after'),
+                TextColumn::make('created_at')
                     ->dateTime(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\TimetablesRelationManager::class
+            TimetablesRelationManager::class,
         ];
     }
 

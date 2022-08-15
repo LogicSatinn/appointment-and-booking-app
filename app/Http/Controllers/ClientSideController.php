@@ -34,7 +34,7 @@ class ClientSideController extends Controller
     public function skills()
     {
         return view('client.skills', [
-            'skills' => Skill::with('category:id,name')->where('status', Published::class)->get(),
+            'skills' => Skill::with('category:id,name')->whereState('status', Published::class)->get(),
         ]);
     }
 

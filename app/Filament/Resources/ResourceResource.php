@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResourceResource\Pages;
-use App\Filament\Resources\ResourceResource\RelationManagers;
 use App\Models\Resource as ResourceModel;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ResourceResource extends Resource
 {
@@ -27,18 +24,19 @@ class ResourceResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpan([
-                        'md' => 6
+                        'md' => 6,
                     ]),
                 Forms\Components\TextInput::make('capacity')
                     ->required()
+                    ->numeric()
                     ->maxLength(255)
                     ->columnSpan([
-                        'md' => 6
+                        'md' => 6,
                     ]),
                 Forms\Components\Textarea::make('note')
                     ->rows(3)
                     ->columnSpan([
-                        'md' => 12
+                        'md' => 12,
                     ]),
             ]);
     }

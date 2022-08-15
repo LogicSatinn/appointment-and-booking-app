@@ -30,7 +30,7 @@ class TimetablesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->mask(fn(TextInput\Mask $mask) => $mask
+                    ->mask(fn (TextInput\Mask $mask) => $mask
                         ->numeric()
                         ->decimalPlaces(2) // Set the number of digits after the decimal point.
                         ->decimalSeparator() // Add a separator for decimal numbers.
@@ -80,12 +80,12 @@ class TimetablesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('title'),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make()
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->successNotificationMessage('New Timetable added.')
-                    ->using(fn(Tables\Contracts\HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
+                    ->using(fn (Tables\Contracts\HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

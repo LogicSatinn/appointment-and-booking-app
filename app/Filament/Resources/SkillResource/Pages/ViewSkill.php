@@ -6,10 +6,10 @@ use App\Filament\Resources\SkillResource;
 use App\States\Skill\Archived;
 use App\States\Skill\Published;
 use Exception;
-use Filament\Pages\Actions;
-use Filament\Resources\Pages\ViewRecord;
-use Filament\Pages\Actions\Action;
 use Filament\Forms;
+use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
+use Filament\Resources\Pages\ViewRecord;
 
 class ViewSkill extends ViewRecord
 {
@@ -36,7 +36,7 @@ class ViewSkill extends ViewRecord
                     Forms\Components\Select::make('status')
                         ->options([
                             'Archive' => 'Archive',
-                            'Publish' => 'Publish'
+                            'Publish' => 'Publish',
                         ])
                         ->default('Archive')
                         ->required(),

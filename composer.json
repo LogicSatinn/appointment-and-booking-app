@@ -18,6 +18,7 @@
         "multicaret/laravel-acquaintances": "^3.5",
         "openpesa/laravel-pesa": "^1.0",
         "realrashid/sweet-alert": "^5.1",
+        "saade/filament-fullcalendar": "^1.4",
         "shoket/laravel-shoket": "^0.0.4",
         "spatie/laravel-model-states": "^2.4"
     },

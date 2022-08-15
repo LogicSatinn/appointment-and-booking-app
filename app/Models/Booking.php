@@ -102,8 +102,17 @@ class Booking extends Model
     public function bookedAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::create($value)->toFormattedDateString(),
+            get: fn ($value) => Carbon::create($value),
         );
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function representablePrice($value): string
+    {
+        return 'TZS'.' '.number_format($value);
     }
 
     /**
