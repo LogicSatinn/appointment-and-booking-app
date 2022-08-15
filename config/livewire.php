@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'app_url' => 'http://nia-lab.calvinjackson.me',
+    'app_url' => 'https://nia-lab.calvinjackson.me',
 
     /*
     |--------------------------------------------------------------------------
