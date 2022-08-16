@@ -18,7 +18,7 @@ class ClientSideController extends Controller
     public function index()
     {
         return view('client.index', [
-            'skills' => Skill::with('category:id,name')->where('status', Published::class)->get(),
+            'skills' => Skill::with('category:id,name')->whereState('status', Published::class)->get(),
             'categories' => Category::select('id', 'name')->withCount('skills')->get()->sortByDesc('skills_count'),
             'upcomingTimetables' => Timetable::whereRelation('skill', 'status', Published::class)
                 ->whereBetween('from', [now(), now()->addWeek()])
