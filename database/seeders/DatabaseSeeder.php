@@ -18,18 +18,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Daniel Tairo',
             'email' => 'chaupele@hotmail.com',
         ]);
 
-        if (config('app.name') == 'local') {
-            Skill::factory(4)
-                 ->has(Timetable::factory()->count(3)->state([
-                     'status' => NotStarted::class,
-                 ]))
-                 ->for(Category::factory()->create())
-                 ->create();
-        }
+//        if (config('app.env') == 'local') {
+//            Skill::factory(4)
+//                 ->has(Timetable::factory()->count(3)->state([
+//                     'status' => NotStarted::class,
+//                 ]))
+//                 ->for(Category::factory()->create([
+//                     'added_by' => $user->id
+//                 ]))
+//                 ->create();
+//        }
     }
 }

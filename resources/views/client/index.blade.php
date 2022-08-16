@@ -179,7 +179,7 @@
                                             <li class="nav-item px-3 mb-3 mb-md-0">
                                                 <div class="d-flex align-items-center">
                                                     <div
-                                                        class="font-size-sm">{{ $upcomingTimetable->representablePrice }}</div>
+                                                        class="font-size-sm">{{ $upcomingTimetable->representablePrice() }}</div>
                                                 </div>
                                             </li>
                                         </ul>
