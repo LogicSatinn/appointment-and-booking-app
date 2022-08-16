@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\SkillResource\RelationManagers;
 
 use App\Enums\SkillLevel;
+use App\Models\Timetable;
 use Exception;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -10,6 +11,8 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,7 +33,7 @@ class TimetablesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->mask(fn (TextInput\Mask $mask) => $mask
+                    ->mask(fn(TextInput\Mask $mask) => $mask
                         ->numeric()
                         ->decimalPlaces(2) // Set the number of digits after the decimal point.
                         ->decimalSeparator() // Add a separator for decimal numbers.
@@ -77,7 +80,25 @@ class TimetablesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice($record->price))
+                    ->sortable(),
+                TextColumn::make('resource.name'),
+                BadgeColumn::make('level')
+                    ->colors([
+                        'success' => 'Beginner',
+                        'primary' => 'Intermediate',
+                        'warning' => 'Advanced'
+                    ]),
+                TextColumn::make('from')->date()
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('to')->date()
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -85,7 +106,7 @@ class TimetablesRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->successNotificationMessage('New Timetable added.')
-                    ->using(fn (Tables\Contracts\HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
+                    ->using(fn(Tables\Contracts\HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

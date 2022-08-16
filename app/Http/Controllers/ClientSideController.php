@@ -20,10 +20,10 @@ class ClientSideController extends Controller
         return view('client.index', [
             'skills' => Skill::with('category:id,name')->whereState('status', Published::class)->get(),
             'categories' => Category::select('id', 'name')->withCount('skills')->get()->sortByDesc('skills_count'),
-            'upcomingTimetables' => Timetable::whereRelation('skill', 'status', Published::class)
+            'upcomingTimetables' => Timetable::whereRelation('skill', 'status', 'Published')
                 ->whereBetween('from', [now(), now()->addWeek()])
                 ->with(['skill' => function ($query) {
-                    $query->where('status', Published::class);
+                    $query->whereState('status', Published::class);
                 }])->orderBy('from')->get(),
         ]);
     }

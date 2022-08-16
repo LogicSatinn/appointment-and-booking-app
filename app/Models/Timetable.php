@@ -160,13 +160,11 @@ class Timetable extends Model
     }
 
     /**
-     * @return Attribute
+     * @return string
      */
-    public function representablePrice(): Attribute
+    public function representablePrice(): string
     {
-        return Attribute::make(
-            get: fn () => 'TZS'.' '.number_format($this->price),
-        );
+        return 'TZS'.' '.number_format($this->price);
     }
 
     /**
