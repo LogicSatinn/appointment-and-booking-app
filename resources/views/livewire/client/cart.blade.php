@@ -53,7 +53,7 @@
                                         </td>
 
                                         <td class="product-price" data-title="Price">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ $timetable->representablePrice }}</span>
+                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ $timetable->representablePrice() }}</span>
                                         </td>
 
                                         <td class="product-quantity" data-title="Quantity">

@@ -57,7 +57,7 @@
                                     <tbody>
                                     <tr class="woocommerce-table__line-item order_item">
                                         <td class="woocommerce-table__product-name product-name">
-                                            <a href="#">Seats ( @ {{ $timetable->representablePrice }} )</a>
+                                            <a href="#">Seats ( @ {{ $timetable->Skill }} )</a>
                                             <strong
                                                 class="product-quantity">× {{ $clientTimetable->pivot->no_of_seats }}</strong>
                                         </td>

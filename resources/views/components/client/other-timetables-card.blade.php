@@ -10,7 +10,7 @@
             </a>
 
             <span class="sk-fade-right badge-float bottom-0 right-0 mb-2 me-2">
-                            <ins class="h5 mb-0 text-black">{{ $otherTimetable->representablePrice }}</ins>
+                            <ins class="h5 mb-0 text-black">{{ $otherTimetable->representablePrice() }}</ins>
                         </span>
         </div>
 

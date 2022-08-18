@@ -376,7 +376,7 @@
 
                     <div class="pt-5 pb-4 px-5 px-lg-3 px-xl-5">
                         <div class="d-flex align-items-center mb-2">
-                            <ins class="h2 mb-0">{{ $timetable->representablePrice }}</ins>
+                            <ins class="h2 mb-0">{{ $timetable->Skill }}</ins>
                             {{--                            <del class="ms-3">339.99</del>--}}
                             {{--                            <div class="badge badge-lg badge-purple text-white ms-auto fw-normal">91% Off</div>--}}
                         </div>

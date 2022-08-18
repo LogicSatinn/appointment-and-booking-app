@@ -175,7 +175,7 @@
                                     <div class="col px-2">
                                         {{--                                                <del class="font-size-sm">$959</del>--}}
                                         <ins
-                                            class="h4 mb-0 mb-lg-n1 ms-1">{{ $timetable->representablePrice }}</ins>
+                                            class="h4 mb-0 mb-lg-n1 ms-1">{{ $timetable->representablePrice() }}</ins>
                                     </div>
 
                                     {{--                                            <div class="col-auto px-2">--}}
