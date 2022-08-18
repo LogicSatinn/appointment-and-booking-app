@@ -60,9 +60,9 @@ class EnrollClient extends Component
                 'address' => $validatedData['address'],
             ]);
 
-            (new BeemSmsService())
-                ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
-                ->getRecipients([$this->client->phone_number])->send();
+//            (new BeemSmsService())
+//                ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
+//                ->getRecipients([$this->client->phone_number])->send();
 
             return redirect(route('cart', [
                 'timetable' => $this->timetable,
