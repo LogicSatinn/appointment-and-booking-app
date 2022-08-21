@@ -32,6 +32,54 @@
                     <div id="accordionCurriculum">
                         <x-client.checkout-accordion-holder>
                             <x-slot:accordion-title>
+                                Reservation Details
+                            </x-slot:accordion-title>
+
+                            <x-slot:column>
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Reference Code
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $reservation->reference_code ?? 'Not provided' }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Number of Seats
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $reservation->no_of_seats . ' seats' ?? 'Not Provided' }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Reservation Made At
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $reservation->reserved_at ?? 'Not Provided' }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Reservation Status
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $reservation->status ?? 'Not Provided' }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+                            </x-slot:column>
+                        </x-client.checkout-accordion-holder>
+
+                        <x-client.checkout-accordion-holder>
+                            <x-slot:accordion-title>
                                 Client Details
                             </x-slot:accordion-title>
 
@@ -63,6 +111,34 @@
 
                                     <x-slot:column-data>
                                         {{ $client->phone_number }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+                            </x-slot:column>
+                        </x-client.checkout-accordion-holder>
+
+                        <x-client.checkout-accordion-holder>
+                            <x-slot:accordion-title>
+                                Additional Information
+                            </x-slot:accordion-title>
+
+                            <x-slot:column>
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Client's Profession
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $client->profession ?? 'Not provided' }}
+                                    </x-slot:column-data>
+                                </x-client.checkout-accordion-column>
+
+                                <x-client.checkout-accordion-column>
+                                    <x-slot:column-name>
+                                        Client's Address
+                                    </x-slot:column-name>
+
+                                    <x-slot:column-data>
+                                        {{ $client->address ?? 'Not Provided' }}
                                     </x-slot:column-data>
                                 </x-client.checkout-accordion-column>
                             </x-slot:column>
@@ -136,39 +212,13 @@
                             </x-slot:column>
                         </x-client.checkout-accordion-holder>
 
-                        <x-client.checkout-accordion-holder>
-                            <x-slot:accordion-title>
-                                Additional Information
-                            </x-slot:accordion-title>
 
-                            <x-slot:column>
-                                <x-client.checkout-accordion-column>
-                                    <x-slot:column-name>
-                                        Client's Profession
-                                    </x-slot:column-name>
-
-                                    <x-slot:column-data>
-                                        {{ $client->profession ?? 'Not provided' }}
-                                    </x-slot:column-data>
-                                </x-client.checkout-accordion-column>
-
-                                <x-client.checkout-accordion-column>
-                                    <x-slot:column-name>
-                                        Client's Address
-                                    </x-slot:column-name>
-
-                                    <x-slot:column-data>
-                                        {{ $client->address ?? 'Not Provided' }}
-                                    </x-slot:column-data>
-                                </x-client.checkout-accordion-column>
-                            </x-slot:column>
-                        </x-client.checkout-accordion-holder>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <livewire:client.process-checkout :client="$client" :timetable="$timetable"/>
+        <livewire:client.process-checkout :reservation="$reservation" :client="$client" :timetable="$timetable"/>
     </div>
 </x-client.master-layout>

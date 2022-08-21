@@ -30,7 +30,6 @@ class ViewSkill extends ViewRecord
                         $data['status'] == 'Archive' => $this->record->update(['status' => Archived::class]),
                         $data['status'] == 'Publish' => $this->record->update(['status' => Published::class])
                     };
-                    $this->emit('refreshComponent');
                 })
                 ->form([
                     Forms\Components\Select::make('status')
@@ -38,6 +37,7 @@ class ViewSkill extends ViewRecord
                             'Archive' => 'Archive',
                             'Publish' => 'Publish',
                         ])
+                        ->reactive()
                         ->default('Archive')
                         ->required(),
                 ]),

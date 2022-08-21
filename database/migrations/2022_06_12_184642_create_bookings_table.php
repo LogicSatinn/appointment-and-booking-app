@@ -11,7 +11,7 @@ class CreateBookingsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
@@ -25,8 +25,12 @@ class CreateBookingsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->foreignId('reservation_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('status');
-            $table->string('reference_code');
+            $table->string('reference_code')->unique();
             $table->timestamp('booked_at');
             $table->decimal('paid_amount', 8, 2)->default(0);
             $table->decimal('total_amount', 8, 2);
@@ -44,7 +48,7 @@ class CreateBookingsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('bookings');
     }

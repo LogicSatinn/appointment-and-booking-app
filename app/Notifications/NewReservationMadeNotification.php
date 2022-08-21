@@ -40,9 +40,9 @@ class NewReservationMadeNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
                     ->subject('New Reservation Made')
@@ -52,7 +52,7 @@ class NewReservationMadeNotification extends Notification
                     ->line('-------------------------------------------------------------------')
                     ->line('Skill: '.$this->timetable->skill->title)
                     ->line('Timetable Title: '.$this->timetable->title)
-                    ->line('Number of Seats: '.$this->clientTimetable->pivot->no_of_seats)
+                    ->line('Number of Seats: '.$this->reservation->no_of_seats)
                     ->line('Name of Client: '.$this->clientTimetable->name)
                     ->line('Further details can be found in the application. Have a good day!');
     }

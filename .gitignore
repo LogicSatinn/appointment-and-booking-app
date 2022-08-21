@@ -18,3 +18,4 @@ yarn-error.log
 /draft.yaml
 /.blueprint
 _ide_helper.php
+.phpstorm.meta.php

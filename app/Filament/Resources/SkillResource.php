@@ -140,6 +140,7 @@ class SkillResource extends Resource
                         'lg' => 12,
                     ]),
                 TextInput::make('status')
+                    ->reactive()
                     ->visibleOn('view'),
             ]);
     }

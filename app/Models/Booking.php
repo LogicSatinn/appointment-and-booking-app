@@ -35,7 +35,6 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $payments_count
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
- *
  * @method static BookingFactory factory(...$parameters)
  * @method static Builder|Booking newModelQuery()
  * @method static Builder|Booking newQuery()
@@ -53,13 +52,11 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Query\Builder|Booking withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Booking withoutTrashed()
  * @mixin \Eloquent
- *
  * @property string $paid_amount
  * @property string $total_amount
  * @property string $due_amount
  * @property BookingMethod|null $booking_method
  * @property-read Timetable $timetable
- *
  * @method static Builder|Booking orWhereNotState(string $column, $states)
  * @method static Builder|Booking orWhereState(string $column, $states)
  * @method static Builder|Booking whereBookingMethod($value)
@@ -102,7 +99,7 @@ class Booking extends Model
     public function bookedAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::create($value),
+            get: fn ($value) => Carbon::parse($value)->format('d F Y - H:i'),
         );
     }
 
@@ -116,11 +113,11 @@ class Booking extends Model
     }
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function reservations(): HasMany
+    public function reservation(): BelongsTo
     {
-        return $this->hasMany(Reservation::class);
+        return $this->belongsTo(Reservation::class);
     }
 
     /**
