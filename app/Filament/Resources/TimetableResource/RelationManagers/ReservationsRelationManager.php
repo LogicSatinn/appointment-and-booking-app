@@ -32,15 +32,10 @@ class ReservationsRelationManager extends RelationManager
                     ->searchable()
                     ->preload()
                     ->required(),
-                Select::make('booking_id')
-                    ->relationship('booking', 'reference_code')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
                 TextInput::make('reference_code')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('seat_number')
+                TextInput::make('no_of_seats')
                     ->numeric()
                     ->required(),
                 DatePicker::make('reserved_at')
@@ -64,9 +59,12 @@ class ReservationsRelationManager extends RelationManager
                 TextColumn::make('client.name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('booking.reference_code')
-                    ->label('Booking Reference')
-                    ->searchable(),
+                TextColumn::make('client.email')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('client.phone_number')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('reference_code')
                     ->searchable(),
                 BadgeColumn::make('status')
@@ -75,7 +73,7 @@ class ReservationsRelationManager extends RelationManager
                     'primary' => 'Reserved',
                     'success' => 'Booked',
                 ]),
-                TextColumn::make('seat_number')
+                TextColumn::make('no_of_seats')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('reserved_at')

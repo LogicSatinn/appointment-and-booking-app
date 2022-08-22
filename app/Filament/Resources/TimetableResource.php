@@ -2,16 +2,21 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\SkillLevel;
 use App\Filament\Resources\TimetableResource\Pages;
 use App\Filament\Resources\TimetableResource\RelationManagers\BookingsRelationManager;
-use App\Filament\Resources\TimetableResource\RelationManagers\ClientsRelationManager;
 use App\Filament\Resources\TimetableResource\RelationManagers\ReservationsRelationManager;
 use App\Filament\Resources\TimetableResource\Widgets\TimetableWidget;
 use App\Models\Timetable;
+use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -36,49 +41,69 @@ class TimetableResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('resource_id')
-                    ->relationship('resource', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                Select::make('skill_id')
-                    ->relationship('skill', 'title')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('level')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
-                DatePicker::make('from')
-                    ->required(),
-                DatePicker::make('to')
-                    ->required(),
-                TextInput::make('start')
-                    ->required(),
-                TextInput::make('end')
-                    ->required(),
-                TextInput::make('price')
-                    ->mask(fn (TextInput\Mask $mask) => $mask
-                        ->numeric()
-                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
-                        ->decimalSeparator() // Add a separator for decimal numbers.
-                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
-                        ->minValue(1) // Set the minimum value that the number can be.
-                        ->normalizeZeros() // Append or remove zeros at the end of the number.
-                        ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
-                        ->thousandsSeparator() // Add a separator for thousands.
-                    )
-                    ->required(),
-            ]);
+                Group::make()
+                    ->schema([
+                        Card::make()
+                            ->schema([
+                                Select::make('skill_id')
+                                    ->relationship('skill', 'title')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required(),
+
+                                TextInput::make('title')
+                                    ->required()
+                                    ->maxLength(255),
+
+                                Select::make('level')
+                                    ->options([
+                                        SkillLevel::BEGINNER->value => SkillLevel::BEGINNER->value,
+                                        SkillLevel::INTERMEDIATE->value => SkillLevel::INTERMEDIATE->value,
+                                        SkillLevel::ADVANCED->value => SkillLevel::ADVANCED->value,
+                                    ])
+                                    ->required(),
+
+                                TextInput::make('price')
+                                    ->mask(fn(TextInput\Mask $mask) => $mask
+                                        ->numeric()
+                                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                                        ->decimalSeparator() // Add a separator for decimal numbers.
+                                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
+                                        ->minValue(1) // Set the minimum value that the number can be.
+                                        ->normalizeZeros() // Append or remove zeros at the end of the number.
+                                        ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
+                                        ->thousandsSeparator() // Add a separator for thousands.
+                                    )
+                                    ->required(),
+
+                                Select::make('resource_id')
+                                    ->relationship('resource', 'name')
+                                    ->searchable()
+                                    ->rules([new CheckForAllocatedResourceRule()])
+                                    ->preload()
+                                    ->required(),
+                            ])
+                            ->columns(),
+
+                        Section::make('Schedule')
+                            ->schema([
+                                DatePicker::make('from')
+                                    ->after(today())
+                                    ->required(),
+                                DatePicker::make('to')
+                                    ->after(today())
+                                    ->required(),
+                                TimePicker::make('start')
+                                    ->withoutSeconds()
+                                    ->required(),
+                                TimePicker::make('end')
+                                    ->withoutSeconds()
+                                    ->required(),
+                            ])->columns(),
+                    ])
+                    ->columnSpan(['lg' => 3]),
+            ])
+            ->columns(3);
     }
 
     /**
@@ -109,7 +134,9 @@ class TimetableResource extends Resource
                     ->date(),
                 TextColumn::make('start'),
                 TextColumn::make('end'),
-                TextColumn::make('price'),
+                TextColumn::make('price')
+                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -130,9 +157,8 @@ class TimetableResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ClientsRelationManager::class,
-            BookingsRelationManager::class,
             ReservationsRelationManager::class,
+            BookingsRelationManager::class,
         ];
     }
 
