@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
 /**
@@ -92,6 +93,16 @@ class Booking extends Model
         'due_amount' => 'decimal:2',
         'booking_method' => BookingMethod::class,
     ];
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->reference_code = 'NL-B' . Str::padLeft(self::max('id') + 1, 6, 0);
+        });
+    }
 
     /**
      * @return Attribute

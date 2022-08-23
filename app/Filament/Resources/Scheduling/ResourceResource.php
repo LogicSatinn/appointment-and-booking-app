@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Scheduling;
 
-use App\Filament\Resources\ResourceResource\Pages;
+use App\Filament\Resources\Scheduling\ResourceResource\Pages;
+use App\Filament\Resources\Scheduling;
 use App\Models\Resource as ResourceModel;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -15,6 +16,8 @@ class ResourceResource extends Resource
     protected static ?string $model = ResourceModel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $navigationGroup = 'Infrastructure & Scheduling';
 
     public static function form(Form $form): Form
     {
@@ -74,7 +77,7 @@ class ResourceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageResources::route('/'),
+            'index' => Scheduling\ResourceResource\Pages\ManageResources::route('/'),
         ];
     }
 }

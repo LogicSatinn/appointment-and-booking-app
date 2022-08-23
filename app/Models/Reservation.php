@@ -82,6 +82,16 @@ class Reservation extends Model
         static::creating(function ($model) {
             $model->reference_code = 'NL-R' . Str::padLeft(self::max('id') + 1, 6, 0);
         });
+
+        static::created(function ($model) {
+            Booking::create([
+                'total_amount' => (double) $model->timetable->price * (int) $model->no_of_seats,
+                'client_id' => $model->client_id,
+                'timetable_id' => $model->timetable_id,
+                'reservation_id' => $model->id,
+                'booked_at' => now(),
+            ]);
+        });
     }
 
     /**

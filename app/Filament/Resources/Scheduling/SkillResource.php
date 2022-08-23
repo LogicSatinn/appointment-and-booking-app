@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Scheduling;
 
-use App\Filament\Resources\SkillResource\Pages;
-use App\Filament\Resources\SkillResource\RelationManagers\TimetablesRelationManager;
+use App\Filament\Resources\Scheduling;
+use App\Filament\Resources\Scheduling\SkillResource\RelationManagers\TimetablesRelationManager;
 use App\Models\Skill;
 use App\States\Skill\Archived;
 use App\States\Skill\Published;
@@ -38,6 +38,8 @@ class SkillResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-film';
 
+    protected static ?string $navigationGroup = 'Infrastructure & Scheduling';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -46,7 +48,7 @@ class SkillResource extends Resource
                     ->schema([
                         Section::make('Images')
                             ->schema([
-                                FileUpload::make('image_path')->required(static fn(Page $livewire): bool => $livewire instanceof Pages\CreateSkill)
+                                FileUpload::make('image_path')->required(static fn(Page $livewire): bool => $livewire instanceof Scheduling\SkillResource\Pages\CreateSkill)
                                     ->preserveFilenames()
                                     ->directory('skill_covers')
                                     ->image()
@@ -206,10 +208,10 @@ class SkillResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSkills::route('/'),
-            'create' => Pages\CreateSkill::route('/create'),
-            'view' => Pages\ViewSkill::route('/{record}'),
-            'edit' => Pages\EditSkill::route('/{record}/edit'),
+            'index' => Scheduling\SkillResource\Pages\ListSkills::route('/'),
+            'create' => Scheduling\SkillResource\Pages\CreateSkill::route('/create'),
+            'view' => Scheduling\SkillResource\Pages\ViewSkill::route('/{record}'),
+            'edit' => Scheduling\SkillResource\Pages\EditSkill::route('/{record}/edit'),
         ];
     }
 

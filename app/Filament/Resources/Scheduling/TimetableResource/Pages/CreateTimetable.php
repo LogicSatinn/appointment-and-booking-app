@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\TimetableResource\Pages;
+namespace App\Filament\Resources\Scheduling\TimetableResource\Pages;
 
-use App\Filament\Resources\TimetableResource;
+use App\Filament\Resources\Scheduling\TimetableResource;
 use App\Models\Timetable;
 use Filament\Resources\Pages\CreateRecord;
 

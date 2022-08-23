@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ResourceResource\Pages;
+namespace App\Filament\Resources\Scheduling\ResourceResource\Pages;
 
-use App\Filament\Resources\ResourceResource;
+use App\Filament\Resources\Scheduling\ResourceResource;
 use Exception;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ManageRecords;

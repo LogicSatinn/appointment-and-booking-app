@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\TimetableResource\RelationManagers;
+namespace App\Filament\Resources\Scheduling\TimetableResource\RelationManagers;
 
 use App\Enums\BookingMethod;
 use App\Models\Booking;
@@ -45,8 +45,8 @@ class BookingsRelationManager extends RelationManager
                     ->required(),
                 Select::make('booking_method')
                     ->options([
-                        BookingMethod::DIRECT_PAYMENT,
-                        BookingMethod::RESERVATION,
+                        BookingMethod::DIRECT_PAYMENT->value => BookingMethod::DIRECT_PAYMENT->value,
+                        BookingMethod::RESERVATION->value => BookingMethod::RESERVATION->value,
                     ]),
                 DatePicker::make('booked_at')
                     ->required(),
@@ -81,9 +81,8 @@ class BookingsRelationManager extends RelationManager
                 TextColumn::make('due_amount')
                     ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->due_amount))
                     ->sortable(),
-                TextColumn::make('booking_method'),
+                TextColumn::make('booking_method')->default('N/A'),
                 TextColumn::make('booked_at')
-                    ->dateTime()
                     ->sortable(),
             ])
             ->filters([

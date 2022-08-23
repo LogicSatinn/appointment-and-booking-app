@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\SkillResource\RelationManagers;
+namespace App\Filament\Resources\Scheduling\SkillResource\RelationManagers;
 
 use App\Enums\SkillLevel;
 use App\Models\Timetable;

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\SkillResource\Pages;
+namespace App\Filament\Resources\Scheduling\TimetableResource\Pages;
 
-use App\Filament\Resources\SkillResource;
+use App\Filament\Resources\Scheduling\TimetableResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSkill extends EditRecord
+class EditTimetable extends EditRecord
 {
-    protected static string $resource = SkillResource::class;
+    protected static string $resource = TimetableResource::class;
 
     protected function getActions(): array
     {

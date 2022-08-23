@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\SkillResource\Pages;
+namespace App\Filament\Resources\Scheduling\SkillResource\Pages;
 
-use App\Filament\Resources\SkillResource;
+use App\Filament\Resources\Scheduling\SkillResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 

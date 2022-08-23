@@ -57,23 +57,14 @@ class ProcessCheckout extends Component
 
     public function reservation(): Redirector|Application|RedirectResponse
     {
-        $booking = Booking::create([
-            'client_id' => $this->client->id,
-            'timetable_id' => $this->timetable->id,
-            'reservation_id' => $this->reservation->id,
-            'status' => Pending::class,
-            'reference_code' => 'NL-B'.rand(0000000, 9999999),
-            'booked_at' => now(),
-            'total_amount' => $this->total,
-            'due_amount' => 0,
-            'paid_amount' => 0,
+        $this->reservation->booking->update([
             'booking_method' => BookingMethod::RESERVATION,
         ]);
 
-        ProcessNotificationsJob::dispatch($this->reservation, $booking, $this->client);
+        ProcessNotificationsJob::dispatch($this->reservation, $this->reservation->booking, $this->client);
 
         return redirect(route('reservation-complete', [
-            'booking' => $booking,
+            'booking' => $this->reservation->booking,
             'client' => $this->client,
             'timetable' => $this->timetable,
         ]));

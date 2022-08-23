@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Scheduling;
 
 use App\Enums\SkillLevel;
-use App\Filament\Resources\TimetableResource\Pages;
-use App\Filament\Resources\TimetableResource\RelationManagers\BookingsRelationManager;
-use App\Filament\Resources\TimetableResource\RelationManagers\ReservationsRelationManager;
-use App\Filament\Resources\TimetableResource\Widgets\TimetableWidget;
+use App\Filament\Resources\Scheduling;
+use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\BookingsRelationManager;
+use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\ReservationsRelationManager;
+use App\Filament\Resources\Scheduling\TimetableResource\Pages;
 use App\Models\Timetable;
 use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
@@ -36,6 +36,10 @@ class TimetableResource extends Resource
     protected static ?string $model = Timetable::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
+    protected static ?string $navigationLabel = 'Timetable';
+
+    protected static ?string $navigationGroup = 'Infrastructure & Scheduling';
 
     public static function form(Form $form): Form
     {
@@ -165,10 +169,10 @@ class TimetableResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTimetables::route('/'),
-            'create' => Pages\CreateTimetable::route('/create'),
-            'view' => Pages\ViewTimetable::route('/{record}'),
-            'edit' => Pages\EditTimetable::route('/{record}/edit'),
+            'index' => Scheduling\TimetableResource\Pages\ListTimetables::route('/'),
+            'create' => Scheduling\TimetableResource\Pages\CreateTimetable::route('/create'),
+            'view' => Scheduling\TimetableResource\Pages\ViewTimetable::route('/{record}'),
+            'edit' => Scheduling\TimetableResource\Pages\EditTimetable::route('/{record}/edit'),
         ];
     }
 
@@ -183,7 +187,7 @@ class TimetableResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            TimetableWidget::class,
+//            TimetableWidget::class,
         ];
     }
 }

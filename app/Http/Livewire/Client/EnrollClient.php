@@ -60,6 +60,8 @@ class EnrollClient extends Component
                 'address' => $validatedData['address'],
             ]);
 
+            // TODO Send notification that the client has successfully enrolled
+
             if (App::environment('production')) {
                 BeemSms::content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
                     ->loadRecipients($this->client)
