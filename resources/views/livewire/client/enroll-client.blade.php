@@ -47,7 +47,7 @@
                         <label for="name">
                             Name
                         </label>
-                        <input type="text" class="form-control" id="name" wire:model="name" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="name" wire:model.lazy="name" onfocus="this.value=''">
                         @error('name')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -58,7 +58,7 @@
                         <label for="email">
                             Email
                         </label>
-                        <input type="email" class="form-control" id="email" wire:model="email" onfocus="this.value=''">
+                        <input type="email" class="form-control" id="email" wire:model.lazy="email" onfocus="this.value=''">
                         @error('email')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -68,7 +68,7 @@
                         <label for="phone_number">
                             Phone Number
                         </label>
-                        <input type="text" class="form-control" id="phone_number" wire:model="phoneNumber" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="phone_number" wire:model.lazy="phoneNumber" onfocus="this.value=''">
                         @error('phoneNumber')
                             <span class="error">{{ $message }}</span>
                         @enderror
@@ -78,7 +78,7 @@
                         <label for="profession">
                             Profession (Optional)
                         </label>
-                        <input type="text" class="form-control" id="profession" wire:model="profession" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="profession" wire:model.lazy="profession" onfocus="this.value=''">
                         @error('profession')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -88,7 +88,7 @@
                         <label for="address">
                             Address (Optional)
                         </label>
-                        <input type="text" class="form-control" id="address" wire:model="address" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="address" wire:model.lazy="address" onfocus="this.value=''">
                         @error('address')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror

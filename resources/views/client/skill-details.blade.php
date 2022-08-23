@@ -72,17 +72,17 @@
 
                     <div class="tab-pane fade" id="pills-modeOfDelivery" role="tabpanel" aria-labelledby="pills-modeOfDelivery-tab">
                         <h3 class="mb-6">Mode Of Delivery</h3>
-                        <p>{{ $skill->mode_of_delivery }}</p>
+                        <p>{!! $skill->mode_of_delivery !!}</p>
                     </div>
 
                     <div class="tab-pane fade" id="pills-prerequisite" role="tabpanel" aria-labelledby="pills-prerequisite-tab">
                         <h3 class="mb-6">Pre-requisite</h3>
-                        <p>{{ $skill->prerequisite }}</p>
+                        <p>{!! $skill->prerequisite !!}</p>
                     </div>
 
                     <div class="tab-pane fade" id="pills-suitableFor" role="tabpanel" aria-labelledby="pills-suitableFor-tab">
                         <h3 class="mb-6">Suitable For</h3>
-                        <p>{{ $skill->suitable_for }}</p>
+                        <p>{!! $skill->suitable_for !!}</p>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
 
                             </div>
 
-                            <a href="#lala" class="card-img sk-thumbnail img-ratio-2 d-block">
+                            <a href="#" class="card-img sk-thumbnail img-ratio-2 d-block">
                                 <img class="rounded shadow-light-lg"
                                      src="{{ asset('/media/' . $skill->image_path)}}"
                                      alt="...">
@@ -134,7 +134,7 @@
                         <!-- Footer -->
                         <div class="col-md-8 card-footer px-2 px-md-5 py-4 py-md-0 position-relative">
                             <!-- Preheading -->
-                            <a href="#lala"><span
+                            <a href="#"><span
                                     class="mb-1 d-inline-block text-gray-800">{{ $skill->category->name }}</span></a>
 
                             <!-- Heading -->

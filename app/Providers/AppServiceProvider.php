@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,5 +29,13 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') !== 'local') {
             URL::forceScheme('https');
         }
+
+        Filament::serving(function () {
+            Filament::registerNavigationGroups([
+                'Infrastructure & Scheduling',
+                'Booking & Client Interaction',
+                'Blog',
+            ]);
+        });
     }
 }

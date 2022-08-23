@@ -2,6 +2,9 @@
 
 namespace App\Notifications;
 
+use App\Models\Booking;
+use App\Models\Client;
+use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -10,19 +13,22 @@ class ClientReservationMadeNotification extends Notification
 {
     use Queueable;
 
-    protected $clientTimetable;
+    protected Reservation $reservation;
 
-    protected $booking;
+    protected Booking $booking;
+
+    protected Client $client;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($clientTimetable, $booking)
+    public function __construct(Reservation $reservation, Booking $booking, Client $client)
     {
-        $this->clientTimetable = $clientTimetable;
+        $this->reservation = $reservation;
         $this->booking = $booking;
+        $this->client = $client;
     }
 
     /**
@@ -31,7 +37,7 @@ class ClientReservationMadeNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['mail'];
     }
@@ -42,12 +48,12 @@ class ClientReservationMadeNotification extends Notification
      * @param  mixed  $notifiable
      * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
                     ->subject('Reservation Secured Successfully.')
-                    ->greeting('Hello There, '.$this->clientTimetable->name)
-                    ->line('We are proud to tell you that your reservation of '.$this->clientTimetable->pivot->no_of_seats.' seats has been successfully secured.')
+                    ->greeting('Hello There, '.$this->client->name)
+                    ->line('We are proud to tell you that your reservation of '.$this->reservation->no_of_seats.' seats has been successfully secured.')
                     ->line('Here\'s your Invoice Reference Code: '.$this->booking->reference_code.' . You\'ll use it to make further payments.')
                     ->line('Be informed that you may lose your seat(s) if you do not pay before six hours of the timetable.')
                     ->line('Thank you for using our services. Have a good day!');

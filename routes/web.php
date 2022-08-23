@@ -23,7 +23,7 @@ Route::controller(ClientSideController::class)->group(function () {
 Route::get('timetable/enroll-client/{timetable}', EnrollClient::class)->name('enroll-client');
 Route::get('/cart/{timetable}/{client}', Cart::class)->name('cart');
 Route::controller(CheckoutController::class)->prefix('checkout')->group(function () {
-    Route::get('/{timetable}/{client}', 'index')->name('client.checkout');
+    Route::get('/{reservation}/{timetable}/{client}', 'index')->name('client.checkout');
     Route::get('/reservation-complete/{booking}/{timetable}/{client}', 'reservationComplete')->name('reservation-complete');
 });
 

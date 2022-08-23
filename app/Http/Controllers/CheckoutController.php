@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Client;
+use App\Models\Reservation;
 use App\Models\Timetable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,12 +17,12 @@ class CheckoutController extends Controller
      * @param  Client  $client
      * @return Application|Factory|View
      */
-    public function index(Timetable $timetable, Client $client): View|Factory|Application
+    public function index(Reservation $reservation, Timetable $timetable, Client $client): View|Factory|Application
     {
         return view('client.checkout', [
+            'reservation' => $reservation,
             'timetable' => $timetable->load('skill'),
             'client' => $client,
-            'clientTimetable' => $timetable->clients()->where('client_id', $client->id)->first(),
         ]);
     }
 
@@ -34,9 +35,9 @@ class CheckoutController extends Controller
     public function reservationComplete(Booking $booking, Timetable $timetable, Client $client): View|Factory|Application
     {
         return view('client.checkout-completed', [
-            'booking' => $booking->load('payments', 'reservations'),
-            'clientTimetable' => $timetable->clients()->where('client_id', $client->id)->firstOrFail(),
+            'booking' => $booking->load('payments', 'reservation'),
             'timetable' => $timetable,
+            'client' => $client
         ]);
     }
 }

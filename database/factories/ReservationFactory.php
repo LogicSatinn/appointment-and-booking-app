@@ -28,8 +28,7 @@ class ReservationFactory extends Factory
         return [
             'client_id' => Client::factory(),
             'timetable_id' => Timetable::factory(),
-            'booking_id' => Booking::factory(),
-            'seat_number' => $this->faker->numberBetween(-10000, 10000),
+            'no_of_seats' => $this->faker->numberBetween(1, 10),
             'status' => ReservationStatus::class,
             'reference_code' => $this->faker->word,
             'reserved_at' => $this->faker->dateTime(),

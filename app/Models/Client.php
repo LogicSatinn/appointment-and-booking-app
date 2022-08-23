@@ -2,42 +2,38 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Database\Factories\ClientFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+
 
 /**
  * App\Models\Client
  *
  * @property int $id
- * @property int $user_id
- * @property string $profession
- * @property string $phone_number
- * @property string $address
- * @property string $status
- * @property Carbon $deleted_at
- * @property Carbon $created_at
- * @property Carbon $updated_at
  * @property string $name
  * @property string $email
- * @property-read Collection|Timetable[] $timetables
- * @property-read int|null $timetables_count
+ * @property string|null $profession
+ * @property string $phone_number
+ * @property string|null $address
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
- * @property-read User|null $user
- *
  * @method static ClientFactory factory(...$parameters)
  * @method static Builder|Client newModelQuery()
  * @method static Builder|Client newQuery()
@@ -54,10 +50,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder|Client whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Client withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Client withoutTrashed()
- * @mixin \Eloquent
- *
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
+ * @mixin Eloquent
  */
 class Client extends Model
 {
@@ -93,23 +86,5 @@ class Client extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function timetables(): BelongsToMany
-    {
-        return $this->belongsToMany(Timetable::class)
-                    ->withPivot('no_of_seats')
-                    ->withTimestamps();
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 }

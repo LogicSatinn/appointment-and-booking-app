@@ -11,27 +11,35 @@ class CreateBookingsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->foreignId('timetable_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->string('status');
-            $table->string('reference_code');
-            $table->timestamp('booked_at');
+
+            $table->string('reference_code')->unique();
             $table->decimal('paid_amount', 8, 2)->default(0);
             $table->decimal('total_amount', 8, 2);
             $table->decimal('due_amount', 8, 2)->default(0);
             $table->string('booking_method')->nullable();
+            $table->string('status');
+
+            $table->foreignId('client_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('timetable_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('reservation_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('last_modified_by')
+                ->nullable()
+                ->constrained('users');
+
+
+            $table->timestamp('booked_at');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -44,7 +52,7 @@ class CreateBookingsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('bookings');
     }

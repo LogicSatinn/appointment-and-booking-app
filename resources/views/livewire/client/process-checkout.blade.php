@@ -13,7 +13,7 @@
                 <tr class="cart_item">
                     <td class="product-name">
                         Seats ( @ {{$timetable->representablePrice() }} )
-                        <strong class="product-quantity">× {{ $this->clientTimetable->pivot->no_of_seats }}</strong>
+                        <strong class="product-quantity">× {{ $reservation->no_of_seats }}</strong>
                     </td>
                     <td class="product-total">
                                     <span class="woocommerce-Price-amount amount">

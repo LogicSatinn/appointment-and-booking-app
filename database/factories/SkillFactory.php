@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Skill;
-use App\States\Skill\SkillStatus;
+use App\States\Skill\Draft;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SkillFactory extends Factory
@@ -21,7 +21,7 @@ class SkillFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $sentence = $this->faker->sentence(4);
 
@@ -32,7 +32,7 @@ class SkillFactory extends Factory
             'mode_of_delivery' => $this->faker->text,
             'prerequisite' => $this->faker->text,
             'suitable_for' => $this->faker->text,
-            'status' => SkillStatus::class,
+            'status' => Draft::class,
             'category_id' => Category::factory(),
         ];
     }

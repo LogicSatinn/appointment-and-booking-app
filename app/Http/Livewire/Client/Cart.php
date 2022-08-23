@@ -3,8 +3,15 @@
 namespace App\Http\Livewire\Client;
 
 use App\Models\Client;
+use App\Models\Reservation;
 use App\Models\Timetable;
 use App\View\Components\Client\MasterLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Cart extends Component
@@ -31,8 +38,15 @@ class Cart extends Component
 
     public function addSeat()
     {
-        $this->seat += 1;
-        $this->updateSubTotal();
+        if (
+            $this->timetable->resource->capacity > Reservation::whereTimetableId($this->timetable->id)->sum('no_of_seats')
+        ) {
+            $this->seat += 1;
+            $this->updateSubTotal();
+        }
+        // TODO Add Notification that capacity is full
+
+        return;
     }
 
     public function subtractSeat()
@@ -52,17 +66,25 @@ class Cart extends Component
         $this->total = $this->subTotal - $this->discount;
     }
 
-    public function saveCart()
+    public function saveCart(): Redirector|Application|RedirectResponse
     {
-        $this->timetable->clients()->attach($this->client->id, ['no_of_seats' => $this->seat]);
+        $reservation = Reservation::create([
+            'client_id' => $this->client->id,
+            'timetable_id' => $this->timetable->id,
+            'no_of_seats' => $this->seat,
+            'reserved_at' => now(),
+        ]);
+
+        Cache::put($this->client->phone_number. '_' . $this->timetable->id, $this->seat, 432000);
 
         return redirect(route('client.checkout', [
+            'reservation' => $reservation,
             'timetable' => $this->timetable,
             'client' => $this->client,
         ]));
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.client.cart')
             ->layout(MasterLayout::class);

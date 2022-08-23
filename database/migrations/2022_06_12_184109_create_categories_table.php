@@ -11,19 +11,21 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('slug');
             $table->string('note')->nullable();
-            $table->foreignId('added_by')
+            $table->foreignId('created_by')
                 ->constrained('users')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,7 +38,7 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('categories');
     }

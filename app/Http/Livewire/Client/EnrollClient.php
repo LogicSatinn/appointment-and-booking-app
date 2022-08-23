@@ -4,12 +4,17 @@ namespace App\Http\Livewire\Client;
 
 use App\Models\Client;
 use App\Models\Timetable;
-use App\Services\BeemSmsService;
 use App\View\Components\Client\MasterLayout;
+use Emanate\BeemSms\Facades\BeemSms;
+use Error;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
 class EnrollClient extends Component
@@ -31,7 +36,7 @@ class EnrollClient extends Component
     protected $rules = [
         'name' => 'required|string|min:3',
         'email' => 'required|string|email',
-        'phoneNumber' => 'required|string|starts_with:255|unique:clients,phone_number',
+        'phoneNumber' => 'required|string|starts_with:255',
         'profession' => 'nullable|string|min:3',
         'address' => 'nullable|string|min:3',
     ];
@@ -41,41 +46,40 @@ class EnrollClient extends Component
         $this->timetable = $timetable;
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function saveClient(): Redirector|Application|RedirectResponse
     {
         $validatedData = $this->validate();
 
         try {
-            $this->client = Client::firstOrCreate([
+            $this->client = Client::updateOrCreate([
                 'email' => $this->email,
                 'phone_number' => $this->phoneNumber,
             ], [
                 'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'phone_number' => $validatedData['phoneNumber'],
                 'profession' => $validatedData['profession'],
                 'address' => $validatedData['address'],
             ]);
 
-//            (new BeemSmsService())
-//                ->content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
-//                ->getRecipients([$this->client->phone_number])->send();
+            // TODO Send notification that the client has successfully enrolled
+
+            if (App::environment('production')) {
+                BeemSms::content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
+                    ->loadRecipients($this->client)
+                    ->send();
+            }
 
             return redirect(route('cart', [
                 'timetable' => $this->timetable,
                 'client' => $this->client,
             ]));
-        } catch (\Exception|\Error $e) {
-            toast($e->getMessage().'Please try again later.', 'error');
+        } catch (GuzzleException|Exception|Error $e) {
+            toast($e->getMessage() . 'Please try again later.', 'error');
 
             return back();
         }
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.client.enroll-client')
             ->layout(MasterLayout::class);

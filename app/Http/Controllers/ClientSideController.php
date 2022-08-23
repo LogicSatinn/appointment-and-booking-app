@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Reservation;
 use App\Models\Skill;
 use App\Models\Timetable;
 use App\States\Skill\Published;
@@ -57,7 +58,8 @@ class ClientSideController extends Controller
     public function timetableDetails(Timetable $timetable)
     {
         return view('client.timetable-details', [
-            'timetable' => $timetable->load('skill.category', 'clients', 'resource'),
+            'timetable' => $timetable->load('skill.category', 'resource'),
+            'noOfSeats' => Reservation::whereTimetableId($timetable->id)->sum('no_of_seats'),
             'otherTimetables' => Timetable::with('skill.category')->whereSkillId($timetable->skill->id)->whereNot('id', $timetable->id)->get(),
         ]);
     }

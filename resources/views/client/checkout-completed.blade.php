@@ -34,7 +34,7 @@
                                 <li class="woocommerce-order-overview__total total">
                                     Total:
                                     <strong><span class="woocommerce-Price-amount amount"><span
-                                                class="woocommerce-Price-currencySymbol">TZS</span>{{ $booking->total_amount }}</span></strong>
+                                                class="woocommerce-Price-currencySymbol"></span>{{ $booking->representablePrice($booking->total_amount) }}</span></strong>
                                 </li>
 
                                 <li class="woocommerce-order-overview__payment-method method">
@@ -57,14 +57,14 @@
                                     <tbody>
                                     <tr class="woocommerce-table__line-item order_item">
                                         <td class="woocommerce-table__product-name product-name">
-                                            <a href="#">Seats ( @ {{ $timetable->Skill }} )</a>
+                                            <a href="#">Seats ( @ {{ $timetable->representablePrice() }} )</a>
                                             <strong
-                                                class="product-quantity">× {{ $clientTimetable->pivot->no_of_seats }}</strong>
+                                                class="product-quantity">× {{ $booking->reservation->no_of_seats }}</strong>
                                         </td>
 
                                         <td class="woocommerce-table__product-total product-total">
                                             <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol"> </span>{{ $timetable->price * $clientTimetable->pivot->no_of_seats }}</span>
+                                                    class="woocommerce-Price-currencySymbol"> </span>{{ $booking->representablePrice($timetable->price * $booking->reservation->no_of_seats) }}</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -73,17 +73,17 @@
                                     <tr>
                                         <th scope="row">Sub-Total:</th>
                                         <td><span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">TZS </span>{{ $booking->total_amount }}</span>
+                                                    class="woocommerce-Price-currencySymbol"> </span>{{ $booking->representablePrice($booking->total_amount) }}</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Payment method:</th>
-                                        <td>Check payments</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total:</th>
                                         <td><span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">TZS </span>{{ $booking->total_amount }}</span>
+                                                    class="woocommerce-Price-currencySymbol"> </span>{{ $booking->representablePrice($booking->total_amount) }}</span>
                                         </td>
                                     </tr>
                                     </tfoot>
@@ -93,7 +93,7 @@
                             <section class="woocommerce-customer-details">
                                 <h2 class="woocommerce-column__title">Billing Address</h2>
                                 <address>
-                                    {{ $clientTimetable->address ?? 'Not Provided' }}
+                                    {{ $client->address ?? 'Not Provided' }}
                                 </address>
                             </section>
 

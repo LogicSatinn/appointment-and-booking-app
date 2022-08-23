@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class CheckForAllocatedResourceRule implements Rule, DataAwareRule
 {
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Create a new rule instance.
@@ -24,7 +24,7 @@ class CheckForAllocatedResourceRule implements Rule, DataAwareRule
      * @param $data
      * @return $this
      */
-    public function setData($data)
+    public function setData($data): static
     {
         $this->data = $data;
 
@@ -38,13 +38,14 @@ class CheckForAllocatedResourceRule implements Rule, DataAwareRule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
-        return ! Timetable::where('resource_id', $this->data['resource_id'])
-            ->where('from', $this->data['from'])
-            ->orWhere('to', $this->data['to'])
-            ->where('start', $this->data['start'])
-            ->exists();
+        return Timetable::where('resource_id', $this->data['data']['resource_id'])
+            ->where('from', $this->data['data']['from'])
+            ->where('to', $this->data['data']['to'])
+            ->whereBetween('start', [$this->data['data']['start'], $this->data['data']['end']])
+            ->whereBetween('end', [$this->data['data']['start'], $this->data['data']['end']])
+            ->doesntExist();
     }
 
     /**
@@ -52,7 +53,7 @@ class CheckForAllocatedResourceRule implements Rule, DataAwareRule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'This resource is allocated to another timetable. Change the time or date.';
     }
