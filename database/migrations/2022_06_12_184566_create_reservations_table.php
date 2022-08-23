@@ -17,17 +17,21 @@ class CreateReservationsTable extends Migration
 
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->foreignId('timetable_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+
+            $table->string('reference_code')->unique();
             $table->integer('no_of_seats')->nullable();
             $table->string('status');
-            $table->string('reference_code')->unique();
+
+            $table->foreignId('client_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('timetable_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('last_modified_by')
+                ->nullable()
+                ->constrained('users');
+
             $table->timestamp('reserved_at');
             $table->softDeletes();
             $table->timestamps();

@@ -21,7 +21,8 @@
         "realrashid/sweet-alert": "^5.1",
         "saade/filament-fullcalendar": "^1.4",
         "shoket/laravel-shoket": "^0.0.4",
-        "spatie/laravel-model-states": "^2.4"
+        "spatie/laravel-model-states": "^2.4",
+        "stephenjude/filament-blog": "^0.1.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

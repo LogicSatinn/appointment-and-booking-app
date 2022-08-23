@@ -17,13 +17,15 @@ class CreateCategoriesTable extends Migration
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('slug');
             $table->string('note')->nullable();
-            $table->foreignId('added_by')
+            $table->foreignId('created_by')
                 ->constrained('users')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
             $table->softDeletes();
             $table->timestamps();
         });

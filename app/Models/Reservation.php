@@ -16,38 +16,44 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
+
 /**
  * App\Models\Reservation
  *
  * @property int $id
+ * @property string $reference_code
+ * @property int|null $no_of_seats
+ * @property mixed $status
  * @property int $client_id
  * @property int $timetable_id
- * @property int $booking_id
- * @property int $seat_number
- * @property string $status
- * @property string $reference_code
- * @property Carbon $reserved_at
- * @property Carbon $deleted_at
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property-read Timetable $timetable
- * @property-read Booking $booking
- * @property-read Client $client
- * @method static ReservationFactory factory(...$parameters)
+ * @property int|null $last_modified_by
+ * @property string $reserved_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Booking|null $booking
+ * @property-read \App\Models\Client $client
+ * @property-read \App\Models\User|null $lastModifiedBy
+ * @property-read \App\Models\Timetable $timetable
+ * @method static \Database\Factories\ReservationFactory factory(...$parameters)
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static \Illuminate\Database\Query\Builder|Reservation onlyTrashed()
+ * @method static Builder|Reservation orWhereNotState(string $column, $states)
+ * @method static Builder|Reservation orWhereState(string $column, $states)
  * @method static Builder|Reservation query()
- * @method static Builder|Reservation whereTimetableId($value)
- * @method static Builder|Reservation whereBookingId($value)
  * @method static Builder|Reservation whereClientId($value)
  * @method static Builder|Reservation whereCreatedAt($value)
  * @method static Builder|Reservation whereDeletedAt($value)
  * @method static Builder|Reservation whereId($value)
+ * @method static Builder|Reservation whereLastModifiedBy($value)
+ * @method static Builder|Reservation whereNoOfSeats($value)
+ * @method static Builder|Reservation whereNotState(string $column, $states)
  * @method static Builder|Reservation whereReferenceCode($value)
  * @method static Builder|Reservation whereReservedAt($value)
- * @method static Builder|Reservation whereSeatNumber($value)
+ * @method static Builder|Reservation whereState(string $column, $states)
  * @method static Builder|Reservation whereStatus($value)
+ * @method static Builder|Reservation whereTimetableId($value)
  * @method static Builder|Reservation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Reservation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Reservation withoutTrashed()
@@ -89,7 +95,6 @@ class Reservation extends Model
                 'client_id' => $model->client_id,
                 'timetable_id' => $model->timetable_id,
                 'reservation_id' => $model->id,
-                'booked_at' => now(),
             ]);
         });
     }
@@ -126,6 +131,14 @@ class Reservation extends Model
     public function booking(): HasOne
     {
         return $this->hasOne(Booking::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function lastModifiedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_modified_by');
     }
 
     /**

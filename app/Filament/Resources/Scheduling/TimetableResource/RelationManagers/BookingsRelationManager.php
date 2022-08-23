@@ -5,13 +5,10 @@ namespace App\Filament\Resources\Scheduling\TimetableResource\RelationManagers;
 use App\Enums\BookingMethod;
 use App\Models\Booking;
 use Exception;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -28,28 +25,23 @@ class BookingsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Select::make('reference_code')
+                Select::make('client_id')
                     ->relationship('client', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
-                TextInput::make('reference_code')
-                    ->required(),
-                TextInput::make('status')
-                    ->required(),
-                TextInput::make('total_amount')
-                    ->required(),
-                TextInput::make('paid_amount')
-                    ->required(),
-                TextInput::make('due_amount')
+                Select::make('status')
+                    ->options([
+                        'Pending' => 'Pending',
+                        'Paid' => 'Paid',
+                        'Failed'
+                    ])
                     ->required(),
                 Select::make('booking_method')
                     ->options([
                         BookingMethod::DIRECT_PAYMENT->value => BookingMethod::DIRECT_PAYMENT->value,
                         BookingMethod::RESERVATION->value => BookingMethod::RESERVATION->value,
                     ]),
-                DatePicker::make('booked_at')
-                    ->required(),
             ]);
     }
 
@@ -73,13 +65,13 @@ class BookingsRelationManager extends RelationManager
                         'heroicon-o-x' => 'Failed',
                     ])->iconPosition('after'),
                 TextColumn::make('total_amount')
-                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->total_amount))
+                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->total_amount))
                     ->sortable(),
                 TextColumn::make('paid_amount')
-                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
+                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
                     ->sortable(),
                 TextColumn::make('due_amount')
-                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->due_amount))
+                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->due_amount))
                     ->sortable(),
                 TextColumn::make('booking_method')->default('N/A'),
                 TextColumn::make('booked_at')
@@ -89,7 +81,7 @@ class BookingsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
+//                CreateAction::make(),
             ])
             ->actions([
                 EditAction::make(),

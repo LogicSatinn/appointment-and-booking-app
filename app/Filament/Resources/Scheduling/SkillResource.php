@@ -66,7 +66,9 @@ class SkillResource extends Resource
                                         Archived::$name => 'Archive',
                                         Published::$name => 'Publish'
                                     ])
-                                    ->reactive(),
+                                    ->disablePlaceholderSelection()
+                                    ->reactive()
+                                    ->visibleOn('edit'),
                             ])
                     ])->columnSpan(['lg' => 5]),
 
@@ -79,13 +81,19 @@ class SkillResource extends Resource
                                     ->lazy()
                                     ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
 
+                                Select::make('category_id')
+                                    ->relationship('category', 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required(),
+
                                 TextInput::make('slug')
                                     ->disabled()
                                     ->required()
                                     ->unique(Skill::class, 'slug', ignoreRecord: true),
 
                             ])
-                            ->columns(1),
+                            ->columns(),
 
 
                         Section::make('More Information')
@@ -221,5 +229,11 @@ class SkillResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::$model::whereState('status', Published::class)->count();
     }
 }

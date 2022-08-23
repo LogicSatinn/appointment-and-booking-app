@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Scheduling;
 
-use App\Filament\Resources\Scheduling\CategoryResource\Pages;
 use App\Filament\Resources\Scheduling;
 use App\Models\Category;
+use Exception;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -31,19 +31,22 @@ class CategoryResource extends Resource
                     ]),
                 Forms\Components\Textarea::make('note')
                     ->maxLength(255)
-                ->columnSpan([
-                    'md' => 12,
-                ]),
+                    ->columnSpan([
+                        'md' => 12,
+                    ]),
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('note'),
-                Tables\Columns\TextColumn::make('addedBy.name'),
+                Tables\Columns\TextColumn::make('createdBy.name'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
             ])

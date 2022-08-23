@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Scheduling\SkillResource\Pages;
+namespace App\Filament\Resources\Booking\ReservationResource\Pages;
 
-use App\Filament\Resources\Scheduling\SkillResource;
-use App\Filament\Widgets\SkillOverview;
+use App\Filament\Resources\Booking\ReservationResource;
+use App\Filament\Widgets\ReservationsOverview;
 use Exception;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListSkills extends ListRecords
+class ListReservations extends ListRecords
 {
-    protected static string $resource = SkillResource::class;
+    protected static string $resource = ReservationResource::class;
 
     /**
      * @throws Exception
@@ -25,7 +25,7 @@ class ListSkills extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            SkillOverview::class
+            ReservationsOverview::class
         ];
     }
 }

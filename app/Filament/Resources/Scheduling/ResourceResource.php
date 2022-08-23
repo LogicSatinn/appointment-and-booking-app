@@ -2,14 +2,17 @@
 
 namespace App\Filament\Resources\Scheduling;
 
-use App\Filament\Resources\Scheduling\ResourceResource\Pages;
-use App\Filament\Resources\Scheduling;
+use App\Filament\Resources\Scheduling\ResourceResource\Pages\ManageResources;
 use App\Models\Resource as ResourceModel;
-use Filament\Forms;
+use Exception;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class ResourceResource extends Resource
 {
@@ -23,20 +26,20 @@ class ResourceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
+                    ->unique()
                     ->maxLength(255)
                     ->columnSpan([
                         'md' => 6,
                     ]),
-                Forms\Components\TextInput::make('capacity')
+                TextInput::make('capacity')
                     ->required()
                     ->numeric()
-                    ->maxLength(255)
                     ->columnSpan([
                         'md' => 6,
                     ]),
-                Forms\Components\Textarea::make('note')
+                Textarea::make('note')
                     ->rows(3)
                     ->columnSpan([
                         'md' => 12,
@@ -45,21 +48,30 @@ class ResourceResource extends Resource
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('capacity'),
-                Tables\Columns\TextColumn::make('state'),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('name'),
+                TextColumn::make('capacity'),
+                IconColumn::make('state')
+                    ->label('Availability')
+                    ->options([
+                        'heroicon-o-x-circle' => fn($state): bool => $state == 'In Session',
+                        'heroicon-o-check-circle' => fn($state): bool => $state == 'Available',
+                    ]),
+                TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('createdBy.name')
+                    ->label('Created By'),
+                TextColumn::make('updated_at')
+                    ->label('Last Modified At')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                TextColumn::make('lastModifiedBy.name')
+                    ->label('Last Modified By')
+                    ->default('N/A'),
             ])
             ->filters([
                 //
@@ -77,7 +89,7 @@ class ResourceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Scheduling\ResourceResource\Pages\ManageResources::route('/'),
+            'index' => ManageResources::route('/'),
         ];
     }
 }

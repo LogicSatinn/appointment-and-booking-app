@@ -6,7 +6,6 @@ use App\Enums\SkillLevel;
 use App\States\Timetable\NotStarted;
 use App\States\Timetable\TimetableState;
 use Carbon\Carbon;
-use Database\Factories\TimetableFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -35,31 +34,41 @@ use Spatie\ModelStates\HasStates;
  * @property string $price
  * @property int $resource_id
  * @property int $skill_id
+ * @property int $created_by
+ * @property int|null $last_modified_by
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
+ * @property-read User $createdBy
+ * @property-read User|null $lastModifiedAt
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
  * @property-read Resource $resource
  * @property-read Skill $skill
- * @method static TimetableFactory factory(...$parameters)
+ * @method static \Database\Factories\TimetableFactory factory(...$parameters)
  * @method static Builder|Timetable newModelQuery()
  * @method static Builder|Timetable newQuery()
  * @method static \Illuminate\Database\Query\Builder|Timetable onlyTrashed()
+ * @method static Builder|Timetable orWhereNotState(string $column, $states)
+ * @method static Builder|Timetable orWhereState(string $column, $states)
  * @method static Builder|Timetable query()
  * @method static Builder|Timetable whereCreatedAt($value)
+ * @method static Builder|Timetable whereCreatedBy($value)
  * @method static Builder|Timetable whereDeletedAt($value)
  * @method static Builder|Timetable whereEnd($value)
  * @method static Builder|Timetable whereFrom($value)
  * @method static Builder|Timetable whereId($value)
+ * @method static Builder|Timetable whereLastModifiedBy($value)
  * @method static Builder|Timetable whereLevel($value)
+ * @method static Builder|Timetable whereNotState(string $column, $states)
  * @method static Builder|Timetable wherePrice($value)
  * @method static Builder|Timetable whereResourceId($value)
  * @method static Builder|Timetable whereSkillId($value)
  * @method static Builder|Timetable whereSlug($value)
  * @method static Builder|Timetable whereStart($value)
+ * @method static Builder|Timetable whereState(string $column, $states)
  * @method static Builder|Timetable whereStatus($value)
  * @method static Builder|Timetable whereTitle($value)
  * @method static Builder|Timetable whereTo($value)
@@ -86,6 +95,7 @@ class Timetable extends Model
         static::creating(function ($model) {
             $model->slug = $model->title;
             $model->status = NotStarted::class;
+            $model->created_by = auth()->id();
         });
     }
 
@@ -203,6 +213,22 @@ class Timetable extends Model
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function lastModifiedAt(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_modified_by');
     }
 
     /**

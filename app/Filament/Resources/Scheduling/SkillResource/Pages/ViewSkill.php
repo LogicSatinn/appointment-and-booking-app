@@ -24,23 +24,6 @@ class ViewSkill extends ViewRecord
     {
         return [
             Actions\EditAction::make(),
-            Action::make('Update Status')
-                ->action(function (array $data): void {
-                    match (true) {
-                        $data['status'] == 'Archive' => $this->record->update(['status' => Archived::class]),
-                        $data['status'] == 'Publish' => $this->record->update(['status' => Published::class])
-                    };
-                })
-                ->form([
-                    Forms\Components\Select::make('status')
-                        ->options([
-                            'Archive' => 'Archive',
-                            'Publish' => 'Publish',
-                        ])
-                        ->reactive()
-                        ->default('Archive')
-                        ->required(),
-                ]),
             Actions\DeleteAction::make(),
         ];
     }

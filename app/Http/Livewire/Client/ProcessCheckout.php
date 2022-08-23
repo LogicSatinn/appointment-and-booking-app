@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Reservation;
 use App\Models\Timetable;
 use App\States\Booking\Pending;
+use App\States\Reservation\Reserved;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -57,6 +58,8 @@ class ProcessCheckout extends Component
 
     public function reservation(): Redirector|Application|RedirectResponse
     {
+        $this->reservation->status->transitionTo(Reserved::class);
+
         $this->reservation->booking->update([
             'booking_method' => BookingMethod::RESERVATION,
         ]);

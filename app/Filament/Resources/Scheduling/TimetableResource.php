@@ -6,7 +6,6 @@ use App\Enums\SkillLevel;
 use App\Filament\Resources\Scheduling;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\BookingsRelationManager;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\ReservationsRelationManager;
-use App\Filament\Resources\Scheduling\TimetableResource\Pages;
 use App\Models\Timetable;
 use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
@@ -65,6 +64,7 @@ class TimetableResource extends Resource
                                         SkillLevel::INTERMEDIATE->value => SkillLevel::INTERMEDIATE->value,
                                         SkillLevel::ADVANCED->value => SkillLevel::ADVANCED->value,
                                     ])
+                                    ->disablePlaceholderSelection()
                                     ->required(),
 
                                 TextInput::make('price')
@@ -182,12 +182,5 @@ class TimetableResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-//            TimetableWidget::class,
-        ];
     }
 }

@@ -63,7 +63,7 @@ class Category extends Model
 
         static::creating(function ($model) {
             $model->slug = $model->name;
-            $model->added_by = auth()->id();
+            $model->created_by = auth()->id();
         });
     }
 
@@ -97,9 +97,9 @@ class Category extends Model
     /**
      * @return BelongsTo
      */
-    public function addedBy(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'added_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**

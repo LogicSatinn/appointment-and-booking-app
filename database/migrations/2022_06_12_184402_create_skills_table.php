@@ -11,12 +11,13 @@ class CreateSkillsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
+
             $table->string('title');
             $table->string('slug');
             $table->longText('description');
@@ -25,10 +26,16 @@ class CreateSkillsTable extends Migration
             $table->longText('suitable_for');
             $table->string('status');
             $table->string('image_path')->nullable();
+
             $table->foreignId('category_id')
                 ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->cascadeOnDelete();
+            $table->foreignId('created_by')
+                ->constrained('users');
+            $table->foreignId('last_modified_by')
+                ->nullable()
+                ->constrained('users');
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -41,7 +48,7 @@ class CreateSkillsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('skills');
     }

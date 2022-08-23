@@ -38,7 +38,9 @@ class Cart extends Component
 
     public function addSeat()
     {
-        if ($this->timetable->resource->capacity < Reservation::whereTimetableId($this->timetable->id)->sum('no_of_seats')) {
+        if (
+            $this->timetable->resource->capacity > Reservation::whereTimetableId($this->timetable->id)->sum('no_of_seats')
+        ) {
             $this->seat += 1;
             $this->updateSubTotal();
         }

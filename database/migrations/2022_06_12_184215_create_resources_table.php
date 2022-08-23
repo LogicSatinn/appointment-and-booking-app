@@ -15,11 +15,19 @@ class CreateResourcesTable extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('slug')->nullable();
             $table->longText('note')->nullable();
             $table->integer('capacity');
             $table->string('state')->nullable();
+
+            $table->foreignId('created_by')
+                ->constrained('users');
+            $table->foreignId('last_modified_by')
+                ->nullable()
+                ->constrained('users');
+
             $table->softDeletes();
             $table->timestamps();
         });

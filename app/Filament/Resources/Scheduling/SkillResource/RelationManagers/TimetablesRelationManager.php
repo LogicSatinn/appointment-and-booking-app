@@ -4,15 +4,19 @@ namespace App\Filament\Resources\Scheduling\SkillResource\RelationManagers;
 
 use App\Enums\SkillLevel;
 use App\Models\Timetable;
+use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
-use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasRelationshipTable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -21,16 +25,16 @@ class TimetablesRelationManager extends RelationManager
 {
     protected static string $relationship = 'timetables';
 
-    protected static ?string $recordTitleAttribute = 'title';
+//    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
+                TextInput::make('price')
                     ->required()
                     ->numeric()
                     ->mask(fn(TextInput\Mask $mask) => $mask
@@ -44,30 +48,33 @@ class TimetablesRelationManager extends RelationManager
                         ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
                         ->thousandsSeparator() // Add a separator for thousands.
                     ),
-                Forms\Components\Select::make('resource_id')
+                Select::make('resource_id')
                     ->relationship('resource', 'name')
                     ->required()
+                    ->searchable()
+                    ->disablePlaceholderSelection()
                     ->label('Resource'),
-                Forms\Components\Select::make('level')
+                Select::make('level')
                     ->options([
                         SkillLevel::BEGINNER->value => SkillLevel::BEGINNER->value,
                         SkillLevel::INTERMEDIATE->value => SkillLevel::INTERMEDIATE->value,
                         SkillLevel::ADVANCED->value => SkillLevel::ADVANCED->value,
                     ])
+                    ->disablePlaceholderSelection()
                     ->default(SkillLevel::BEGINNER->value)
                     ->required(),
-                Forms\Components\DatePicker::make('from')
+                DatePicker::make('from')
                     ->format('Y-m-d')
                     ->displayFormat('d/M/Y')
                     ->required(),
-                Forms\Components\DatePicker::make('to')
+                DatePicker::make('to')
                     ->format('Y-m-d')
                     ->displayFormat('d/M/Y')
                     ->required(),
-                Forms\Components\TimePicker::make('start')
+                TimePicker::make('start')
                     ->withoutSeconds()
                     ->required(),
-                Forms\Components\TimePicker::make('end')
+                TimePicker::make('end')
                     ->withoutSeconds()
                     ->required(),
             ]);
@@ -84,7 +91,7 @@ class TimetablesRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('price')
-                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice($record->price))
+                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
                     ->sortable(),
                 TextColumn::make('resource.name'),
                 BadgeColumn::make('level')
@@ -104,9 +111,9 @@ class TimetablesRelationManager extends RelationManager
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()
-                    ->successNotificationMessage('New Timetable added.')
-                    ->using(fn(Tables\Contracts\HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
+//                Tables\Actions\CreateAction::make()
+//                    ->successNotificationMessage('New Timetable added.')
+//                    ->using(fn(HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
