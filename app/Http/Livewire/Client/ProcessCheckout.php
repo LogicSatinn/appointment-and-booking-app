@@ -4,12 +4,11 @@ namespace App\Http\Livewire\Client;
 
 use App\Enums\BookingMethod;
 use App\Jobs\ProcessNotificationsJob;
-use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Reservation;
 use App\Models\Timetable;
-use App\States\Booking\Pending;
 use App\States\Reservation\Reserved;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -58,18 +57,28 @@ class ProcessCheckout extends Component
 
     public function reservation(): Redirector|Application|RedirectResponse
     {
-        $this->reservation->status->transitionTo(Reserved::class);
+        if (now() < Carbon::make($this->timetable->from)->subHours(30)) {
+            $this->reservation->status->transitionTo(Reserved::class);
 
-        $this->reservation->booking->update([
-            'booking_method' => BookingMethod::RESERVATION,
-        ]);
+            $this->reservation->booking->update([
+                'booking_method' => BookingMethod::RESERVATION,
+            ]);
 
-        ProcessNotificationsJob::dispatch($this->reservation, $this->reservation->booking, $this->client);
+            ProcessNotificationsJob::dispatch($this->reservation, $this->reservation->booking, $this->client);
 
-        return redirect(route('reservation-complete', [
-            'booking' => $this->reservation->booking,
-            'client' => $this->client,
+            return redirect(route('reservation-complete', [
+                'booking' => $this->reservation->booking,
+                'client' => $this->client,
+                'timetable' => $this->timetable,
+            ]));
+        }
+
+        toast('Sorry!😢. You cannot reserve this timetable at the moment.', 'error');
+
+        return redirect(route('client.checkout', [
+            'reservation' => $this->reservation,
             'timetable' => $this->timetable,
+            'client' => $this->client,
         ]));
     }
 

@@ -19,7 +19,7 @@ class CheckoutController extends Controller
      */
     public function index(Reservation $reservation, Timetable $timetable, Client $client): View|Factory|Application
     {
-        return view('client.checkout', [
+        return view('client.checkout.checkout', [
             'reservation' => $reservation,
             'timetable' => $timetable->load('skill'),
             'client' => $client,
@@ -34,7 +34,7 @@ class CheckoutController extends Controller
      */
     public function reservationComplete(Booking $booking, Timetable $timetable, Client $client): View|Factory|Application
     {
-        return view('client.checkout-completed', [
+        return view('client.checkout.checkout-completed', [
             'booking' => $booking->load('payments', 'reservation'),
             'timetable' => $timetable,
             'client' => $client

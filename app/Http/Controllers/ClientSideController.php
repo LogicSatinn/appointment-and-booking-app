@@ -34,7 +34,7 @@ class ClientSideController extends Controller
      */
     public function skills()
     {
-        return view('client.skills', [
+        return view('client.skills.skills', [
             'skills' => Skill::with('category:id,name')->whereState('status', Published::class)->get(),
         ]);
     }
@@ -45,7 +45,7 @@ class ClientSideController extends Controller
      */
     public function skillDetails(Skill $skill)
     {
-        return view('client.skill-details', [
+        return view('client.skills.skill-details', [
             'skill' => $skill,
             'timetables' => $skill->timetables,
         ]);
@@ -57,7 +57,7 @@ class ClientSideController extends Controller
      */
     public function timetableDetails(Timetable $timetable)
     {
-        return view('client.timetable-details', [
+        return view('client.timetable.timetable-details', [
             'timetable' => $timetable->load('skill.category', 'resource'),
             'noOfSeats' => Reservation::whereTimetableId($timetable->id)->sum('no_of_seats'),
             'otherTimetables' => Timetable::with('skill.category')->whereSkillId($timetable->skill->id)->whereNot('id', $timetable->id)->get(),

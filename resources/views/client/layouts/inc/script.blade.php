@@ -25,4 +25,6 @@
 <!-- Theme JS -->
 <script src="{{ asset('frontend/js/theme.min.js')}}"></script>
 
-<livewire:scripts />
+<livewire:scripts/>
+
+@include('sweetalert::alert')
