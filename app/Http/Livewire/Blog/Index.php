@@ -26,7 +26,7 @@ class Index extends Component
             ->get();
         $this->categories = Category::all('id', 'name');
         $this->recentPosts = Post::query()
-            ->select('title', 'banner', 'published_at')
+            ->select('id', 'title', 'banner', 'published_at')
             ->limit(3)
             ->orderByDesc('published_at')
             ->get();
@@ -43,7 +43,7 @@ class Index extends Component
             ->get();
         $this->recentPosts = Post::query()
             ->where('blog_category_id', $categoryId)
-            ->select('title', 'banner', 'published_at')
+            ->select('id', 'title', 'banner', 'published_at')
             ->limit(3)
             ->orderByDesc('published_at')
             ->get();

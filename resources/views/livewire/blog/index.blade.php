@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-scroll justify-content-center">
                     <li class="breadcrumb-item">
-                        <a class="text-gray-800" href="#">
+                        <a class="text-gray-800" href="{{ url('/') }}">
                             Home
                         </a>
                     </li>
@@ -33,7 +33,8 @@
                         <h4 class="mb-5">Category</h4>
                         <div class="nav flex-column nav-vertical">
                             @foreach($categories as $category)
-                                <a wire:click="filterUsingCategory({{ $category->id }})" class="nav-link py-2">{{ $category->name }}</a>
+                                <a wire:click="filterUsingCategory({{ $category->id }})"
+                                   class="nav-link py-2">{{ $category->name }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -43,12 +44,12 @@
                         <ul class="list-unstyled mb-0">
                             @foreach($recentPosts as $recentPost)
                                 <li class="media mb-6 d-flex">
-                                    <a href="#" class="mw-70p d-block me-5">
+                                    <a href="{{ route('show-blog', $recentPost->id) }}" class="mw-70p d-block me-5">
                                         <img src="{{ asset('/media/' . $recentPost->banner) }}"
                                              alt="{{ $recentPost->title }}" class="avatar-img rounded-lg h-70p o-f-c">
                                     </a>
                                     <div class="media-body flex-shrink-1">
-                                        <a href="#" class="d-block">
+                                        <a href="{{ route('show-blog', $recentPost->id) }}" class="d-block">
                                             <h6 class="line-clamp-2 mb-1 fw-normal">{{ Str::limit($recentPost->title, 30) }}</h6>
                                         </a>
                                         <span>{{ $recentPost->published_at?->format('F d, Y') }}</span>
@@ -68,7 +69,8 @@
                     <div class="card border rounded shadow lift mb-6 p-2">
                         <!-- Imgae -->
                         <div class="card-zoom">
-                            <a href="#" class="card-img d-block sk-thumbnail img-ratio-5 rounded">
+                            <a href="{{ route('show-blog', $post) }}"
+                               class="card-img d-block sk-thumbnail img-ratio-5 rounded">
                                 <img src="{{ asset($post->banner_url) }}" alt="{{ $post->title }}"
                                      class="rounded img-fluid">
                             </a>
@@ -78,7 +80,7 @@
                         <div class="card-footer p-4 p-md-5">
                             <h5 class="text-blue">{{ $post->category->name }}</h5>
 
-                            <a href="#" class="d-block me-xl-12">
+                            <a href="{{ route('show-blog', $post) }}" class="d-block me-xl-12">
                                 <h3 class="">{{ $post->title }}</h3>
                             </a>
 
