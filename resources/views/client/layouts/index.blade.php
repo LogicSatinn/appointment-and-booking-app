@@ -5,6 +5,7 @@
 
 <body {{ $attributes->class(['bg-white']) }}>
 
+
 <x-client.header/>
 {{ $slot }}
 <x-client.footer/>
