@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
@@ -23,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //Force SSL when not in local development
         if (config('app.env') !== 'local') {
@@ -37,5 +38,9 @@ class AppServiceProvider extends ServiceProvider
                 'Blog',
             ]);
         });
+
+        if (request()->routeIs('blog.*')) {
+            Paginator::useBootstrapFive();
+        }
     }
 }

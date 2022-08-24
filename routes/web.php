@@ -1,14 +1,8 @@
 <?php
 
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClientSideController;
-use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\SkillController;
-use App\Http\Controllers\TimetableController;
+use App\Http\Livewire\Blog\Index;
 use App\Http\Livewire\Client\Cart;
 use App\Http\Livewire\Client\EnrollClient;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +13,8 @@ Route::controller(ClientSideController::class)->group(function () {
     Route::get('/skill-details/{skill}', 'skillDetails')->name('skillDetails');
     Route::get('/timetable-details/{timetable}', 'timetableDetails')->name('timetableDetails');
 });
+
+Route::get('blog/published', Index::class)->name('blog.published');
 
 Route::get('timetable/enroll-client/{timetable}', EnrollClient::class)->name('enroll-client');
 Route::get('/cart/{timetable}/{client}', Cart::class)->name('cart');
