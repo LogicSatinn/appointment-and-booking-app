@@ -6,6 +6,7 @@ use App\Enums\SkillLevel;
 use App\Filament\Resources\Scheduling;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\BookingsRelationManager;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\ReservationsRelationManager;
+use App\Jobs\DispatchNotificationsUponTimetableDeletion;
 use App\Models\Timetable;
 use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
@@ -19,6 +20,8 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
@@ -150,6 +153,15 @@ class TimetableResource extends Resource
             ->actions([
                 ViewAction::make(),
                 EditAction::make(),
+                Action::make('delete')
+                    ->icon('heroicon-s-trash')
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        if ($record->reservations()->count() > 0) {
+                            DispatchNotificationsUponTimetableDeletion::dispatch($record);
+                        }
+                        $record->delete();
+                    }),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),

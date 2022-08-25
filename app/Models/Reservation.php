@@ -31,11 +31,11 @@ use Spatie\ModelStates\HasStates;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Booking|null $booking
- * @property-read \App\Models\Client $client
- * @property-read \App\Models\User|null $lastModifiedBy
- * @property-read \App\Models\Timetable $timetable
- * @method static \Database\Factories\ReservationFactory factory(...$parameters)
+ * @property-read Booking|null $booking
+ * @property-read Client $client
+ * @property-read User|null $lastModifiedBy
+ * @property-read Timetable $timetable
+ * @method static ReservationFactory factory(...$parameters)
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static \Illuminate\Database\Query\Builder|Reservation onlyTrashed()
@@ -87,6 +87,7 @@ class Reservation extends Model
 
         static::creating(function ($model) {
             $model->reference_code = 'NL-R' . Str::padLeft(self::max('id') + 1, 6, 0);
+            $model->reserved_at = now();
         });
 
         static::created(function ($model) {
