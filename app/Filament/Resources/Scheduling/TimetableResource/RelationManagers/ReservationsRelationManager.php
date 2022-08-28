@@ -6,7 +6,6 @@ use App\Models\Reservation;
 use App\States\Reservation\Pending;
 use Exception;
 use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -62,10 +61,6 @@ class ReservationsRelationManager extends RelationManager
                     ->label('Number of Seats')
                     ->numeric()
                     ->required(),
-                DatePicker::make('reserved_at')
-                    ->default(now())
-                    ->required()
-                    ->disabled(),
                 TextInput::make('status')
                     ->default(Pending::$name)
                     ->disabled()
@@ -90,10 +85,10 @@ class ReservationsRelationManager extends RelationManager
                     ->sortable(),
                 TextColumn::make('client.phone_number')
                     ->label('Client Phone Number')
+                    ->searchable(),
+                TextColumn::make('reference_code')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('reference_code')
-                    ->searchable(),
                 BadgeColumn::make('status')
                     ->colors([
                         'warning' => 'Pending',

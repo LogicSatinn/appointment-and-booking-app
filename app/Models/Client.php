@@ -87,4 +87,11 @@ class Client extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+
+    public function routeNotificationForMail($notification): array
+    {
+        // Return email address and name...
+        return [$this->email => $this->name];
+    }
 }

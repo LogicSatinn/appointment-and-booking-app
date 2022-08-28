@@ -17,7 +17,9 @@ abstract class ResourceState extends State
     {
         return parent::config()
             ->default(Available::class)
+            ->allowTransition(Available::class, Available::class)
             ->allowTransition(Available::class, InSession::class)
+            ->allowTransition(InSession::class, InSession::class)
             ->allowTransition(InSession::class, Available::class);
     }
 }
