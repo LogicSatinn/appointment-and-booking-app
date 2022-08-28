@@ -96,7 +96,7 @@ class Timetable extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = $model->title;
+            $model->slug = Str::lower($model->title);
             $model->status = NotStarted::class;
             $model->created_by = auth()->id();
         });
@@ -122,7 +122,7 @@ class Timetable extends Model
     public function slug(): Attribute
     {
         return Attribute::make(
-            set: fn () => strtolower(Str::snake($this->title, '-'))
+            set: fn () => Str::snake($this->slug, '-')
         );
     }
 

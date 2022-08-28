@@ -41,8 +41,8 @@ class CheckForAllocatedResourceRule implements Rule, DataAwareRule
     public function passes($attribute, $value): bool
     {
         return Timetable::where('resource_id', $this->data['data']['resource_id'])
-            ->where('from', $this->data['data']['from'])
-            ->where('to', $this->data['data']['to'])
+            ->whereBetween('from', [$this->data['data']['from'], $this->data['data']['to']])
+            ->whereBetween('to', [$this->data['data']['from'], $this->data['data']['to']])
             ->whereBetween('start', [$this->data['data']['start'], $this->data['data']['end']])
             ->whereBetween('end', [$this->data['data']['start'], $this->data['data']['end']])
             ->doesntExist();
