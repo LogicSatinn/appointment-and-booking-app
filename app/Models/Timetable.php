@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Enums\SkillLevel;
+use App\States\Timetable\Complete;
 use App\States\Timetable\NotStarted;
+use App\States\Timetable\OnGoing;
 use App\States\Timetable\TimetableState;
 use Carbon\Carbon;
+use Database\Factories\TimetableFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -47,7 +50,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $reservations_count
  * @property-read Resource $resource
  * @property-read Skill $skill
- * @method static \Database\Factories\TimetableFactory factory(...$parameters)
+ * @method static TimetableFactory factory(...$parameters)
  * @method static Builder|Timetable newModelQuery()
  * @method static Builder|Timetable newQuery()
  * @method static \Illuminate\Database\Query\Builder|Timetable onlyTrashed()
@@ -229,6 +232,30 @@ class Timetable extends Model
     public function lastModifiedAt(): BelongsTo
     {
         return $this->belongsTo(User::class, 'last_modified_by');
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasNotStarted(): bool
+    {
+        return $this->status == NotStarted::$name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnGoing(): bool
+    {
+        return $this->status == OnGoing::$name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isComplete(): bool
+    {
+        return $this->status == Complete::$name;
     }
 
     /**
