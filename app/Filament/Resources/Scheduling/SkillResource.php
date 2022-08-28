@@ -79,7 +79,7 @@ class SkillResource extends Resource
                                 TextInput::make('title')
                                     ->required()
                                     ->lazy()
-                                    ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                                    ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null),
 
                                 Select::make('category_id')
                                     ->relationship('category', 'name')
