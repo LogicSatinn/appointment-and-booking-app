@@ -21,7 +21,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
@@ -157,7 +156,7 @@ class TimetableResource extends Resource
                     ->icon('heroicon-s-trash')
                     ->requiresConfirmation()
                     ->action(function ($record) {
-                        if ($record->reservations()->count() > 0) {
+                        if ($record->reservations()->count() > 0 && $record->status == 'Complete') {
                             DispatchNotificationsUponTimetableDeletion::dispatch($record);
                         }
                         $record->delete();

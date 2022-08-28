@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Scheduling\SkillResource\RelationManagers;
 
 use App\Enums\SkillLevel;
+use App\Jobs\DispatchNotificationsUponTimetableDeletion;
 use App\Models\Timetable;
-use App\Rules\CheckForAllocatedResourceRule;
 use Exception;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -14,11 +14,10 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasRelationshipTable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TimetablesRelationManager extends RelationManager
@@ -118,7 +117,15 @@ class TimetablesRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Action::make('delete')
+                    ->icon('heroicon-s-trash')
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        if ($record->reservations()->count() > 0 && $record->status == 'Complete') {
+                            DispatchNotificationsUponTimetableDeletion::dispatch($record);
+                        }
+                        $record->delete();
+                    }),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])

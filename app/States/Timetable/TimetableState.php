@@ -15,7 +15,9 @@ abstract class TimetableState extends State
     {
         return parent::config()
             ->default(NotStarted::class)
+            ->allowTransition(NotStarted::class, NotStarted::class)
             ->allowTransition(NotStarted::class, OnGoing::class)
+            ->allowTransition(OnGoing::class, OnGoing::class)
             ->allowTransition(OnGoing::class, Complete::class);
     }
 }
