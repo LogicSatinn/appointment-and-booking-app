@@ -22,11 +22,11 @@ class Kernel extends ConsoleKernel
         $schedule->job(new TimetableHasStartedJob)
             ->weekdays()
             ->between('7:00', '22:00')
-            ->daily();
+            ->hourly();
         $schedule->job(new TimetableHasEndedJob)
             ->weekdays()
             ->between('7:00', '22:00')
-            ->daily();
+            ->hourly();
         $schedule->job(new SwitchResourceAvailabilityJob)
             ->withoutOverlapping()
             ->between('7:00', '22:00')
