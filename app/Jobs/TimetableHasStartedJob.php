@@ -24,8 +24,8 @@ class TimetableHasStartedJob implements ShouldQueue
      */
     public function handle()
     {
-        $timetables = Timetable::where('from', '<=', today())
-            ->where('to', '>=', today())
+        $timetables = Timetable::where('from', '<=', today()->format('M d, Y'))
+            ->where('to', '>=', today()->format('M d, Y'))
             ->get();
 
         foreach ($timetables as $timetable) {
