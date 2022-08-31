@@ -55,22 +55,8 @@ class SkillResource extends Resource
                                     ->disableLabel(),
                             ])
                             ->collapsible(),
-                    ])->columnSpan(['lg' => 7]),
-
-                Group::make()
-                    ->schema([
-                        Card::make()
-                            ->schema([
-                                Select::make('status')
-                                    ->options([
-                                        Archived::$name => 'Archive',
-                                        Published::$name => 'Publish'
-                                    ])
-                                    ->disablePlaceholderSelection()
-                                    ->reactive()
-                                    ->visibleOn('edit'),
-                            ])
-                    ])->columnSpan(['lg' => 5]),
+                    ])
+                    ->columnSpan(['lg' => 12]),
 
                 Group::make()
                     ->schema([
@@ -91,6 +77,15 @@ class SkillResource extends Resource
                                     ->disabled()
                                     ->required()
                                     ->unique(Skill::class, 'slug', ignoreRecord: true),
+
+                                Select::make('status')
+                                    ->options([
+                                        Archived::$name => 'Archive',
+                                        Published::$name => 'Publish'
+                                    ])
+                                    ->disablePlaceholderSelection()
+                                    ->reactive()
+                                    ->visibleOn('edit'),
 
                             ])
                             ->columns(),
