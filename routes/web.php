@@ -25,36 +25,8 @@ Route::controller(CheckoutController::class)->prefix('checkout')->group(function
     Route::get('/reservation-complete/{booking}/{timetable}/{client}', 'reservationComplete')->name('reservation-complete');
 });
 
-//Route::prefix('admin')->middleware(['auth'])->group(function () {
-//    Route::get('/dashboard', function () {
-//        return view('admin.dashboard');
-//    })->name('dashboard');
-//
-//    Route::controller(SettingsController::class)->prefix('settings')->group(function () {
-//        Route::get('/index', 'index')->name('settings.index');
-//        Route::post('/general-settings', 'storeGeneralSettings')->name('settings.storeGeneralSettings');
-//        Route::post('/beem-settings', 'storeBeemSettings')->name('settings.storeBeemSettings');
-//        Route::post('/other-settings', 'storeOtherSettings')->name('settings.storeOtherSettings');
-//    });
-//
-//    Route::view('/calendar/index', 'admin.calendar.index')->name('calendar.index');
-//
-//    Route::resource('categories', CategoryController::class);
-//
-//    Route::controller(SkillController::class)->prefix('skills')->group(function () {
-//        Route::get('/archive-skill/{skill}', 'archiveSkill')->name('archive-skill');
-//        Route::get('/publish-skill/{skill}', 'publishSkill')->name('publish-skill');
-//    });
-//
-//    Route::resource('skills', SkillController::class);
-//
-//    Route::resource('resources', ResourceController::class);
-//
-//    Route::resource('timetables', TimetableController::class);
-//
-//    Route::resource('instructors', InstructorController::class);
-//
-//    Route::resource('bookings', BookingController::class)->only(['index', 'destroy']);
-//});
+Route::get('/geo', function (Request $request) {
+    dd(\Adrianorosa\GeoLocation\GeoLocation::lookup($request->ip()));
+});
 
 require __DIR__.'/auth.php';
