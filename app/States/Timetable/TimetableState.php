@@ -18,6 +18,7 @@ abstract class TimetableState extends State
             ->allowTransition(NotStarted::class, NotStarted::class)
             ->allowTransition(NotStarted::class, OnGoing::class)
             ->allowTransition(OnGoing::class, OnGoing::class)
-            ->allowTransition(OnGoing::class, Complete::class);
+            ->allowTransition(OnGoing::class, Complete::class)
+            ->allowTransition(Complete::class, Complete::class);
     }
 }
