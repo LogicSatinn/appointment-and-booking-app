@@ -7,6 +7,7 @@ use App\Http\Livewire\Blog\Show;
 use App\Http\Livewire\Client\Cart;
 use App\Http\Livewire\Client\EnrollClient;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::controller(ClientSideController::class)->group(function () {
     Route::get('/', 'index')->name('home');
