@@ -26,8 +26,4 @@ Route::controller(CheckoutController::class)->prefix('checkout')->group(function
     Route::get('/reservation-complete/{booking}/{timetable}/{client}', 'reservationComplete')->name('reservation-complete');
 });
 
-Route::get('/geo', function (Request $request) {
-    dd(\Adrianorosa\GeoLocation\GeoLocation::lookup($request->ip()));
-});
-
 require __DIR__.'/auth.php';
