@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
-
 /**
  * App\Models\Timetable
  *
@@ -48,8 +47,9 @@ use Spatie\ModelStates\HasStates;
  * @property-read User|null $lastModifiedAt
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
- * @property-read Resource $resource
+ * @property-read resource $resource
  * @property-read Skill $skill
+ *
  * @method static TimetableFactory factory(...$parameters)
  * @method static Builder|Timetable newModelQuery()
  * @method static Builder|Timetable newQuery()

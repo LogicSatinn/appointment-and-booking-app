@@ -46,7 +46,6 @@ class Cart extends Component
         }
         // TODO Add Notification that capacity is full
 
-        return;
     }
 
     public function subtractSeat()
@@ -75,7 +74,7 @@ class Cart extends Component
             'reserved_at' => now(),
         ]);
 
-        Cache::put($this->client->phone_number. '_' . $this->timetable->id, $this->seat, 432000);
+        Cache::put($this->client->phone_number.'_'.$this->timetable->id, $this->seat, 432000);
 
         return redirect(route('client.checkout', [
             'reservation' => $reservation,

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\BookingMethod;
 use App\States\Booking\BookingState;
 use Carbon\Carbon;
-use Database\Factories\BookingFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
-
 
 /**
  * App\Models\Booking
@@ -42,6 +40,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $payments_count
  * @property-read \App\Models\Reservation $reservation
  * @property-read \App\Models\Timetable $timetable
+ *
  * @method static \Database\Factories\BookingFactory factory(...$parameters)
  * @method static Builder|Booking newModelQuery()
  * @method static Builder|Booking newQuery()
@@ -97,14 +96,13 @@ class Booking extends Model
         'booking_method' => BookingMethod::class,
     ];
 
-
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
             $model->booked_at = now();
-            $model->reference_code = 'NL-B' . Str::padLeft(self::max('id') + 1, 6, 0);
+            $model->reference_code = 'NL-B'.Str::padLeft(self::max('id') + 1, 6, 0);
         });
     }
 

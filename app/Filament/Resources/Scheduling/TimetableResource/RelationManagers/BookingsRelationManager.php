@@ -34,7 +34,7 @@ class BookingsRelationManager extends RelationManager
                     ->options([
                         'Pending' => 'Pending',
                         'Paid' => 'Paid',
-                        'Failed'
+                        'Failed',
                     ])
                     ->required(),
                 Select::make('booking_method')
@@ -65,13 +65,13 @@ class BookingsRelationManager extends RelationManager
                         'heroicon-o-x' => 'Failed',
                     ])->iconPosition('after'),
                 TextColumn::make('total_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->total_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->total_amount))
                     ->sortable(),
                 TextColumn::make('paid_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
                     ->sortable(),
                 TextColumn::make('due_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->due_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->due_amount))
                     ->sortable(),
                 TextColumn::make('booking_method')->default('N/A'),
                 TextColumn::make('booked_at')
@@ -81,7 +81,7 @@ class BookingsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-//                CreateAction::make(),
+                //                CreateAction::make(),
             ])
             ->actions([
                 EditAction::make(),

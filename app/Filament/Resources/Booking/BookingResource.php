@@ -52,7 +52,6 @@ class BookingResource extends Resource
                                     ->required(),
                             ])->columns(),
 
-
                         Card::make()
                             ->schema([
                                 Select::make('reservation_id')
@@ -67,7 +66,7 @@ class BookingResource extends Resource
                                     ->options([
                                         'Pending' => 'Pending',
                                         'Paid' => 'Paid',
-                                        'Failed' => 'Failed'
+                                        'Failed' => 'Failed',
                                     ])
                                     ->disablePlaceholderSelection()
                                     ->required(),
@@ -75,7 +74,7 @@ class BookingResource extends Resource
                                 Select::make('booking_method')
                                     ->options([
                                         BookingMethod::DIRECT_PAYMENT->value => 'Direct Payment',
-                                        BookingMethod::RESERVATION->value => 'Reservation'
+                                        BookingMethod::RESERVATION->value => 'Reservation',
                                     ])
                                     ->disablePlaceholderSelection()
                                     ->required(),
@@ -85,7 +84,7 @@ class BookingResource extends Resource
                 Section::make('Payment Details')
                     ->schema([
                         TextInput::make('total_amount')
-                            ->mask(fn(TextInput\Mask $mask) => $mask
+                            ->mask(fn (TextInput\Mask $mask) => $mask
                                 ->numeric()
                                 ->decimalPlaces(2) // Set the number of digits after the decimal point.
                                 ->decimalSeparator() // Add a separator for decimal numbers.
@@ -97,7 +96,7 @@ class BookingResource extends Resource
                             )
                             ->required(),
                         TextInput::make('paid_amount')
-                            ->mask(fn(TextInput\Mask $mask) => $mask
+                            ->mask(fn (TextInput\Mask $mask) => $mask
                                 ->numeric()
                                 ->decimalPlaces(2) // Set the number of digits after the decimal point.
                                 ->decimalSeparator() // Add a separator for decimal numbers.
@@ -109,7 +108,7 @@ class BookingResource extends Resource
                             )
                             ->required(),
                         TextInput::make('due_amount')
-                            ->mask(fn(TextInput\Mask $mask) => $mask
+                            ->mask(fn (TextInput\Mask $mask) => $mask
                                 ->numeric()
                                 ->decimalPlaces(2) // Set the number of digits after the decimal point.
                                 ->decimalSeparator() // Add a separator for decimal numbers.
@@ -147,16 +146,16 @@ class BookingResource extends Resource
                 BadgeColumn::make('status')->icons([
                     'heroicon-o-clock' => 'Pending',
                     'heroicon-o-check' => 'Paid',
-                    'heroicon-o-x' => 'Failed'
+                    'heroicon-o-x' => 'Failed',
                 ]),
                 TextColumn::make('total_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->total_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->total_amount))
                     ->sortable(),
                 TextColumn::make('paid_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->paid_amount))
                     ->sortable(),
                 TextColumn::make('due_amount')
-                    ->formatStateUsing(fn(string $state, Booking $record): string => $record->representablePrice($record->due_amount))
+                    ->formatStateUsing(fn (string $state, Booking $record): string => $record->representablePrice($record->due_amount))
                     ->sortable(),
                 TextColumn::make('booked_at'),
                 TextColumn::make('booking_method')
@@ -201,7 +200,6 @@ class BookingResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
 
     protected static function getNavigationBadge(): ?string
     {

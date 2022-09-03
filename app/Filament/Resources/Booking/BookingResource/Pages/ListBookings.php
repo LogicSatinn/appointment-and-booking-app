@@ -13,7 +13,7 @@ class ListBookings extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            BookingsOverview::class
+            BookingsOverview::class,
         ];
     }
 }

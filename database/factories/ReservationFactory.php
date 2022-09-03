@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Reservation;
 use App\Models\Timetable;

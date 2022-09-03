@@ -37,7 +37,7 @@ class CheckoutController extends Controller
         return view('client.checkout.checkout-completed', [
             'booking' => $booking->load('payments', 'reservation'),
             'timetable' => $timetable,
-            'client' => $client
+            'client' => $client,
         ]);
     }
 }

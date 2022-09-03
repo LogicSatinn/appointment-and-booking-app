@@ -70,7 +70,7 @@ class TimetableResource extends Resource
                                     ->required(),
 
                                 TextInput::make('price')
-                                    ->mask(fn(TextInput\Mask $mask) => $mask
+                                    ->mask(fn (TextInput\Mask $mask) => $mask
                                         ->numeric()
                                         ->decimalPlaces(2) // Set the number of digits after the decimal point.
                                         ->decimalSeparator() // Add a separator for decimal numbers.
@@ -141,7 +141,7 @@ class TimetableResource extends Resource
                 TextColumn::make('start'),
                 TextColumn::make('end'),
                 TextColumn::make('price')
-                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
+                    ->formatStateUsing(fn (string $state, Timetable $record): string => $record->representablePrice())
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime(),

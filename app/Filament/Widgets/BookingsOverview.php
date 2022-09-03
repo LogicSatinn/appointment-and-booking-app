@@ -25,7 +25,7 @@ class BookingsOverview extends BaseWidget
                 'Failed Bookings',
                 Booking::whereState('status', Failed::class)->count())
                 ->color('danger')
-                ->descriptionIcon('heroicon-s-x')
+                ->descriptionIcon('heroicon-s-x'),
         ];
     }
 }

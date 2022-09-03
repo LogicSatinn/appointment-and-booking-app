@@ -75,7 +75,7 @@ class EnrollClient extends Component
                 'client' => $this->client,
             ]));
         } catch (GuzzleException|Exception|Error $e) {
-            toast($e->getMessage() . 'Please try again later.', 'error');
+            toast($e->getMessage().'Please try again later.', 'error');
 
             return back();
         }

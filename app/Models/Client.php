@@ -15,7 +15,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\Client
  *
@@ -34,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $notifications_count
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
+ *
  * @method static ClientFactory factory(...$parameters)
  * @method static Builder|Client newModelQuery()
  * @method static Builder|Client newQuery()
@@ -87,7 +87,6 @@ class Client extends Model
     {
         return $this->hasMany(Booking::class);
     }
-
 
     public function routeNotificationForMail($notification): array
     {

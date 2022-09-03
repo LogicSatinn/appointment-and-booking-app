@@ -17,7 +17,8 @@ class SwitchResourceAvailabilityJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * @throws CouldNotPerformTransition

@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon $deleted_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
  * @method static InstructorFactory factory(...$parameters)
  * @method static Builder|Instructor newModelQuery()
  * @method static Builder|Instructor newQuery()
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Instructor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Instructor withoutTrashed()
  * @mixin \Eloquent
+ *
  * @method static Builder|Instructor whereBannedAt($value)
  * @method static Builder|Instructor whereCreatedAt($value)
  * @method static Builder|Instructor whereDeletedAt($value)

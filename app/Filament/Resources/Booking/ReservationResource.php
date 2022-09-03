@@ -55,7 +55,7 @@ class ReservationResource extends Resource
                             ->options([
                                 'Pending' => 'Pending',
                                 'Booked' => 'Booked',
-                                'Reserved' => 'Reserved'
+                                'Reserved' => 'Reserved',
                             ])
                             ->disablePlaceholderSelection()
                             ->required(),
@@ -63,7 +63,7 @@ class ReservationResource extends Resource
                         DateTimePicker::make('reserved_at')
                             ->default(now())
                             ->disabled()
-                            ->required()
+                            ->required(),
                     ])
                     ->columns(),
             ]);
@@ -96,7 +96,7 @@ class ReservationResource extends Resource
                 BadgeColumn::make('status')->colors([
                     'warning' => 'Pending',
                     'success' => 'Booked',
-                    'primary' => 'Reserved'
+                    'primary' => 'Reserved',
                 ]),
                 TextColumn::make('reserved_at'),
                 TextColumn::make('created_at')
@@ -106,7 +106,7 @@ class ReservationResource extends Resource
                     ->dateTime(),
                 TextColumn::make('lastModifiedBy.name')
                     ->label('Last Modified By')
-                    ->default('N/A')
+                    ->default('N/A'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -144,7 +144,6 @@ class ReservationResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
 
     protected static function getNavigationBadge(): ?string
     {

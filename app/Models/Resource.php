@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\States\Resource\Available;
 use App\States\Resource\ResourceState;
-use Carbon\Carbon;
-use Database\Factories\ResourceFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
-
 
 /**
  * App\Models\Resource
@@ -40,6 +37,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read \App\Models\User|null $lastModifiedBy
  * @property-read Collection|\App\Models\Timetable[] $timetables
  * @property-read int|null $timetables_count
+ *
  * @method static \Database\Factories\ResourceFactory factory(...$parameters)
  * @method static Builder|Resource newModelQuery()
  * @method static Builder|Resource newQuery()

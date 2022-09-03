@@ -28,6 +28,7 @@ use Illuminate\Support\Str;
  * @property-read User $addedBy
  * @property-read Collection|Skill[] $skills
  * @property-read int|null $skills_count
+ *
  * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
@@ -43,7 +44,9 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin Eloquent
+ *
  * @property string $slug
+ *
  * @method static Builder|Category whereSlug($value)
  */
 class Category extends Model

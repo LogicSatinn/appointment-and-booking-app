@@ -48,7 +48,7 @@ class SkillResource extends Resource
                     ->schema([
                         Section::make('Images')
                             ->schema([
-                                FileUpload::make('image_path')->required(static fn(Page $livewire): bool => $livewire instanceof Scheduling\SkillResource\Pages\CreateSkill)
+                                FileUpload::make('image_path')->required(static fn (Page $livewire): bool => $livewire instanceof Scheduling\SkillResource\Pages\CreateSkill)
                                     ->preserveFilenames()
                                     ->directory('skill_covers')
                                     ->image()
@@ -65,7 +65,7 @@ class SkillResource extends Resource
                                 TextInput::make('title')
                                     ->required()
                                     ->lazy()
-                                    ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null),
+                                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null),
 
                                 Select::make('category_id')
                                     ->relationship('category', 'name')
@@ -81,7 +81,7 @@ class SkillResource extends Resource
                                 Select::make('status')
                                     ->options([
                                         Archived::$name => 'Archive',
-                                        Published::$name => 'Publish'
+                                        Published::$name => 'Publish',
                                     ])
                                     ->disablePlaceholderSelection()
                                     ->reactive()
@@ -89,7 +89,6 @@ class SkillResource extends Resource
 
                             ])
                             ->columns(),
-
 
                         Section::make('More Information')
                             ->schema([
@@ -225,7 +224,6 @@ class SkillResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
 
     protected static function getNavigationBadge(): ?string
     {

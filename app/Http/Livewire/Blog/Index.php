@@ -32,7 +32,6 @@ class Index extends Component
             ->get();
     }
 
-
     public function filterUsingCategory($categoryId)
     {
         $this->posts = Post::query()
@@ -48,7 +47,6 @@ class Index extends Component
             ->orderByDesc('published_at')
             ->get();
     }
-
 
     public function render(): Factory|View|Application
     {

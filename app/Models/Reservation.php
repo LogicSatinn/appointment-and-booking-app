@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
-
 /**
  * App\Models\Reservation
  *
@@ -35,6 +34,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read Client $client
  * @property-read User|null $lastModifiedBy
  * @property-read Timetable $timetable
+ *
  * @method static ReservationFactory factory(...$parameters)
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
@@ -86,13 +86,13 @@ class Reservation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->reference_code = 'NL-R' . Str::padLeft(self::max('id') + 1, 6, 0);
+            $model->reference_code = 'NL-R'.Str::padLeft(self::max('id') + 1, 6, 0);
             $model->reserved_at = now();
         });
 
         static::created(function ($model) {
             Booking::create([
-                'total_amount' => (double) $model->timetable->price * (int) $model->no_of_seats,
+                'total_amount' => (float) $model->timetable->price * (int) $model->no_of_seats,
                 'client_id' => $model->client_id,
                 'timetable_id' => $model->timetable_id,
                 'reservation_id' => $model->id,

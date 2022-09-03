@@ -33,7 +33,6 @@ class ProcessCheckout extends Component
         $this->timetable = $timetable->load('resource');
     }
 
-
     public function getTotalProperty(): float|int
     {
         return $this->reservation->no_of_seats * $this->timetable->price;

@@ -17,7 +17,7 @@ class SkillOverview extends BaseWidget
         return [
             Card::make('Total Skills', Skill::count()),
             Card::make('Published Skills', Skill::whereState('status', Published::class)->count()),
-            Card::make('Archived Skills', Skill::whereState('status', Archived::class)->count())
+            Card::make('Archived Skills', Skill::whereState('status', Archived::class)->count()),
         ];
     }
 }

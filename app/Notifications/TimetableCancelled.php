@@ -45,7 +45,7 @@ class TimetableCancelled extends Notification
         return (new MailMessage)
             ->subject('Timetable Cancelled.')
             ->greeting('Hello there.')
-                    ->line('We are sorry to announce that ' . $this->timetable->title . ' on ' . $this->timetable->from . ' is cancelled until further notice.')
+                    ->line('We are sorry to announce that '.$this->timetable->title.' on '.$this->timetable->from.' is cancelled until further notice.')
                     ->line('We deeply apologize for the inconvenience we may have caused.')
                     ->line('Thank you!');
     }

@@ -25,7 +25,7 @@ class ReservationsOverview extends BaseWidget
                 'Booked Reservations',
                 Reservation::whereState('status', Booked::class)->count())
                 ->color('primary')
-                ->descriptionIcon('heroicon-s-x')
+                ->descriptionIcon('heroicon-s-x'),
         ];
     }
 }

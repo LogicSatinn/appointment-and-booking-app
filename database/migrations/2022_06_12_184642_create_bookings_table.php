@@ -38,7 +38,6 @@ class CreateBookingsTable extends Migration
                 ->nullable()
                 ->constrained('users');
 
-
             $table->timestamp('booked_at');
             $table->softDeletes();
             $table->timestamps();

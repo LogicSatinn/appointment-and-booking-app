@@ -59,8 +59,8 @@ class ResourceResource extends Resource
                 IconColumn::make('state')
                     ->label('Availability')
                     ->options([
-                        'heroicon-o-x-circle' => fn($state): bool => $state == 'In Session',
-                        'heroicon-o-check-circle' => fn($state): bool => $state == 'Available',
+                        'heroicon-o-x-circle' => fn ($state): bool => $state == 'In Session',
+                        'heroicon-o-check-circle' => fn ($state): bool => $state == 'Available',
                     ]),
                 TextColumn::make('created_at')
                     ->dateTime(),

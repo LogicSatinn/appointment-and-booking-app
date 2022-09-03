@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\States\Payment\PaymentState;
-use Carbon\Carbon;
-use Database\Factories\PaymentFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\ModelStates\HasStates;
-
 
 /**
  * App\Models\Payment
@@ -31,6 +28,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read \App\Models\Booking $booking
  * @property-read \App\Models\User|null $createdBy
  * @property-read \App\Models\User|null $lastModifiedBy
+ *
  * @method static \Database\Factories\PaymentFactory factory(...$parameters)
  * @method static Builder|Payment newModelQuery()
  * @method static Builder|Payment newQuery()
