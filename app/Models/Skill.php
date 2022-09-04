@@ -120,7 +120,7 @@ class Skill extends Model
     public function slug(): Attribute
     {
         return Attribute::make(
-            set: fn () => strtolower(Str::snake($this->title, '-'))
+            set: fn () => Str::snake(strtolower($this->title), '-')
         );
     }
 
