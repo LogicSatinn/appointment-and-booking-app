@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\States\Skill\Draft;
 use App\States\Skill\SkillStatus;
+use Database\Factories\SkillFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
@@ -32,22 +34,22 @@ use Spatie\ModelStates\HasStates;
  * @property int $category_id
  * @property int $created_by
  * @property int|null $last_modified_by
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Collection|\App\Models\Booking[] $bookings
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
- * @property-read \App\Models\Category $category
- * @property-read \App\Models\User $createdBy
- * @property-read \App\Models\User|null $lastModifiedBy
- * @property-read Collection|\App\Models\Resource[] $resources
+ * @property-read Category $category
+ * @property-read User $createdBy
+ * @property-read User|null $lastModifiedBy
+ * @property-read Collection|Resource[] $resources
  * @property-read int|null $resources_count
- * @property-read Collection|\App\Models\Tag[] $tags
+ * @property-read Collection|Tag[] $tags
  * @property-read int|null $tags_count
- * @property-read Collection|\App\Models\Timetable[] $timetables
+ * @property-read Collection|Timetable[] $timetables
  * @property-read int|null $timetables_count
  *
- * @method static \Database\Factories\SkillFactory factory(...$parameters)
+ * @method static SkillFactory factory(...$parameters)
  * @method static Builder|Skill newModelQuery()
  * @method static Builder|Skill newQuery()
  * @method static \Illuminate\Database\Query\Builder|Skill onlyTrashed()

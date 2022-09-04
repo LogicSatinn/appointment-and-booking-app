@@ -31,6 +31,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class TimetableResource extends Resource
 {
@@ -58,7 +59,14 @@ class TimetableResource extends Resource
 
                                 TextInput::make('title')
                                     ->required()
+                                    ->lazy()
+                                    ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null)
                                     ->maxLength(255),
+
+                                TextInput::make('slug')
+                                    ->disabled()
+                                    ->required()
+                                    ->unique(Timetable::class, 'slug', ignoreRecord: true),
 
                                 Select::make('level')
                                     ->options([
@@ -70,7 +78,7 @@ class TimetableResource extends Resource
                                     ->required(),
 
                                 TextInput::make('price')
-                                    ->mask(fn (TextInput\Mask $mask) => $mask
+                                    ->mask(fn(TextInput\Mask $mask) => $mask
                                         ->numeric()
                                         ->decimalPlaces(2) // Set the number of digits after the decimal point.
                                         ->decimalSeparator() // Add a separator for decimal numbers.
@@ -141,7 +149,7 @@ class TimetableResource extends Resource
                 TextColumn::make('start'),
                 TextColumn::make('end'),
                 TextColumn::make('price')
-                    ->formatStateUsing(fn (string $state, Timetable $record): string => $record->representablePrice())
+                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime(),

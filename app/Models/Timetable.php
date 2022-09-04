@@ -96,7 +96,7 @@ class Timetable extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = Str::lower($model->title);
+            $model->slug = Str::slug(Str::lower($model->title));
             $model->status = NotStarted::class;
             $model->created_by = auth()->id();
         });
@@ -115,16 +115,6 @@ class Timetable extends Model
         'skill_id' => 'integer',
         'level' => SkillLevel::class,
     ];
-
-    /**
-     * @return Attribute
-     */
-    public function slug(): Attribute
-    {
-        return Attribute::make(
-            set: fn () => Str::snake($this->slug, '-')
-        );
-    }
 
     /**
      * @return Attribute
