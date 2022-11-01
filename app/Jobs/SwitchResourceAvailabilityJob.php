@@ -23,7 +23,7 @@ class SwitchResourceAvailabilityJob implements ShouldQueue
     /**
      * @throws CouldNotPerformTransition
      */
-    public function handle()
+    public function handle(): void
     {
         $timetables = Timetable::with(['resource'])
             ->where('from', '<=', today())

@@ -59,14 +59,14 @@ class Client extends Model
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<string>|bool
      */
     protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $casts = [
         'id' => 'integer',
@@ -88,7 +88,7 @@ class Client extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function routeNotificationForMail($notification): array
+    public function routeNotificationForMail(): array
     {
         // Return email address and name...
         return [$this->email => $this->name];

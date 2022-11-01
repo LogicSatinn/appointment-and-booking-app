@@ -22,7 +22,7 @@ class TimetableHasEndedJob implements ShouldQueue
     /**
      * @throws CouldNotPerformTransition
      */
-    public function handle()
+    public function handle(): void
     {
         $timetables = Timetable::where('to', '<', today()->format('M d, Y'))
             ->get();

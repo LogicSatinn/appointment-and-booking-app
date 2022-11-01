@@ -56,7 +56,7 @@ class Category extends Model
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<string>|bool
      */
     protected $guarded = [];
 
@@ -73,7 +73,7 @@ class Category extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $casts = [
         'id' => 'integer',

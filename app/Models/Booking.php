@@ -76,14 +76,14 @@ class Booking extends Model
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<string>|bool
      */
     protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $casts = [
         'id' => 'integer',
@@ -102,7 +102,7 @@ class Booking extends Model
 
         static::creating(function ($model) {
             $model->booked_at = now();
-            $model->reference_code = 'NL-B'.Str::padLeft(self::max('id') + 1, 6, 0);
+            $model->reference_code = 'NL-B' . Str::padLeft(value: strval(self::max('id') + 1), length: 6, pad:  0);
         });
     }
 

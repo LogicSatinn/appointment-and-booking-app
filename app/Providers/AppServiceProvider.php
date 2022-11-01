@@ -26,11 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //Force SSL when not in local development
-        if (config('app.env') !== 'local') {
-            URL::forceScheme('https');
-        }
-
         Filament::serving(function () {
             Filament::registerNavigationGroups([
                 'Infrastructure & Scheduling',

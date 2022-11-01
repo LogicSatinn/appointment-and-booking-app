@@ -11,7 +11,9 @@ class ViewSkill extends ViewRecord
 {
     protected static string $resource = SkillResource::class;
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    protected $listeners = [
+        'refreshComponent' => '$refresh'
+    ];
 
     /**
      * @throws Exception

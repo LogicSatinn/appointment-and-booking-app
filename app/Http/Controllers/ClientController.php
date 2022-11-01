@@ -13,14 +13,13 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $clients = Client::all();
-
-        return view('client.index', compact('clients'));
+        return view('client.index', [
+            'clients' => Client::all()
+        ]);
     }
 
     /**

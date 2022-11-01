@@ -19,21 +19,21 @@ use Livewire\Component;
 
 class EnrollClient extends Component
 {
-    public $timetable;
+    public Timetable $timetable;
 
-    public $name = 'Name';
+    public string $name = 'Name';
 
-    public $email = 'Email';
+    public string $email = 'Email';
 
-    public $phoneNumber = 'Phone Number';
+    public string $phoneNumber = 'Phone Number';
 
-    public $profession = null;
+    public ?string $profession;
 
-    public $address = null;
+    public ?string $address;
 
-    public $client;
+    public Client $client;
 
-    protected $rules = [
+    protected array $rules = [
         'name' => 'required|string|min:3',
         'email' => 'required|string|email',
         'phoneNumber' => 'required|string|starts_with:255',
@@ -41,7 +41,7 @@ class EnrollClient extends Component
         'address' => 'nullable|string|min:3',
     ];
 
-    public function mount(Timetable $timetable)
+    public function mount(Timetable $timetable): void
     {
         $this->timetable = $timetable;
     }

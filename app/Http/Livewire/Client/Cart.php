@@ -16,9 +16,9 @@ use Livewire\Component;
 
 class Cart extends Component
 {
-    public $timetable;
+    public Timetable $timetable;
 
-    public $client;
+    public Client $client;
 
     public int $seat = 1;
 
@@ -28,7 +28,7 @@ class Cart extends Component
 
     public int $total;
 
-    public function mount(Timetable $timetable, Client $client)
+    public function mount(Timetable $timetable, Client $client): void
     {
         $this->timetable = $timetable->load('resource');
         $this->client = $client;
@@ -36,7 +36,7 @@ class Cart extends Component
         $this->total = $this->subTotal;
     }
 
-    public function addSeat()
+    public function addSeat(): void
     {
         if (
             $this->timetable->resource->capacity > Reservation::whereTimetableId($this->timetable->id)->sum('no_of_seats')
@@ -48,19 +48,19 @@ class Cart extends Component
 
     }
 
-    public function subtractSeat()
+    public function subtractSeat(): void
     {
         $this->seat -= 1;
         $this->updateSubTotal();
     }
 
-    public function updateSubTotal()
+    public function updateSubTotal(): void
     {
         $this->subTotal = $this->seat * $this->timetable->price;
         $this->updateTotal();
     }
 
-    public function updateTotal()
+    public function updateTotal(): void
     {
         $this->total = $this->subTotal - $this->discount;
     }

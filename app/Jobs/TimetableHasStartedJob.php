@@ -22,7 +22,7 @@ class TimetableHasStartedJob implements ShouldQueue
     /**
      * @throws CouldNotPerformTransition
      */
-    public function handle()
+    public function handle(): void
     {
         $timetables = Timetable::where('from', '<=', today()->format('M d, Y'))
             ->where('to', '>=', today()->format('M d, Y'))

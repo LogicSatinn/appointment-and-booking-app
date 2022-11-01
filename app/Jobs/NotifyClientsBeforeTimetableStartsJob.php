@@ -20,7 +20,7 @@ class NotifyClientsBeforeTimetableStartsJob implements ShouldQueue
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $timetables = Timetable::with(['reservations.client'])
             ->whereBetween('from', [now(), now()->addDays(2)])

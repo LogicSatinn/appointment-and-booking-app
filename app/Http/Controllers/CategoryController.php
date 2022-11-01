@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('addedBy')->get();
+        $categories = Category::with('createdBy')->get();
 
         return view('admin.category.index', compact('categories'));
     }

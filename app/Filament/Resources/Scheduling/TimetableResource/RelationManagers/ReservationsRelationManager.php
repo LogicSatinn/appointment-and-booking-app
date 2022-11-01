@@ -18,6 +18,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasRelationshipTable;
+use Illuminate\Database\Eloquent\Model;
 
 class ReservationsRelationManager extends RelationManager
 {
@@ -105,7 +106,7 @@ class ReservationsRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->using(function (HasRelationshipTable $livewire, array $data): Reservation {
+                    ->using(function (HasRelationshipTable $livewire, array $data): Model {
                         return $livewire->getRelationship()->create($data);
                     }),
             ])

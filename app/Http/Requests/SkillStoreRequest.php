@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\SkillStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SkillStoreRequest extends FormRequest
@@ -20,7 +19,6 @@ class SkillStoreRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'status' => SkillStatus::DRAFT->value,
             'slug' => $this->get('title'),
         ]);
     }

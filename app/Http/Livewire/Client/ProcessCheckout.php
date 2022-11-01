@@ -18,13 +18,13 @@ use Livewire\Component;
 
 class ProcessCheckout extends Component
 {
-    public $reservation;
+    public Reservation $reservation;
 
-    public $timetable;
+    public Timetable $timetable;
 
-    public $client;
+    public Client $client;
 
-    public $method;
+    public string $method = '';
 
     public function mount(Reservation $reservation, Timetable $timetable, Client $client)
     {
@@ -49,7 +49,7 @@ class ProcessCheckout extends Component
         }
     }
 
-    public function directPayment()
+    public function directPayment(): void
     {
         //
     }

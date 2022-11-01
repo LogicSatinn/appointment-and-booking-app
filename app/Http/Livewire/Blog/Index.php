@@ -6,19 +6,20 @@ use App\View\Components\Client\MasterLayout;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Stephenjude\FilamentBlog\Models\Category;
 use Stephenjude\FilamentBlog\Models\Post;
 
 class Index extends Component
 {
-    public $posts;
+    public Collection $posts;
 
-    public $recentPosts;
+    public Collection $recentPosts;
 
-    public $categories;
+    public Collection $categories;
 
-    public function mount()
+    public function mount(): void
     {
         $this->posts = Post::with(['author', 'category'])
             ->inRandomOrder()
@@ -32,7 +33,7 @@ class Index extends Component
             ->get();
     }
 
-    public function filterUsingCategory($categoryId)
+    public function filterUsingCategory($categoryId): void
     {
         $this->posts = Post::query()
             ->with(['author', 'category'])

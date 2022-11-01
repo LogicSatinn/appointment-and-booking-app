@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Database\Factories\InstructorFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Instructor query()
  * @method static \Illuminate\Database\Query\Builder|Instructor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Instructor withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  *
  * @method static Builder|Instructor whereBannedAt($value)
  * @method static Builder|Instructor whereCreatedAt($value)
@@ -52,14 +53,14 @@ class Instructor extends Model
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<string>|bool
      */
     protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<string>
      */
     protected $hidden = [
         'password',
