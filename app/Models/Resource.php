@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\States\Resource\Available;
 use App\States\Resource\ResourceState;
+use Database\Factories\ResourceFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
@@ -28,20 +30,19 @@ use Spatie\ModelStates\HasStates;
  * @property mixed|null $state
  * @property int $created_by
  * @property int|null $last_modified_by
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Collection|\App\Models\Skill[] $courses
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Skill[] $courses
  * @property-read int|null $courses_count
- * @property-read \App\Models\User $createdBy
- * @property-read \App\Models\User|null $lastModifiedBy
- * @property-read Collection|\App\Models\Timetable[] $timetables
+ * @property-read User $createdBy
+ * @property-read User|null $lastModifiedBy
+ * @property-read Collection|Timetable[] $timetables
  * @property-read int|null $timetables_count
- *
- * @method static \Database\Factories\ResourceFactory factory(...$parameters)
+ * @method static ResourceFactory factory(...$parameters)
  * @method static Builder|Resource newModelQuery()
  * @method static Builder|Resource newQuery()
- * @method static \Illuminate\Database\Query\Builder|Resource onlyTrashed()
+ * @method static DatabaseQueryBuilder|Resource onlyTrashed()
  * @method static Builder|Resource orWhereNotState(string $column, $states)
  * @method static Builder|Resource orWhereState(string $column, $states)
  * @method static Builder|Resource query()
@@ -57,8 +58,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Resource whereSlug($value)
  * @method static Builder|Resource whereState($value)
  * @method static Builder|Resource whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
+ * @method static DatabaseQueryBuilder|Resource withTrashed()
+ * @method static DatabaseQueryBuilder|Resource withoutTrashed()
  * @mixin Eloquent
  */
 class Resource extends Model
@@ -71,17 +72,6 @@ class Resource extends Model
      * @var array
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->slug = $model->name;
-            $model->state = Available::class;
-            $model->created_by = auth()->id();
-        });
-    }
 
     /**
      * The attributes that should be cast to native types.
@@ -130,7 +120,7 @@ class Resource extends Model
     /**
      * @return BelongsTo
      */
-    public function lastModifiedBy()
+    public function lastModifiedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'last_modified_by');
     }

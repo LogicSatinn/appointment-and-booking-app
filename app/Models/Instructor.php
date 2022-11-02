@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Database\Factories\InstructorFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,21 +19,16 @@ use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
  * @property string $phone_number
  * @property string $password
  * @property string $email_verified_at
- * @property Carbon $banned_at
- * @property string $remember_token
- * @property Carbon $deleted_at
- * @property Carbon $created_at
- * @property Carbon $updated_at
- *
+ * @property int $banned_at
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static InstructorFactory factory(...$parameters)
  * @method static Builder|Instructor newModelQuery()
  * @method static Builder|Instructor newQuery()
  * @method static DatabaseQueryBuilder|Instructor onlyTrashed()
  * @method static Builder|Instructor query()
- * @method static DatabaseQueryBuilder|Instructor withTrashed()
- * @method static DatabaseQueryBuilder|Instructor withoutTrashed()
- * @mixin Eloquent
- *
  * @method static Builder|Instructor whereBannedAt($value)
  * @method static Builder|Instructor whereCreatedAt($value)
  * @method static Builder|Instructor whereDeletedAt($value)
@@ -46,6 +40,9 @@ use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
  * @method static Builder|Instructor wherePhoneNumber($value)
  * @method static Builder|Instructor whereRememberToken($value)
  * @method static Builder|Instructor whereUpdatedAt($value)
+ * @method static DatabaseQueryBuilder|Instructor withTrashed()
+ * @method static DatabaseQueryBuilder|Instructor withoutTrashed()
+ * @mixin Eloquent
  */
 class Instructor extends Model
 {

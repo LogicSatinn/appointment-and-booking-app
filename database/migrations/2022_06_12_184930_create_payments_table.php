@@ -1,10 +1,11 @@
 <?php
 
+use App\States\Payment\Pending;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -21,7 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('reference_code');
             $table->string('payment_method')->nullable();
             $table->decimal('amount', 10)->default(0);
-            $table->string('status');
+            $table->string('status')->default(Pending::class);
 
             $table->foreignId('booking_id')
                 ->constrained()
@@ -49,4 +50,4 @@ class CreatePaymentsTable extends Migration
     {
         Schema::dropIfExists('payments');
     }
-}
+};

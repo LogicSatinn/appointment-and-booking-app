@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Resource;
 use App\States\Resource\Available;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ResourceFactory extends Factory
 {
@@ -20,13 +21,13 @@ class ResourceFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->name;
 
         return [
             'name' => $name,
-            'slug' => $name,
+            'slug' => Str::slug($name),
             'note' => $this->faker->paragraph,
             'capacity' => $this->faker->numberBetween(100, 900),
             'state' => Available::class,

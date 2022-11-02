@@ -1,10 +1,11 @@
 <?php
 
+use App\States\Timetable\NotStarted;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTimetablesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +26,7 @@ class CreateTimetablesTable extends Migration
             $table->date('to');
             $table->time('start');
             $table->time('end');
-            $table->string('status');
+            $table->string('status')->default(NotStarted::class);
             $table->decimal('price', 10);
 
             $table->foreignId('resource_id')
@@ -56,4 +57,4 @@ class CreateTimetablesTable extends Migration
     {
         Schema::dropIfExists('timetables');
     }
-}
+};

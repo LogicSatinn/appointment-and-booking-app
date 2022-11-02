@@ -60,7 +60,7 @@
                                         <td class="product-quantity" data-title="Quantity">
                                             <!-- Quantity -->
                                             <div class="border rounded d-flex align-items-center">
-                                                <input class="form-control form-control-sm border-0 quantity mw-70p px-2" min="1" wire:model="seat" value="{{ $seat }}" type="text">
+                                                <input class="form-control form-control-sm border-0 quantity mw-70p px-2" min="1" wire:model="noOfSeats" value="{{ $noOfSeats }}" type="text" />
                                                 <div class="d-flex flex-column me-3">
                                                     <button wire:click="addSeat" class="border-0 shadow-none quantity-plus font-size-10 p-0 bg-transparent outline-0 text-dark">
                                                         <i class="fas fa-chevron-up"></i>

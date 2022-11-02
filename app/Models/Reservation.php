@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
@@ -34,11 +35,10 @@ use Spatie\ModelStates\HasStates;
  * @property-read Client $client
  * @property-read User|null $lastModifiedBy
  * @property-read Timetable $timetable
- *
  * @method static ReservationFactory factory(...$parameters)
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
- * @method static \Illuminate\Database\Query\Builder|Reservation onlyTrashed()
+ * @method static DatabaseQueryBuilder|Reservation onlyTrashed()
  * @method static Builder|Reservation orWhereNotState(string $column, $states)
  * @method static Builder|Reservation orWhereState(string $column, $states)
  * @method static Builder|Reservation query()
@@ -55,8 +55,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Reservation whereStatus($value)
  * @method static Builder|Reservation whereTimetableId($value)
  * @method static Builder|Reservation whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Reservation withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Reservation withoutTrashed()
+ * @method static DatabaseQueryBuilder|Reservation withTrashed()
+ * @method static DatabaseQueryBuilder|Reservation withoutTrashed()
  * @mixin Eloquent
  */
 class Reservation extends Model
@@ -91,12 +91,7 @@ class Reservation extends Model
         });
 
         static::created(function ($model) {
-            Booking::create([
-                'total_amount' => (float) $model->timetable->price * (int) $model->no_of_seats,
-                'client_id' => $model->client_id,
-                'timetable_id' => $model->timetable_id,
-                'reservation_id' => $model->id,
-            ]);
+
         });
     }
 

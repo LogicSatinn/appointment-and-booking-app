@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
@@ -48,11 +49,10 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $tags_count
  * @property-read Collection|Timetable[] $timetables
  * @property-read int|null $timetables_count
- *
  * @method static SkillFactory factory(...$parameters)
  * @method static Builder|Skill newModelQuery()
  * @method static Builder|Skill newQuery()
- * @method static \Illuminate\Database\Query\Builder|Skill onlyTrashed()
+ * @method static DatabaseQueryBuilder|Skill onlyTrashed()
  * @method static Builder|Skill orWhereNotState(string $column, $states)
  * @method static Builder|Skill orWhereState(string $column, $states)
  * @method static Builder|Skill query()
@@ -73,8 +73,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Skill whereSuitableFor($value)
  * @method static Builder|Skill whereTitle($value)
  * @method static Builder|Skill whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Skill withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Skill withoutTrashed()
+ * @method static DatabaseQueryBuilder|Skill withTrashed()
+ * @method static DatabaseQueryBuilder|Skill withoutTrashed()
  * @mixin Eloquent
  */
 class Skill extends Model
@@ -87,16 +87,6 @@ class Skill extends Model
      * @var array
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->status = Draft::class;
-            $model->created_by = auth()->id();
-        });
-    }
 
     /**
      * The attributes that should be cast to native types.

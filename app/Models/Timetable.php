@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Spatie\ModelStates\HasStates;
 
 /**
@@ -47,13 +47,12 @@ use Spatie\ModelStates\HasStates;
  * @property-read User|null $lastModifiedAt
  * @property-read Collection|Reservation[] $reservations
  * @property-read int|null $reservations_count
- * @property-read resource $resource
+ * @property-read Resource $resource
  * @property-read Skill $skill
- *
  * @method static TimetableFactory factory(...$parameters)
  * @method static Builder|Timetable newModelQuery()
  * @method static Builder|Timetable newQuery()
- * @method static \Illuminate\Database\Query\Builder|Timetable onlyTrashed()
+ * @method static DatabaseQueryBuilder|Timetable onlyTrashed()
  * @method static Builder|Timetable orWhereNotState(string $column, $states)
  * @method static Builder|Timetable orWhereState(string $column, $states)
  * @method static Builder|Timetable query()
@@ -76,8 +75,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Timetable whereTitle($value)
  * @method static Builder|Timetable whereTo($value)
  * @method static Builder|Timetable whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Timetable withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Timetable withoutTrashed()
+ * @method static DatabaseQueryBuilder|Timetable withTrashed()
+ * @method static DatabaseQueryBuilder|Timetable withoutTrashed()
  * @mixin Eloquent
  */
 class Timetable extends Model
@@ -90,17 +89,6 @@ class Timetable extends Model
      * @var array
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->slug = Str::slug(Str::lower($model->title));
-            $model->status = NotStarted::class;
-            $model->created_by = auth()->id();
-        });
-    }
 
     /**
      * The attributes that should be cast to native types.
@@ -123,7 +111,7 @@ class Timetable extends Model
     {
         return Attribute::make(
             get: fn ($value) => Carbon::create($value)->toFormattedDateString(),
-            set: fn ($value) => date('Y-m-d', strtotime(str_replace('/', '-', $value)))
+            set: fn ($value) => date(format: 'Y-m-d', timestamp: strtotime(str_replace(search: '/', replace: '-', subject: $value)))
         );
     }
 
@@ -134,7 +122,7 @@ class Timetable extends Model
     {
         return Attribute::make(
             get: fn ($value) => Carbon::create($value)->toFormattedDateString(),
-            set: fn ($value) => date('Y-m-d', strtotime(str_replace('/', '-', $value)))
+            set: fn ($value) => date(format: 'Y-m-d', timestamp: strtotime(str_replace(search: '/', replace: '-', subject: $value)))
         );
     }
 
@@ -144,7 +132,7 @@ class Timetable extends Model
     public function duration(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->from)->diffInDays($this->to),
+            get: fn () => Carbon::parse(time: $this->from)->diffInDays($this->to),
         );
     }
 
@@ -162,7 +150,7 @@ class Timetable extends Model
     public function start(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date('H:i', strtotime($value))
+            get: fn ($value) => date(format: 'H:i', timestamp: strtotime($value))
         );
     }
 
@@ -172,7 +160,7 @@ class Timetable extends Model
     public function end(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => date('H:i', strtotime($value))
+            get: fn ($value) => date(format: 'H:i', timestamp: strtotime($value))
         );
     }
 
@@ -181,7 +169,7 @@ class Timetable extends Model
      */
     public function bookings(): HasMany
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(related: Booking::class, foreignKey: 'timetable_id');
     }
 
     /**
@@ -189,7 +177,7 @@ class Timetable extends Model
      */
     public function reservations(): HasMany
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(related: Reservation::class, foreignKey: 'timetable_id');
     }
 
     /**
@@ -197,7 +185,7 @@ class Timetable extends Model
      */
     public function resource(): BelongsTo
     {
-        return $this->belongsTo(Resource::class);
+        return $this->belongsTo(related: Resource::class, foreignKey: 'resource_id');
     }
 
     /**
@@ -205,7 +193,7 @@ class Timetable extends Model
      */
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(related: Skill::class, foreignKey: 'skill_id');
     }
 
     /**
@@ -213,7 +201,7 @@ class Timetable extends Model
      */
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(related: User::class, foreignKey: 'created_by');
     }
 
     /**
@@ -221,7 +209,7 @@ class Timetable extends Model
      */
     public function lastModifiedAt(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'last_modified_by');
+        return $this->belongsTo(related: User::class, foreignKey: 'last_modified_by');
     }
 
     /**
@@ -229,7 +217,7 @@ class Timetable extends Model
      */
     public function hasNotStarted(): bool
     {
-        return $this->status == NotStarted::$name;
+        return $this->status->equals(NotStarted::class);
     }
 
     /**
@@ -237,7 +225,7 @@ class Timetable extends Model
      */
     public function isOnGoing(): bool
     {
-        return $this->status == OnGoing::$name;
+        return $this->status->equals(OnGoing::class);
     }
 
     /**
@@ -245,7 +233,7 @@ class Timetable extends Model
      */
     public function isComplete(): bool
     {
-        return $this->status == Complete::$name;
+        return $this->status->equals(Complete::class);
     }
 
     /**

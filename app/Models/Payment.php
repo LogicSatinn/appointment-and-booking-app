@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\States\Payment\PaymentState;
+use Database\Factories\PaymentFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
+use Illuminate\Support\Carbon;
 use Spatie\ModelStates\HasStates;
 
 /**
@@ -22,17 +25,16 @@ use Spatie\ModelStates\HasStates;
  * @property int $booking_id
  * @property int|null $created_by
  * @property int|null $last_modified_by
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Booking $booking
- * @property-read \App\Models\User|null $createdBy
- * @property-read \App\Models\User|null $lastModifiedBy
- *
- * @method static \Database\Factories\PaymentFactory factory(...$parameters)
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Booking $booking
+ * @property-read User|null $createdBy
+ * @property-read User|null $lastModifiedBy
+ * @method static PaymentFactory factory(...$parameters)
  * @method static Builder|Payment newModelQuery()
  * @method static Builder|Payment newQuery()
- * @method static \Illuminate\Database\Query\Builder|Payment onlyTrashed()
+ * @method static DatabaseQueryBuilder|Payment onlyTrashed()
  * @method static Builder|Payment orWhereNotState(string $column, $states)
  * @method static Builder|Payment orWhereState(string $column, $states)
  * @method static Builder|Payment query()
@@ -49,8 +51,8 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Payment whereState(string $column, $states)
  * @method static Builder|Payment whereStatus($value)
  * @method static Builder|Payment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
+ * @method static DatabaseQueryBuilder|Payment withTrashed()
+ * @method static DatabaseQueryBuilder|Payment withoutTrashed()
  * @mixin Eloquent
  */
 class Payment extends Model

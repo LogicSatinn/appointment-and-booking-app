@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ openModal: @entangle('launchModal') }">
     <div id="order_review" class="woocommerce-checkout-review-order mt-3">
         <div class="woocommerce-checkout-review-order-inner">
             <h3 id="order_review_heading">Your order</h3>
@@ -71,6 +71,37 @@
                 <button wire:click="processCheckout" class="btn btn-primary btn-block">
                     Complete Checkout
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" x-show="openModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <!-- Close -->
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                    <h2 class="fw-bold text-center mb-1" id="modalExampleTitle">
+                        We're handling the payment details for you ...
+                    </h2>
+
+                    <p class="font-size-lg text-center text-muted mb-6 mb-md-8">
+                        You will receive a pop-up asking to finalize the transaction, please confirm the transaction, and we will notify you as soon as the transaction is confirmed on our end. Thank you for doing business with us.
+                    </p>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block btn-primary mt-3 lift" type="button" wire:click="proceed">
+                                Request a demo
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

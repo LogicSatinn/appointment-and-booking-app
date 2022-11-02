@@ -3,12 +3,19 @@
 namespace App\Filament\Resources\Scheduling;
 
 use App\Enums\SkillLevel;
-use App\Filament\Resources\Scheduling;
+use App\Filament\Resources\Scheduling\TimetableResource\Pages\CreateTimetable;
+use App\Filament\Resources\Scheduling\TimetableResource\Pages\EditTimetable;
+use App\Filament\Resources\Scheduling\TimetableResource\Pages\ListTimetables;
+use App\Filament\Resources\Scheduling\TimetableResource\Pages\ViewTimetable;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\BookingsRelationManager;
 use App\Filament\Resources\Scheduling\TimetableResource\RelationManagers\ReservationsRelationManager;
 use App\Jobs\DispatchNotificationsUponTimetableDeletion;
 use App\Models\Timetable;
 use App\Rules\CheckForAllocatedResourceRule;
+use App\States\Timetable\Complete;
+use App\States\Timetable\NotStarted;
+use App\States\Timetable\OnGoing;
+use Carbon\Carbon;
 use Exception;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -21,6 +28,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
@@ -51,73 +59,81 @@ class TimetableResource extends Resource
                     ->schema([
                         Card::make()
                             ->schema([
-                                Select::make('skill_id')
-                                    ->relationship('skill', 'title')
+                                Select::make(name: 'skill_id')
+                                    ->relationship(relationshipName: 'skill', titleColumnName: 'title')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
 
-                                TextInput::make('title')
+                                TextInput::make(name: 'title')
                                     ->required()
                                     ->lazy()
                                     ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null)
-                                    ->maxLength(255),
+                                    ->maxLength(length: 255),
 
-                                TextInput::make('slug')
+                                TextInput::make(name: 'slug')
                                     ->disabled()
                                     ->required()
-                                    ->unique(Timetable::class, 'slug', ignoreRecord: true),
+                                    ->unique(table: Timetable::class, column: 'slug', ignoreRecord: true),
 
-                                Select::make('level')
-                                    ->options([
+                                Select::make(name: 'level')
+                                    ->options(options: [
                                         SkillLevel::BEGINNER->value => SkillLevel::BEGINNER->value,
                                         SkillLevel::INTERMEDIATE->value => SkillLevel::INTERMEDIATE->value,
                                         SkillLevel::ADVANCED->value => SkillLevel::ADVANCED->value,
                                     ])
-                                    ->disablePlaceholderSelection()
                                     ->required(),
 
-                                TextInput::make('price')
+                                TextInput::make(name: 'price')
                                     ->mask(fn(TextInput\Mask $mask) => $mask
                                         ->numeric()
-                                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                                        ->decimalPlaces(places: 2) // Set the number of digits after the decimal point.
                                         ->decimalSeparator() // Add a separator for decimal numbers.
                                         ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
-                                        ->minValue(1) // Set the minimum value that the number can be.
+                                        ->minValue(value: 1) // Set the minimum value that the number can be.
                                         ->normalizeZeros() // Append or remove zeros at the end of the number.
                                         ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
                                         ->thousandsSeparator() // Add a separator for thousands.
                                     )
                                     ->required(),
 
-                                Select::make('resource_id')
-                                    ->relationship('resource', 'name')
+                                Select::make(name: 'resource_id')
+                                    ->relationship(relationshipName: 'resource', titleColumnName: 'name')
                                     ->searchable()
-                                    ->rules([new CheckForAllocatedResourceRule()])
+                                    ->rules(rules: [new CheckForAllocatedResourceRule()])
                                     ->preload()
                                     ->required(),
                             ])
                             ->columns(),
 
-                        Section::make('Schedule')
+                        Section::make(heading: 'Schedule')
                             ->schema([
-                                DatePicker::make('from')
-                                    ->after(today())
+                                DatePicker::make(name: 'from')
+                                    ->after(date: today()->addDay())
+                                    ->minDate(date: today()->addDay())
+                                    ->reactive()
                                     ->required(),
-                                DatePicker::make('to')
+                                DatePicker::make(name: 'to')
                                     ->after(today())
+                                    ->minDate(date: function (callable $get) {
+                                        if (! $get('from')) {
+                                            return today()->addDay();
+                                        }
+
+                                        return Carbon::parse($get('from'))->addDay();
+                                    })
                                     ->required(),
-                                TimePicker::make('start')
+                                TimePicker::make(name: 'start')
                                     ->withoutSeconds()
                                     ->required(),
-                                TimePicker::make('end')
+                                TimePicker::make(name: 'end')
                                     ->withoutSeconds()
                                     ->required(),
                             ])->columns(),
                     ])
-                    ->columnSpan(['lg' => 3]),
+                    ->columnSpan(span: ['lg' => 3]),
             ])
-            ->columns(3);
+            ->columns(columns: 3);
     }
 
     /**
@@ -127,48 +143,61 @@ class TimetableResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('skill.title'),
-                TextColumn::make('resource.name')->label('Resource Used'),
-                TextColumn::make('title'),
-                BadgeColumn::make('level')
-                    ->colors([
+                TextColumn::make(name: 'skill.title')
+                    ->label(label: 'Skill Title')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make(name: 'resource.name')
+                    ->label(label: 'Resource Used')
+                    ->sortable(),
+                TextColumn::make(name: 'title')
+                    ->label(label: 'Timetable Title')
+                    ->sortable()
+                    ->searchable(),
+                BadgeColumn::make(name: 'level')
+                    ->colors(colors: [
                         'success' => 'Beginner',
                         'primary' => 'Intermediate',
                         'warning' => 'Advanced',
                     ]),
-                BadgeColumn::make('status')
-                    ->icons([
-                        'heroicon-o-bell' => 'Not Started',
-                        'heroicon-o-microphone' => 'Ongoing',
-                        'heroicon-o-badge-check' => 'Completed',
-                    ])->iconPosition('after'),
-                TextColumn::make('from')
+                BadgeColumn::make(name: 'status')
+                    ->icons(icons: [
+                        'heroicon-o-bell' => static fn($state) => $state->equals(NotStarted::class),
+                        'heroicon-o-microphone' => static fn($state) => $state->equals(OnGoing::class),
+                        'heroicon-o-badge-check' => static fn($state) => $state->equals(Complete::class),
+                    ])->iconPosition(iconPosition: 'after'),
+                TextColumn::make(name: 'from')
                     ->date(),
-                TextColumn::make('to')
+                TextColumn::make(name: 'to')
                     ->date(),
-                TextColumn::make('start'),
-                TextColumn::make('end'),
-                TextColumn::make('price')
+                TextColumn::make(name: 'start'),
+                TextColumn::make(name: 'end'),
+                TextColumn::make(name: 'price')
                     ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime(),
+                TextColumn::make(name: 'created_at')
+                    ->label(label: 'Created')
+                    ->sortable()
+                    ->since(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
-                Action::make('delete')
-                    ->icon('heroicon-s-trash')
-                    ->requiresConfirmation()
-                    ->action(function ($record) {
-                        if ($record->reservations()->count() > 0 && $record->status == 'Complete') {
-                            DispatchNotificationsUponTimetableDeletion::dispatch($record);
-                        }
-                        $record->delete();
-                    }),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    Action::make(name: 'delete')
+                        ->icon(icon: 'heroicon-s-trash')
+                        ->requiresConfirmation()
+                        ->action(function ($record) {
+                            if ($record->reservations->isNotEmpty() && $record->status->equals(Complete::class)) {
+                                DispatchNotificationsUponTimetableDeletion::dispatch($record);
+                            }
+
+                            $record->delete();
+                        }),
+                ])
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
@@ -188,10 +217,10 @@ class TimetableResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Scheduling\TimetableResource\Pages\ListTimetables::route('/'),
-            'create' => Scheduling\TimetableResource\Pages\CreateTimetable::route('/create'),
-            'view' => Scheduling\TimetableResource\Pages\ViewTimetable::route('/{record}'),
-            'edit' => Scheduling\TimetableResource\Pages\EditTimetable::route('/{record}/edit'),
+            'index' => ListTimetables::route(path: '/'),
+            'create' => CreateTimetable::route(path: '/create'),
+            'view' => ViewTimetable::route(path: '/{record}'),
+            'edit' => EditTimetable::route(path: '/{record}/edit'),
         ];
     }
 

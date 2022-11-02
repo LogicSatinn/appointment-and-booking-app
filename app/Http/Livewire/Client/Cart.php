@@ -20,7 +20,7 @@ class Cart extends Component
 
     public Client $client;
 
-    public int $seat = 1;
+    public int $noOfSeats = 1;
 
     public int $subTotal;
 
@@ -32,7 +32,7 @@ class Cart extends Component
     {
         $this->timetable = $timetable->load('resource');
         $this->client = $client;
-        $this->subTotal = $this->seat * $timetable->price;
+        $this->subTotal = $this->noOfSeats * $timetable->price;
         $this->total = $this->subTotal;
     }
 
@@ -41,7 +41,7 @@ class Cart extends Component
         if (
             $this->timetable->resource->capacity > Reservation::whereTimetableId($this->timetable->id)->sum('no_of_seats')
         ) {
-            $this->seat += 1;
+            $this->noOfSeats += 1;
             $this->updateSubTotal();
         }
         // TODO Add Notification that capacity is full
@@ -50,13 +50,13 @@ class Cart extends Component
 
     public function subtractSeat(): void
     {
-        $this->seat -= 1;
+        $this->noOfSeats -= 1;
         $this->updateSubTotal();
     }
 
     public function updateSubTotal(): void
     {
-        $this->subTotal = $this->seat * $this->timetable->price;
+        $this->subTotal = $this->noOfSeats * $this->timetable->price;
         $this->updateTotal();
     }
 
@@ -65,18 +65,16 @@ class Cart extends Component
         $this->total = $this->subTotal - $this->discount;
     }
 
-    public function saveCart(): Redirector|Application|RedirectResponse
+    public function saveCart(): void
     {
         $reservation = Reservation::create([
             'client_id' => $this->client->id,
             'timetable_id' => $this->timetable->id,
-            'no_of_seats' => $this->seat,
+            'no_of_seats' => $this->noOfSeats,
             'reserved_at' => now(),
         ]);
 
-        Cache::put($this->client->phone_number.'_'.$this->timetable->id, $this->seat, 432000);
-
-        return redirect(route('client.checkout', [
+        $this->redirect(route('client.checkout', [
             'reservation' => $reservation,
             'timetable' => $this->timetable,
             'client' => $this->client,

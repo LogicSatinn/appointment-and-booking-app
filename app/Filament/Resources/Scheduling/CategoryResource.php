@@ -10,6 +10,11 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 
 class CategoryResource extends Resource
 {
@@ -23,14 +28,14 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make(name: 'name')
                     ->required()
-                    ->maxLength(255)
+                    ->maxLength(length: 255)
                     ->columnSpan([
                         'md' => 12,
                     ]),
-                Forms\Components\Textarea::make('note')
-                    ->maxLength(255)
+                Forms\Components\Textarea::make(name: 'note')
+                    ->maxLength(length: 255)
                     ->columnSpan([
                         'md' => 12,
                     ]),
@@ -44,22 +49,31 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('note'),
-                Tables\Columns\TextColumn::make('createdBy.name'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                Tables\Columns\TextColumn::make(name: 'name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make(name: 'note')
+                    ->default(state: 'NIL'),
+                Tables\Columns\TextColumn::make(name: 'createdBy.name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make(name: 'created_at')
+                    ->label(label: 'Created')
+                    ->sortable()
+                    ->since(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 

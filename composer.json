@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "anlutro/l4-settings": "^1.1",
+        "archtechx/enums": "^0.3.1",
         "doctrine/dbal": "^3.3",
         "emanate/beem": "^0.1.1",
         "filament/filament": "^2.0",
@@ -14,7 +15,6 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^3.0.0",
         "laravel/tinker": "^2.7",
-        "laravolt/avatar": "^4.1",
         "livewire/livewire": "^2.10",
         "multicaret/laravel-acquaintances": "^3.5",
         "openpesa/laravel-pesa": "^1.0",
@@ -29,7 +29,6 @@
         "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^2.1",
-        "kevincobain2000/laravel-erd": "^1.6",
         "laravel-shift/blueprint": "^2.4",
         "laravel/breeze": "^1.9",
         "laravel/pint": "^1.1",

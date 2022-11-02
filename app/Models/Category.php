@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Database\Factories\CategoryFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
+use Illuminate\Support\Carbon as BaseCarbon;
 use Illuminate\Support\Str;
 
 /**
@@ -21,34 +21,31 @@ use Illuminate\Support\Str;
  *
  * @property int $id
  * @property string $name
- * @property string $note
- * @property int $added_by
- * @property Carbon $deleted_at
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property-read User $addedBy
+ * @property string $slug
+ * @property string|null $note
+ * @property int $created_by
+ * @property BaseCarbon|null $deleted_at
+ * @property BaseCarbon|null $created_at
+ * @property BaseCarbon|null $updated_at
+ * @property-read User $createdBy
  * @property-read Collection|Skill[] $skills
  * @property-read int|null $skills_count
- *
  * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static DatabaseQueryBuilder|Category onlyTrashed()
  * @method static Builder|Category query()
- * @method static Builder|Category whereAddedBy($value)
  * @method static Builder|Category whereCreatedAt($value)
+ * @method static Builder|Category whereCreatedBy($value)
  * @method static Builder|Category whereDeletedAt($value)
  * @method static Builder|Category whereId($value)
  * @method static Builder|Category whereName($value)
  * @method static Builder|Category whereNote($value)
+ * @method static Builder|Category whereSlug($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @method static DatabaseQueryBuilder|Category withTrashed()
  * @method static DatabaseQueryBuilder|Category withoutTrashed()
  * @mixin Eloquent
- *
- * @property string $slug
- *
- * @method static Builder|Category whereSlug($value)
  */
 class Category extends Model
 {
@@ -60,16 +57,6 @@ class Category extends Model
      * @var array<string>|bool
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->slug = $model->name;
-            $model->created_by = auth()->id();
-        });
-    }
 
     /**
      * The attributes that should be cast to native types.
@@ -86,7 +73,7 @@ class Category extends Model
     public function slug(): Attribute
     {
         return Attribute::make(
-            set: fn () => strtolower(Str::snake($this->name, '-'))
+            set: fn () => strtolower(Str::snake(value: $this->name, delimiter:  '-'))
         );
     }
 
@@ -95,7 +82,7 @@ class Category extends Model
      */
     public function skills(): HasMany
     {
-        return $this->hasMany(Skill::class);
+        return $this->hasMany(related: Skill::class, foreignKey: 'category_id');
     }
 
     /**
@@ -103,7 +90,7 @@ class Category extends Model
      */
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(related: User::class, foreignKey: 'created_by');
     }
 
     /**

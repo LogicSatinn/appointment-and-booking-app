@@ -46,8 +46,11 @@
                     <div class="form-group mb-5">
                         <label for="name">
                             Name
+                            <span class="text-danger">
+                                *
+                            </span>
                         </label>
-                        <input type="text" class="form-control" id="name" wire:model.lazy="name" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="name" wire:model.lazy="name" placeholder="Name">
                         @error('name')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -56,9 +59,12 @@
                     <!-- Email -->
                     <div class="form-group mb-5">
                         <label for="email">
-                            Email
+                            Email Address
+                            <span class="text-danger">
+                                *
+                            </span>
                         </label>
-                        <input type="email" class="form-control" id="email" wire:model.lazy="email" onfocus="this.value=''">
+                        <input type="email" class="form-control" id="email" wire:model.lazy="email" placeholder="Email Address">
                         @error('email')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -67,8 +73,11 @@
                     <div class="form-group mb-5">
                         <label for="phone_number">
                             Phone Number
+                            <span class="text-danger">
+                                *
+                            </span>
                         </label>
-                        <input type="text" class="form-control" id="phone_number" wire:model.lazy="phoneNumber" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="phone_number" wire:model.lazy="phoneNumber" placeholder="Phone Number">
                         @error('phoneNumber')
                             <span class="error">{{ $message }}</span>
                         @enderror
@@ -77,8 +86,11 @@
                     <div class="form-group mb-5">
                         <label for="profession">
                             Profession (Optional)
+                            <span class="text-danger">
+                                *
+                            </span>
                         </label>
-                        <input type="text" class="form-control" id="profession" wire:model.lazy="profession" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="profession" wire:model.lazy="profession" placeholder="Profession">
                         @error('profession')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror
@@ -87,8 +99,11 @@
                     <div class="form-group mb-5">
                         <label for="address">
                             Address (Optional)
+                            <span class="text-danger">
+                                *
+                            </span>
                         </label>
-                        <input type="text" class="form-control" id="address" wire:model.lazy="address" onfocus="this.value=''">
+                        <input type="text" class="form-control" id="address" wire:model.lazy="address" placeholder="Address">
                         @error('address')
                             <span class="alert alert-error">{{ $message }}</span>
                         @enderror

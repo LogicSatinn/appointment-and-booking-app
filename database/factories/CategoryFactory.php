@@ -28,7 +28,7 @@ class CategoryFactory extends Factory
             'name' => $name,
             'slug' => $name,
             'note' => $this->faker->word,
-            'added_by' => User::factory(),
+            'created_by' => User::factory(),
         ];
     }
 }

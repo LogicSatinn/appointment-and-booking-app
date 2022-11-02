@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Scheduling\SkillResource\RelationManagers;
 use App\Enums\SkillLevel;
 use App\Jobs\DispatchNotificationsUponTimetableDeletion;
 use App\Models\Timetable;
+use Carbon\Carbon;
 use Exception;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -13,10 +14,18 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -24,56 +33,63 @@ class TimetablesRelationManager extends RelationManager
 {
     protected static string $relationship = 'timetables';
 
-//    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make(name: 'title')
                     ->required()
-                    ->maxLength(255),
-                TextInput::make('price')
+                    ->maxLength(length: 255),
+                TextInput::make(name: 'price')
                     ->required()
                     ->numeric()
-                    ->mask(fn (TextInput\Mask $mask) => $mask
+                    ->mask(fn(TextInput\Mask $mask) => $mask
                         ->numeric()
-                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                        ->decimalPlaces(places: 2) // Set the number of digits after the decimal point.
                         ->decimalSeparator() // Add a separator for decimal numbers.
-                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
-                        ->minValue(1) // Set the minimum value that the number can be.
-                        ->maxValue(1000000) // Set the maximum value that the number can be.
+                        ->mapToDecimalSeparator(characters: ['.']) // Map additional characters to the decimal separator.
+                        ->minValue(value: 1) // Set the minimum value that the number can be.
+                        ->maxValue(value: 1000000) // Set the maximum value that the number can be.
                         ->normalizeZeros() // Append or remove zeros at the end of the number.
                         ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
                         ->thousandsSeparator() // Add a separator for thousands.
                     ),
-                Select::make('resource_id')
-                    ->relationship('resource', 'name')
+                Select::make(name: 'resource_id')
+                    ->relationship(relationshipName: 'resource', titleColumnName: 'name')
                     ->required()
                     ->searchable()
                     ->disablePlaceholderSelection()
-                    ->label('Resource'),
-                Select::make('level')
+                    ->label(label: 'Resource'),
+                Select::make(name: 'level')
                     ->options([
                         SkillLevel::BEGINNER->value => SkillLevel::BEGINNER->value,
                         SkillLevel::INTERMEDIATE->value => SkillLevel::INTERMEDIATE->value,
                         SkillLevel::ADVANCED->value => SkillLevel::ADVANCED->value,
                     ])
                     ->disablePlaceholderSelection()
-                    ->default(SkillLevel::BEGINNER->value)
+                    ->default(state: SkillLevel::BEGINNER->value)
                     ->required(),
-                DatePicker::make('from')
-                    ->format('Y-m-d')
-                    ->displayFormat('d/M/Y')
+                DatePicker::make(name: 'from')
+                    ->after(date: today()->addDay())
+                    ->minDate(date: today()->addDay())
+                    ->reactive()
                     ->required(),
-                DatePicker::make('to')
-                    ->format('Y-m-d')
-                    ->displayFormat('d/M/Y')
+                DatePicker::make(name: 'to')
+                    ->after(today())
+                    ->minDate(date: function (callable $get) {
+                        if (! $get('from')) {
+                            return today()->addDay();
+                        }
+
+                        return Carbon::parse($get('from'))->addDay();
+                    })
                     ->required(),
-                TimePicker::make('start')
+                TimePicker::make(name: 'start')
                     ->withoutSeconds()
                     ->required(),
-                TimePicker::make('end')
+                TimePicker::make(name: 'end')
                     ->withoutSeconds()
                     ->required(),
             ]);
@@ -86,53 +102,51 @@ class TimetablesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make(name: 'title')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('price')
-                    ->formatStateUsing(fn (string $state, Timetable $record): string => $record->representablePrice())
+                TextColumn::make(name: 'price')
+                    ->formatStateUsing(fn(string $state, Timetable $record): string => $record->representablePrice())
                     ->sortable(),
-                TextColumn::make('resource.name'),
-                BadgeColumn::make('level')
+                TextColumn::make(name: 'resource.name'),
+                BadgeColumn::make(name: 'level')
                     ->colors([
                         'success' => 'Beginner',
                         'primary' => 'Intermediate',
                         'warning' => 'Advanced',
                     ]),
-                TextColumn::make('from')->date()
+                TextColumn::make(name: 'from')->date()
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('to')->date()
+                TextColumn::make(name: 'to')->date()
                     ->sortable()
                     ->searchable(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
-            ])
-            ->headerActions([
-                //                Tables\Actions\CreateAction::make()
-                //                    ->successNotificationMessage('New Timetable added.')
-                //                    ->using(fn(HasRelationshipTable $livewire, array $data): Model => $livewire->getRelationship()->create($data)),
+                TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Action::make('delete')
-                    ->icon('heroicon-s-trash')
-                    ->requiresConfirmation()
-                    ->action(function ($record) {
-                        if ($record->reservations()->count() > 0 && $record->status == 'Complete') {
-                            DispatchNotificationsUponTimetableDeletion::dispatch($record);
-                        }
-                        $record->delete();
-                    }),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    Action::make(name: 'delete')
+                        ->color(color: 'danger')
+                        ->icon(icon: 'heroicon-s-trash')
+                        ->requiresConfirmation()
+                        ->action(function ($record) {
+                            if ($record->reservations()->count() > 0 && $record->status == 'Complete') {
+                                DispatchNotificationsUponTimetableDeletion::dispatch($record);
+                            }
+                            $record->delete();
+                        }),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
+                ])
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
             ]);
     }
 

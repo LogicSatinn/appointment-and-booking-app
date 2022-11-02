@@ -9,15 +9,10 @@ class CreateSkill extends CreateRecord
 {
     protected static string $resource = SkillResource::class;
 
-    /**
-     * @param  array  $data
-     * @return array
-     */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return array_merge(
-            $data,
-            ['slug' => $data['title']]
-        );
+        $data['created_by'] = auth()->id();
+
+        return $data;
     }
 }

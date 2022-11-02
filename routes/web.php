@@ -25,4 +25,21 @@ Route::controller(CheckoutController::class)->prefix('checkout')->group(function
     Route::get('/reservation-complete/{booking}/{timetable}/{client}', 'reservationComplete')->name('reservation-complete');
 });
 
-require __DIR__.'/auth.php';
+Route::get('test', function () {
+//    return \Shoket\Laravel\Facades\Shoket::makePaymentRequest([
+//        'amount' => '100',
+//        'customer_name' => 'John Doe',
+//        'email' => 'john@doe.com',
+//        'number_used' => '255692107171',
+//        'channel' => 'Airtel'
+//    ]);
+
+    return \Shoket\Laravel\Facades\Shoket::verifyPaymentRequest(
+        reference: '2HMdJl84Pk0Qp2I47IdII',
+        data: [
+            'provider_name' => 'Airtel',
+            'provider_code' => 'AirtelMoney'
+        ]);
+});
+
+require __DIR__ . '/auth.php';

@@ -1,10 +1,11 @@
 <?php
 
+use App\States\Skill\Draft;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkillsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -24,7 +25,7 @@ class CreateSkillsTable extends Migration
             $table->longText('mode_of_delivery');
             $table->longText('prerequisite');
             $table->longText('suitable_for');
-            $table->string('status');
+            $table->string('status')->default(Draft::class);
             $table->string('image_path')->nullable();
 
             $table->foreignId('category_id')
@@ -52,4 +53,4 @@ class CreateSkillsTable extends Migration
     {
         Schema::dropIfExists('skills');
     }
-}
+};

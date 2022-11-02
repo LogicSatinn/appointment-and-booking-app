@@ -3,11 +3,17 @@
 namespace App\Filament\Resources\Scheduling;
 
 use App\Filament\Resources\Scheduling;
+use App\Filament\Resources\Scheduling\SkillResource\Pages\CreateSkill;
+use App\Filament\Resources\Scheduling\SkillResource\Pages\EditSkill;
+use App\Filament\Resources\Scheduling\SkillResource\Pages\ListSkills;
+use App\Filament\Resources\Scheduling\SkillResource\Pages\ViewSkill;
 use App\Filament\Resources\Scheduling\SkillResource\RelationManagers\TimetablesRelationManager;
 use App\Models\Skill;
 use App\States\Skill\Archived;
+use App\States\Skill\Draft;
 use App\States\Skill\Published;
 use Exception;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
@@ -15,10 +21,14 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Pages\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
@@ -46,11 +56,11 @@ class SkillResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-                        Section::make('Images')
+                        Section::make(heading: 'Images')
                             ->schema([
-                                FileUpload::make('image_path')->required(static fn (Page $livewire): bool => $livewire instanceof Scheduling\SkillResource\Pages\CreateSkill)
+                                FileUpload::make(name: 'image_path')->required(static fn(Page $livewire): bool => $livewire instanceof Scheduling\SkillResource\Pages\CreateSkill)
                                     ->preserveFilenames()
-                                    ->directory('skill_covers')
+                                    ->directory(directory: 'skill_covers')
                                     ->image()
                                     ->disableLabel(),
                             ])
@@ -62,39 +72,40 @@ class SkillResource extends Resource
                     ->schema([
                         Card::make()
                             ->schema([
-                                TextInput::make('title')
+                                TextInput::make(name: 'title')
                                     ->required()
                                     ->lazy()
-                                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null),
+                                    ->afterStateUpdated(fn(string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug(Str::lower($state))) : null),
 
-                                Select::make('category_id')
-                                    ->relationship('category', 'name')
+                                Select::make(name: 'category_id')
+                                    ->relationship(relationshipName: 'category', titleColumnName: 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
 
-                                TextInput::make('slug')
+                                TextInput::make(name: 'slug')
                                     ->disabled()
                                     ->required()
-                                    ->unique(Skill::class, 'slug', ignoreRecord: true),
+                                    ->unique(table: Skill::class, column: 'slug', ignoreRecord: true),
 
-                                Select::make('status')
-                                    ->options([
+                                Select::make(name: 'status')
+                                    ->options(options: [
                                         Archived::$name => 'Archive',
                                         Published::$name => 'Publish',
                                     ])
                                     ->disablePlaceholderSelection()
                                     ->reactive()
-                                    ->visibleOn('edit'),
+                                    ->visibleOn(contexts: 'edit'),
 
                             ])
                             ->columns(),
 
-                        Section::make('More Information')
-                            ->schema([
-                                RichEditor::make('description')
-                                    ->columnSpan('full')
-                                    ->required()->toolbarButtons([
+                        Section::make(heading: 'More Information')
+                            ->schema(components: [
+                                RichEditor::make(name: 'description')
+                                    ->columnSpan(span: 'full')
+                                    ->required()
+                                    ->toolbarButtons(buttons: [
                                         'blockquote',
                                         'bold',
                                         'bulletList',
@@ -109,9 +120,9 @@ class SkillResource extends Resource
                                         'undo',
                                     ]),
 
-                                RichEditor::make('mode_of_delivery')
+                                RichEditor::make(name: 'mode_of_delivery')
                                     ->required()
-                                    ->toolbarButtons([
+                                    ->toolbarButtons(buttons: [
                                         'blockquote',
                                         'bold',
                                         'bulletList',
@@ -126,9 +137,9 @@ class SkillResource extends Resource
                                         'undo',
                                     ]),
 
-                                RichEditor::make('prerequisite')
+                                RichEditor::make(name: 'prerequisite')
                                     ->required()
-                                    ->toolbarButtons([
+                                    ->toolbarButtons(buttons: [
                                         'blockquote',
                                         'bold',
                                         'bulletList',
@@ -143,9 +154,9 @@ class SkillResource extends Resource
                                         'undo',
                                     ]),
 
-                                RichEditor::make('suitable_for')
+                                RichEditor::make(name: 'suitable_for')
                                     ->required()
-                                    ->toolbarButtons([
+                                    ->toolbarButtons(buttons: [
                                         'blockquote',
                                         'bold',
                                         'bulletList',
@@ -160,8 +171,8 @@ class SkillResource extends Resource
                                         'undo',
                                     ]),
                             ])
-                            ->columns(1),
-                    ])->columnSpan(['lg' => 12]),
+                            ->columns(columns: 1),
+                    ])->columnSpan(span: ['lg' => 12]),
 
             ]);
     }
@@ -173,25 +184,54 @@ class SkillResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image_path')->rounded()->label('Cover Photo'),
-                TextColumn::make('title')->limit(20),
-                TextColumn::make('category.name'),
-                TextColumn::make('status'),
-                BadgeColumn::make('status')
+                ImageColumn::make(name: 'image_path')
+                    ->rounded()
+                    ->label(label: 'Cover Photo'),
+                TextColumn::make(name: 'title')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(length: 20),
+                TextColumn::make(name: 'category.name')
+                    ->sortable()
+                    ->searchable(),
+                BadgeColumn::make(name: 'status')
                     ->icons([
-                        'heroicon-o-document' => 'Draft',
-                        'heroicon-o-archive' => 'Archived',
-                        'heroicon-o-truck' => 'Published',
+                        'heroicon-o-document' => static fn($state) => $state->equals(Draft::class),
+                        'heroicon-o-archive' => static fn($state) => $state->equals(Archived::class),
+                        'heroicon-o-truck' => static fn($state) => $state->equals(Published::class),
                     ])->iconPosition('after'),
-                TextColumn::make('created_at')
-                    ->dateTime(),
+                TextColumn::make(name: 'created_at')
+                    ->label(label: 'Created')
+                    ->since(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make(actions: [
+                    ViewAction::make(),
+                    EditAction::make(),
+                    Action::make(name: 'updateStatus')
+                        ->label(label: 'Update Status')
+                        ->mountUsing(fn(ComponentContainer $form, Skill $record) => $form->fill([
+                            'status' => $record->status,
+                        ]))
+                        ->action(function (Skill $record, array $data): void {
+                            $record->status->transitionTo($data['status']);
+                            $record->save();
+                        })
+                        ->form([
+                            Select::make(name: 'status')
+                                ->label(label: 'Update Status')
+                                ->options(options: [
+                                    Archived::class => Archived::$name,
+                                    Published::class => Published::$name,
+                                ])
+                                ->required(),
+                        ])
+                        ->icon(icon: 'heroicon-s-adjustments'),
+                    DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
@@ -210,10 +250,10 @@ class SkillResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Scheduling\SkillResource\Pages\ListSkills::route('/'),
-            'create' => Scheduling\SkillResource\Pages\CreateSkill::route('/create'),
-            'view' => Scheduling\SkillResource\Pages\ViewSkill::route('/{record}'),
-            'edit' => Scheduling\SkillResource\Pages\EditSkill::route('/{record}/edit'),
+            'index' => ListSkills::route(path: '/'),
+            'create' => CreateSkill::route(path: '/create'),
+            'view' => ViewSkill::route(path: '/{record}'),
+            'edit' => EditSkill::route(path: '/{record}/edit'),
         ];
     }
 

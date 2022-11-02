@@ -7,10 +7,14 @@ use App\Models\Resource as ResourceModel;
 use Exception;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 
@@ -26,21 +30,21 @@ class ResourceResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                TextInput::make(name: 'name')
                     ->required()
                     ->unique()
-                    ->maxLength(255)
+                    ->maxLength(length: 255)
                     ->columnSpan([
                         'md' => 6,
                     ]),
-                TextInput::make('capacity')
+                TextInput::make(name: 'capacity')
                     ->required()
                     ->numeric()
                     ->columnSpan([
                         'md' => 6,
                     ]),
-                Textarea::make('note')
-                    ->rows(3)
+                Textarea::make(name: 'note')
+                    ->rows(rows: 3)
                     ->columnSpan([
                         'md' => 12,
                     ]),
@@ -54,35 +58,38 @@ class ResourceResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('capacity'),
-                IconColumn::make('state')
-                    ->label('Availability')
+                TextColumn::make(name: 'name'),
+                TextColumn::make(name: 'capacity'),
+                IconColumn::make(name: 'state')
+                    ->label(label: 'Availability')
                     ->options([
                         'heroicon-o-x-circle' => fn ($state): bool => $state == 'In Session',
                         'heroicon-o-check-circle' => fn ($state): bool => $state == 'Available',
                     ]),
-                TextColumn::make('created_at')
-                    ->dateTime(),
-                TextColumn::make('createdBy.name')
-                    ->label('Created By'),
-                TextColumn::make('updated_at')
-                    ->label('Last Modified At')
-                    ->dateTime(),
-                TextColumn::make('lastModifiedBy.name')
-                    ->label('Last Modified By')
-                    ->default('N/A'),
+                TextColumn::make(name: 'createdBy.name')
+                    ->label(label: 'Created By'),
+                TextColumn::make(name: 'lastModifiedBy.name')
+                    ->label(label: 'Last Modified By')
+                    ->default(state: 'N/A'),
+                TextColumn::make(name: 'created_at')
+                    ->label(label: 'Created')
+                    ->since(),
+                TextColumn::make(name: 'updated_at')
+                    ->label(label: 'Last Modified')
+                    ->since(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 

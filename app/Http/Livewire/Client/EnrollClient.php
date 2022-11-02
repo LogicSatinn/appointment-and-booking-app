@@ -12,8 +12,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
@@ -21,11 +19,11 @@ class EnrollClient extends Component
 {
     public Timetable $timetable;
 
-    public string $name = 'Name';
+    public string $name = '';
 
-    public string $email = 'Email';
+    public string $email = '';
 
-    public string $phoneNumber = 'Phone Number';
+    public string $phoneNumber = '';
 
     public ?string $profession;
 
@@ -34,11 +32,11 @@ class EnrollClient extends Component
     public Client $client;
 
     protected array $rules = [
-        'name' => 'required|string|min:3',
-        'email' => 'required|string|email',
-        'phoneNumber' => 'required|string|starts_with:255',
-        'profession' => 'nullable|string|min:3',
-        'address' => 'nullable|string|min:3',
+        'name' => ['required', 'string', 'min:3'],
+        'email' => ['required', 'string', 'email'],
+        'phoneNumber' => ['required', 'string', 'starts_with:255'],
+        'profession' => ['nullable', 'string', 'min:3'],
+        'address' => ['nullable', 'string', 'min:3'],
     ];
 
     public function mount(Timetable $timetable): void
@@ -46,12 +44,12 @@ class EnrollClient extends Component
         $this->timetable = $timetable;
     }
 
-    public function saveClient(): Redirector|Application|RedirectResponse
+    public function saveClient(): void
     {
         $validatedData = $this->validate();
 
         try {
-            $this->client = Client::updateOrCreate([
+            $this->client = Client::firstOrCreate([
                 'email' => $this->email,
                 'phone_number' => $this->phoneNumber,
             ], [
@@ -63,21 +61,21 @@ class EnrollClient extends Component
             if (App::environment('production')) {
                 dispatch(function () {
                     BeemSms::content('Your enrollment process is successful. Please continue with the booking and reservation processes.')
-                        ->loadRecipients($this->client)
+                        ->getRecipients([$this->client->phone_number])
                         ->send();
                 })->afterResponse();
             }
 
             toast('You have been successfully enrolled.', 'success');
 
-            return redirect(route('cart', [
+            $this->redirect(route('cart', [
                 'timetable' => $this->timetable,
                 'client' => $this->client,
             ]));
         } catch (GuzzleException|Exception|Error $e) {
             toast($e->getMessage().'Please try again later.', 'error');
 
-            return back();
+            $this->redirect(route('enroll-client', $this->timetable));
         }
     }
 

@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Timetable;
 use App\Notifications\TimetableCancelled;
 use Emanate\BeemSms\Facades\BeemSms;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,11 +31,10 @@ class DispatchNotificationsUponTimetableDeletion implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
      * @return void
+     * @throws GuzzleException
      */
-    public function handle()
+    public function handle(): void
     {
         $clients = Client::query()->whereHas('reservations.timetable', function ($query) {
             $query->where('id', $this->timetable->id);

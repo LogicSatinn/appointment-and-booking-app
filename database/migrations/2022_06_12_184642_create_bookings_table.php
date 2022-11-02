@@ -19,9 +19,9 @@ class CreateBookingsTable extends Migration
             $table->id();
 
             $table->string('reference_code')->unique();
-            $table->decimal('paid_amount', 8, 2)->default(0);
-            $table->decimal('total_amount', 8, 2);
-            $table->decimal('due_amount', 8, 2)->default(0);
+            $table->decimal('paid_amount', 11)->default(0);
+            $table->decimal('total_amount', 11);
+            $table->decimal('due_amount', 11)->default(0);
             $table->string('booking_method')->nullable();
             $table->string('status');
 

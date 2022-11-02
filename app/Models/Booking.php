@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\BookingMethod;
 use App\States\Booking\BookingState;
 use Carbon\Carbon;
+use Database\Factories\BookingFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -43,8 +44,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read int|null $payments_count
  * @property-read Reservation $reservation
  * @property-read Timetable $timetable
- *
- * @method static \Database\Factories\BookingFactory factory(...$parameters)
+ * @method static BookingFactory factory(...$parameters)
  * @method static Builder|Booking newModelQuery()
  * @method static Builder|Booking newQuery()
  * @method static DatabaseQueryBuilder|Booking onlyTrashed()
