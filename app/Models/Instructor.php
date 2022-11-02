@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 
 /**
  * App\Models\Instructor
@@ -28,10 +29,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static InstructorFactory factory(...$parameters)
  * @method static Builder|Instructor newModelQuery()
  * @method static Builder|Instructor newQuery()
- * @method static \Illuminate\Database\Query\Builder|Instructor onlyTrashed()
+ * @method static DatabaseQueryBuilder|Instructor onlyTrashed()
  * @method static Builder|Instructor query()
- * @method static \Illuminate\Database\Query\Builder|Instructor withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Instructor withoutTrashed()
+ * @method static DatabaseQueryBuilder|Instructor withTrashed()
+ * @method static DatabaseQueryBuilder|Instructor withoutTrashed()
  * @mixin Eloquent
  *
  * @method static Builder|Instructor whereBannedAt($value)

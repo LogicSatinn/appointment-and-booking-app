@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Support\Str;
 
 /**
@@ -32,7 +33,7 @@ use Illuminate\Support\Str;
  * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
- * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
+ * @method static DatabaseQueryBuilder|Category onlyTrashed()
  * @method static Builder|Category query()
  * @method static Builder|Category whereAddedBy($value)
  * @method static Builder|Category whereCreatedAt($value)
@@ -41,8 +42,8 @@ use Illuminate\Support\Str;
  * @method static Builder|Category whereName($value)
  * @method static Builder|Category whereNote($value)
  * @method static Builder|Category whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ * @method static DatabaseQueryBuilder|Category withTrashed()
+ * @method static DatabaseQueryBuilder|Category withoutTrashed()
  * @mixin Eloquent
  *
  * @property string $slug

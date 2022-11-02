@@ -26,14 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::serving(function () {
-            Filament::registerNavigationGroups([
-                'Infrastructure & Scheduling',
-                'Booking & Client Interaction',
-                'Blog',
-            ]);
-        });
-
         if (request()->routeIs('blog.*')) {
             Paginator::useBootstrapFive();
         }

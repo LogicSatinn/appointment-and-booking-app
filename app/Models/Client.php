@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
@@ -37,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static ClientFactory factory(...$parameters)
  * @method static Builder|Client newModelQuery()
  * @method static Builder|Client newQuery()
- * @method static \Illuminate\Database\Query\Builder|Client onlyTrashed()
+ * @method static DatabaseQueryBuilder|Client onlyTrashed()
  * @method static Builder|Client query()
  * @method static Builder|Client whereAddress($value)
  * @method static Builder|Client whereCreatedAt($value)
@@ -48,8 +49,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Client wherePhoneNumber($value)
  * @method static Builder|Client whereProfession($value)
  * @method static Builder|Client whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Client withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Client withoutTrashed()
+ * @method static DatabaseQueryBuilder|Client withTrashed()
+ * @method static DatabaseQueryBuilder|Client withoutTrashed()
  * @mixin Eloquent
  */
 class Client extends Model

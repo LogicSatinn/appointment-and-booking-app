@@ -14,16 +14,16 @@ class BookingsOverview extends BaseWidget
     {
         return [
             Card::make(
-                'Total Bookings',
-                Booking::count()),
+                label: 'Total Bookings',
+                value: Booking::count()),
             Card::make(
-                'Paid Bookings',
-                Booking::whereState('status', Paid::class)->count())
+                label: 'Paid Bookings',
+                value: Booking::whereState('status', Paid::class)->count())
                 ->color('success')
                 ->descriptionIcon('heroicon-s-check'),
             Card::make(
-                'Failed Bookings',
-                Booking::whereState('status', Failed::class)->count())
+                label: 'Failed Bookings',
+                value: Booking::whereState('status', Failed::class)->count())
                 ->color('danger')
                 ->descriptionIcon('heroicon-s-x'),
         ];

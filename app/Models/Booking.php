@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\BookingMethod;
 use App\States\Booking\BookingState;
 use Carbon\Carbon;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
+use Illuminate\Support\Carbon as IlluminateCarbon;
 use Illuminate\Support\Str;
 use Spatie\ModelStates\HasStates;
 
@@ -31,20 +34,20 @@ use Spatie\ModelStates\HasStates;
  * @property int $reservation_id
  * @property int|null $last_modified_by
  * @property string $booked_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Client $client
- * @property-read \App\Models\User|null $lastModifiedBy
- * @property-read Collection|\App\Models\Payment[] $payments
+ * @property IlluminateCarbon|null $deleted_at
+ * @property IlluminateCarbon|null $created_at
+ * @property IlluminateCarbon|null $updated_at
+ * @property-read Client $client
+ * @property-read User|null $lastModifiedBy
+ * @property-read Collection|Payment[] $payments
  * @property-read int|null $payments_count
- * @property-read \App\Models\Reservation $reservation
- * @property-read \App\Models\Timetable $timetable
+ * @property-read Reservation $reservation
+ * @property-read Timetable $timetable
  *
  * @method static \Database\Factories\BookingFactory factory(...$parameters)
  * @method static Builder|Booking newModelQuery()
  * @method static Builder|Booking newQuery()
- * @method static \Illuminate\Database\Query\Builder|Booking onlyTrashed()
+ * @method static DatabaseQueryBuilder|Booking onlyTrashed()
  * @method static Builder|Booking orWhereNotState(string $column, $states)
  * @method static Builder|Booking orWhereState(string $column, $states)
  * @method static Builder|Booking query()
@@ -65,9 +68,9 @@ use Spatie\ModelStates\HasStates;
  * @method static Builder|Booking whereTimetableId($value)
  * @method static Builder|Booking whereTotalAmount($value)
  * @method static Builder|Booking whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Booking withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Booking withoutTrashed()
- * @mixin \Eloquent
+ * @method static DatabaseQueryBuilder|Booking withTrashed()
+ * @method static DatabaseQueryBuilder|Booking withoutTrashed()
+ * @mixin Eloquent
  */
 class Booking extends Model
 {
