@@ -26,7 +26,5 @@
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
-    @vite('resources/js/app.js')
-
     <livewire:styles />
 </head>
